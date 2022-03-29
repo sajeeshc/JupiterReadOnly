@@ -1,0 +1,193 @@
+// .product-card {
+//     display: flex;
+//     align-items: center;
+//     background-color: white;
+//     padding-bottom: 20px;
+//     img {
+//         width: 100%;
+//     }
+//     .product-detail {
+//         line-height: 120%;
+//         padding: 20px 20px;
+//     }
+// }
+
+// .btn{
+//     border-radius: 18px;
+//     margin-top: 10px;
+// }
+
+
+
+// --------------------------------
+
+.main-wrapper {
+    display: flex;
+  }
+  
+  .list-wrapper {
+    // width: 80%;
+    margin-left: 0px;
+  }
+  
+  
+  
+  .font-grey {
+    color: gray;
+  }
+  
+  .width-10 {
+    width: 10%;
+  }
+  
+  .padding-top-20 {
+    padding-top: 20px;
+  }
+  
+  .mat-card {
+    margin: 10px;
+    width:210px;
+  }
+  
+  .mat-card-image {
+    height: 200px;
+  }
+  
+  .cardContent {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-right: 5px;
+  }
+  
+  .cardActionBtn {
+    text-align: center;
+  }
+  
+  .card-actions {
+    text-align: center;
+  }
+  
+  .cardWrapper {
+    display: flex;
+  }
+  
+  .btn-style {
+    color: white;
+    border-radius: 20px;
+    background-color: #004c98;
+    box-shadow: -4px 4px 0px 0px lightgrey;
+  }
+  
+  .btn-color-height {
+    height: 15px !important;
+    width: 15px !important;
+  }
+  
+  .colorTab {
+    margin-left: 5px;
+  }
+  
+  .btnBlack {
+    background-color: black;
+  }
+  
+  .btnGreen {
+    background-color: darkgreen;
+  }
+  
+  .btnBlue {
+    background-color: darkblue;
+  }
+  
+  .btnRed {
+    background-color: darkred;
+  }
+  
+  .list-holder {
+    margin-top: 10px;
+  }
+  
+  .list-holder :hover {
+    cursor: pointer;
+  }
+  
+  li { cursor: pointer; }
+  
+  //label hover tooltip
+  
+  h6 {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    line-height: 50px;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+  
+  h6:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 48px;
+    z-index: 1;
+    pointer-events: initial;
+  }
+  
+  h6:hover:after {
+    cursor: pointer;
+  }
+  
+  .tooltip {
+    width: 100%;
+    visibility: hidden;
+    background-color: #fff;
+    padding: 20px;
+    -webkit-box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+  h6:hover + .tooltip {
+    visibility: visible;
+    transition: opacity 0.5s ease;
+    opacity: 1;
+  }
+  
+  
+  .product-suffix{
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+  
+  
+  :host {
+    ::ng-deep.mat-pseudo-checkbox{
+      display: none !important;
+    }
+  }
+  
+  mat-list-option{
+    height: 20px;
+  }
+  
+  
+  //custom color scroller
+  
+  .custom-slider-main{
+    display: flex;
+    text-align: center;
+  }
+  
+
+  .cardHolder{
+      height: 100%;
+      button{
+          
+      }
+  }

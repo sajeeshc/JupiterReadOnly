@@ -1,0 +1,157 @@
+<div class="parent-container">
+    <div class="w-100 text-right">
+        <!-- <label for="categoryName" class="font-weight-bold">Add Deco Group</label> -->
+        <!-- <div class=""> -->
+        <!-- <input type="text" class="form-control" [(ngModel)]="selectedDecoGroup.name"> -->
+        <button class="btn btn-primary mb-2 " routerLink="/productmanager/settings/decogroup/0">
+            ADD NEW DECO GROUP
+        </button>
+        <!-- <button class="btn btn-outline-danger ml-3" (click)="initializeLocationForm()">RESET</button> -->
+        <!-- </div> -->
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Deco Positions</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let grp of decoGroups">
+                    <td>{{grp.id}}</td>
+                    <td>{{grp.name}}</td>
+                    <td class="actions">
+                        <button class="btn btn-sm btn-outline-dark mr-2" (click)="viewDecoGroupProducts(grp)"> View Products </button>
+                        <button class="btn btn-sm btn-info mr-2" (click)="openDecoGroupPopup(grp)"> View </button>
+                        <img src="../../../../../assets/images/edit.png" alt="Edit Icon"
+                            routerLink="/productmanager/settings/decogroup/{{grp.id}}">
+                        <img src="../../../../../assets/images/close.png" alt="Remove Icon"
+                            (click)="deleteDecoGroup(grp.id)">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator [length]="paginatorLength" [pageSize]="paginatorPageSize"
+            [pageSizeOptions]="paginatorPageSizeOptions" (page)="pageEvent($event)">
+        </mat-paginator>
+    </div>
+</div>
+
+<!-- Deco Group Modal -->
+<div class="modal fade" id="decoGroupModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{selectedDecoGroup.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <mat-tab-group>
+                    <mat-tab label="Locations">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%;">Location</th>
+                                    <th style="width: 25%;">Services</th>
+                                    <th style="width: 10%;">Recommended Constraint Height</th>
+                                    <th style="width: 10%;">Recommended Constraint Width</th>
+                                    <th style="width: 10%;">Actual Constraint Height</th>
+                                    <th style="width: 10%;">Actual Constraint Width</th>
+                                    <th style="width: 10%;">Seps Placement</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let loc of selectedDecoGroup.locations">
+                                    <td>{{loc.name}}</td>
+                                    <td>
+                                        <ng-container *ngFor="let service of loc.services;let i = index">
+                                            {{service.name}} {{i+1 != loc.services.length ? ", " : ""}}
+                                        </ng-container>
+                                    </td>
+                                    <td>{{loc.recommendedConstraintHeight}}</td>
+                                    <td>{{loc.recommendedConstraintWidth}}</td>
+                                    <td>{{loc.actualConstraintHeight}}</td>
+                                    <td>{{loc.actualConstraintWidth}}</td>
+                                    <td>{{loc.sepsPlacement}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </mat-tab>
+                    <mat-tab label="Size Constrains">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>Height Constraint</th>
+                                    <th>Width Constraint</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let size of selectedDecoGroup.sizeConstraints">
+                                    <td>{{size.name}}</td>
+                                    <td>{{size.heightConstraint}}</td>
+                                    <td>{{size.widthConstraint}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary" (click)="submit()">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Deco Group Products Modal -->
+<div class="modal fade products-modal" tabindex="-1" role="dialog" 
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-min-width">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{selectedDecoGroup.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Style Name</th>
+                            <th>Product Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of productList">
+                            <td>{{product.styleName}}</td>
+                            <td>{{product.name}}</td>
+                            <!-- <td>
+                                <img src="../../../../../assets/images/close.png" alt="Remove Icon"
+                                    (click)="removeProduct(product.id)">
+                            </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="loading text-center" *ngIf="loading">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div class="no-data" *ngIf="!loading && !productList.length">
+                    No products available
+                </div>
+                <mat-paginator [length]="productParams.totalItems" [pageSize]="productParams.per_page"
+                    [pageSizeOptions]="paginatorPageSizeOptions" (page)="onProductPageEvent($event)">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

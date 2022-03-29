@@ -1,0 +1,85 @@
+<div class="primaryToolbar row">
+  <div class="col-md-12">
+    <div class="wrapper">
+      <h4>Verify Art</h4>
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div style="text-align: center;">
+      <div class="row" style="border: 1px solid black;">
+        <div class="col-md-12">
+          <img mat-card-image src={{artImgList[0]?.url}} class="img-style" >
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-3" *ngFor="let item of designImgList">
+          <img mat-card-image src={{item}} class="img-style" >
+
+            </div>
+          </div>
+        </div>
+      </div>   
+        <br>
+      </div>
+    <!-- <div class="col-md-3" *ngFor="let image of product.designImages;">
+      <mat-card class="example-card">
+        <img mat-card-image src={{image}} style="height: 250px;position: relative;top: 0;">
+      </mat-card>
+    </div> -->
+  </div>
+<br>
+<div *ngIf="!isInteracted" style="width: 100%;text-align: center;" >
+  <button mat-raised-button color="warn" (click)="updateStatus(11)">Reject</button>&nbsp;&nbsp;
+  <button mat-raised-button color="primary" (click)="updateStatus(6)">Approve</button>
+</div>
+<br><br><br>
+
+<div class="modal fade" id="rejectionModal" role="dialog" data-keyboard="false" data-backdrop="static">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title"></h4>
+      <button type="button" class="close" (click)="toggleModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form #form="ngForm">
+        <div *ngIf="isRejected">
+          <div *ngFor="let reason of reasonList"> 
+            <!-- [checked]="productIds?.indexOf(item.product.id) !== -1"  -->
+            <mat-checkbox [value]="reason.id" (input)="reasonSelected($event,reason)">
+              <mat-hint>{{ reason.description}}</mat-hint>
+            </mat-checkbox>
+          </div>
+          <mat-form-field style="width: 100%">
+            <mat-label>Comment</mat-label>
+            <textarea matInput [(ngModel)]="rejectionReason" cdkTextareaAutosize cdkAutosizeMinRows="5" name="rejectionReason"></textarea>
+          </mat-form-field>
+          <div class="button-container">
+            <button mat-raised-button color="primary" (click)="confirmRejection(rejectionReason,rejectionCode)">Confirm</button>
+            &nbsp;&nbsp;
+            <button mat-raised-button color="warn" (click)="cancelRejection()">Cancel</button>
+          </div>
+        </div>
+        <div *ngIf="!isRejected">
+          <div class="row">
+            <div class="col-md-1">
+              <mat-checkbox (input)="onUserAgreementChecked($event)" [value]="userAgreed">
+            </mat-checkbox></div>
+            <div class="col-md-11"> 
+              <p style="word-wrap: break-word;">
+               I approve and take responsibility for all aspects of the design to include spelling, colors, location, and size.
+               I understand my order will move forward to print production and no changes can be made to the design after approval.
+               I understand that color settings on my monitor can differ from actual ink color and there could be a variation.
+               I understand that size of the design is an approximation. </p>
+          </div>
+          </div>
+          <div class="button-container">
+            <button mat-raised-button color="primary" (click)="checkUserAgreement()">Confirm</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>  
+</div>

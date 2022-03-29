@@ -1,0 +1,43 @@
+.view {
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+}
+.view .logo {
+    width: 100%;
+    max-height: 400px;
+}
+.view .preview-content {
+    width: 100%;
+    margin: 2em;
+}
+/* ----------------------------------------- */
+.edit {
+    max-width: 850px;
+}
+.upload-logo-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    align-items: flex-end;
+    .logo-label {
+        flex-grow: 1;
+    }
+    .logo {
+        height: 100px;
+        width: 200px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+    .buttons {
+        flex-grow: 1;
+        justify-content: flex-end;
+        display: flex;
+        align-items: flex-end;
+    }
+}
+
+.modal {
+    z-index: 100;
+}

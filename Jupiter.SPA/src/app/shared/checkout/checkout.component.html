@@ -1,0 +1,513 @@
+<div class="card-holder">
+  <div class="checkout-card-holder">
+    <mat-card class="checkout-card">
+      <div class="header-label row">
+        <div class="col-md-12 cart-header">
+          <b>CHECKOUT</b>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 padding-20 pt-1">
+          <div class="row">
+            <div class="col-md-3 p-0" [class.grey]="!billingAddress?.isEditable">
+              <div class="billing-address-wrapper" [ngClass]="{'invalid':!billingAddress?.validAddressIndicator}">
+                <label class="info-label">Billing Address</label>
+                <a class="edit-btn" *ngIf="billingAddress?.isEditable">
+                  <mat-icon aria-hidden="false" [inline]="true" aria-label="Edit icon" data-toggle="modal"
+                    data-target="#billingAddressModal" (click)="this.createAddressForm()">edit</mat-icon>
+                </a>
+                <br />
+                <label class="detail-label">{{user?.firstName}} {{user?.lastName}}</label>
+                <br><br>
+                <ng-template [ngIf]="billingAddress?.address != ''">
+                  <label class="detail-label">{{billingAddress?.orgName}}</label>
+                  <br>
+                  <label class="detail-label">{{billingAddress?.address}}</label>
+                  <br>
+                  <label class="detail-label">{{billingAddress?.address1}}</label>
+                  <br />
+                  <label class="detail-label">{{billingAddress?.city}}</label>
+                  <br />
+                  <label class="detail-label">{{billingAddress?.state}}</label>
+                  <br />
+                  <label class="detail-label">{{billingAddress?.zipCode}}</label>
+                </ng-template>
+                <ng-template [ngIf]="paymentMethod == 3 && (!billingAddress || billingAddress?.address == '')">
+                  <br><br>
+                  <a class="link" data-toggle="modal" data-target="#billingAddressModal">Enter billing address</a>
+                </ng-template>
+                <ng-template
+                  [ngIf]="(paymentMethod == 1 || paymentMethod == 2) && (!billingAddress || billingAddress?.address == '')">
+                  <br><br>
+                  <a>Select Organization</a>
+                </ng-template>
+              </div>
+            </div>
+            <div class="col-md-3 p-0" [class.grey]="!shippingAddress?.isEditable">
+              <div class="shipping-address-wrapper" [ngClass]="{'invalid':!shippingAddress?.validAddressIndicator}">
+                <label class="info-label">Shipping Address</label>
+                <a class="edit-btn" *ngIf="shippingAddress?.isEditable">
+                  <mat-icon aria-hidden="false" [inline]="true" aria-label="Edit icon" data-toggle="modal"
+                    data-target="#shippingAddressModal" (click)="this.createAddressForm()">edit</mat-icon>
+                </a>
+                <br />
+                <label class="detail-label" *ngIf="teamStore?.shippingPreference !== 2">{{user?.firstName}}
+                  {{user?.lastName}}</label>
+                <label class="detail-label"
+                  *ngIf="teamStore?.shippingPreference === 2">{{teamStore?.contactName}}</label>
+                <br><br>
+                <ng-template [ngIf]="shippingAddress?.address != ''">
+                  <label class="detail-label">{{shippingAddress?.orgName}}</label>
+                  <br>
+                  <label class="detail-label">{{shippingAddress?.address}}</label>
+                  <br>
+                  <label class="detail-label">{{shippingAddress?.address1}}</label>
+                  <br />
+                  <label class="detail-label">{{shippingAddress?.city}}</label>
+                  <br />
+                  <label class="detail-label">{{shippingAddress?.state}}</label>
+                  <br />
+                  <label class="detail-label">{{shippingAddress?.zipCode}}</label>
+                </ng-template>
+                <ng-template [ngIf]="paymentMethod == 3 && (!shippingAddress || shippingAddress?.address == '')">
+                  <br><br>
+                  <a class="link" data-toggle="modal" data-target="#shippingAddressModal">Enter shipping address</a>
+                </ng-template>
+                <ng-template
+                  [ngIf]="(paymentMethod == 1 || paymentMethod == 2) && (!shippingAddress || shippingAddress?.address == '')">
+                  <br><br>
+                  <a>Select Organization</a>
+                </ng-template>
+              </div>
+
+            </div>
+            <div class="col-md-3 p-0 pt-3 pl-3">
+              <ng-template [ngIf]="(teamStore?.shippingPreference === 1 || purchaseType != 3) && paymentMethod === 3">
+                <mat-checkbox (change)="updateShippingAddressAsBillingAddress($event.checked)"
+                  [checked]="user?.isSameAsBillingAddress">
+                  <mat-hint>Same as billing address</mat-hint>
+                </mat-checkbox>
+              </ng-template>
+              <ng-template [ngIf]="teamStore?.shippingPreference === 2">
+                <mat-icon data-toggle="tooltip" data-placement="bottom" class="help-icon" color="primary"
+                  title="Items purchased from this store will be shipped in bulk &#10;to the Store Owner's organization address">
+                  info
+                </mat-icon>
+              </ng-template>
+              <ng-template [ngIf]="(teamStore?.shippingPreference === 1 || purchaseType != 3) && paymentMethod !== 3">
+                <mat-icon data-toggle="tooltip" data-placement="bottom" class="help-icon" color="primary"
+                  title="Shipping and Billing address will be the same as &#10;customer's Organization address for pay by PO/Invoice">
+                  info
+                </mat-icon>
+              </ng-template>
+            </div>
+            <div class="col-md-3 p-0 align-right pt-3">
+              <label class="info-label">Invoice Total</label>
+              <br />
+              <br />
+              <label class="total-amount-label">${{checkoutObj?.totalPrice + (selectedShippingMethod?.price || 0) +
+                taxObject?.totalTax |
+                number:'1.2-2'}}</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-12 mt-4">
+          <table class="table">
+            <thead class="table-header">
+              <tr>
+                <th class="align-left">Description</th>
+                <!-- <th class="align-center">Personalization</th> -->
+                <!-- <th class="align-right">Unit Cost</th> -->
+                <th class="align-right">Qty</th>
+                <th class="align-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let item of checkoutObj?.cartItemsInfo">
+                <tr class="bottom-border">
+                  <td class="align-left">
+                    <label style="font-weight: 500;">
+                      {{item.displayName ? item.displayName : item.productName}} 
+                      {{item.serviceId ? "("+getServiceName(item.serviceId)+")" : ""}}
+                    </label>
+                  </td>
+                  <!-- <td class="align-center">
+                  <img class="icon-image" *ngIf="item.isPersonalize"
+                    src="../../../assets/images/checked.png">
+                  <img class="icon-image" *ngIf="!item.isPersonalize"
+                    src="../../../assets/images/close.png">
+                </td> -->
+                  <!-- <td class="align-right">${{item.productPrice}}</td> -->
+                  <td class="align-right">{{item.quantity}}</td>
+                  <td class="align-right">${{item.totalPrice | number:'1.2-2'}}</td>
+                </tr>
+                <!-- <ng-container *ngFor="let p of item.cartItemGrids"> -->
+                <!-- <tr *ngIf="item.isPersonalize" style="color: grey; font-style: italic;"> -->
+                  <!-- <td class="align-left pl-5" colspan="2">
+                    Deco Price
+                  </td> -->
+                  <!-- <td class="align-right">
+                    ${{getPersonalizationPrice(p.personalizationType) | number:'1.2-2'}}
+                  </td> -->
+                  <!-- <td class="align-right">{{item.personalizedQuantity}}</td> -->
+                  <!-- <td class="align-right">${{item.decoPrice | number:'1.2-2'}}</td> -->
+                <!-- </tr> -->
+                <br *ngIf="item.isPersonalize">
+                <br *ngIf="item.isPersonalize">
+                <!-- </ng-container> -->
+              </ng-container>
+              <!-- <tr>
+                <td colspan="3"> Tax Amount </td>
+                <td class="align-right">${{ checkoutObj?.taxAmount | number:'1.2-2'}}</td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+        <div class="w-100 px-3">
+          <!-- <div class="row form-inline mb-5" *ngIf="teamStore?.shippingPreference !== 2">
+            <div class="col-md-3">Shipping Method</div>
+            <div class="col-md-5">
+              <select class="form-control w-100" (change)="selectShippingMethod($event.target.value)">
+                <option hidden disabled selected> -- Select Shipping Method -- </option>
+                <option *ngFor="let method of shippingMethods" [value]="method.id">{{method.name}}</option>
+              </select>
+            </div>
+          </div> -->
+          <table class="total-table w-100">
+            <tr>
+              <td></td>
+              <td>Sub Total</td>
+              <td style="text-align: right;">${{checkoutObj?.totalPrice | number:'1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Sales Tax</td>
+              <td style="text-align: right;">${{taxObject?.totalTax | number:'1.2-2'}}</td>
+            </tr>
+            <!-- <tr *ngFor="let tax of taxObject?.summary">
+              <td></td>
+              <td>{{tax.taxName}}</td>
+              <td style="text-align: right;">${{tax.tax | number:'1.2-2'}}</td>
+            </tr> -->
+            <tr>
+              <td>
+                <!-- *ngIf="teamStore?.shippingPreference !== 2"  -->
+                <div class="row form-inline" style="display: flex;">
+                  <label>Shipping Method</label>
+                  <select class="form-control ml-2" style="flex-grow: 1;"
+                    (change)="selectShippingMethod($event.target.value)" [value]="selectedShippingMethod.id">
+                    <option hidden disabled selected> -- Select Shipping Method -- </option>
+                    <option *ngFor="let method of shippingMethods" [value]="method.id">{{method.name}}</option>
+                  </select>
+                </div>
+              </td>
+              <td>Shipping Charges</td>
+              <td style="text-align: right;">${{selectedShippingMethod?.price + 0 | number:'1.2-2'}}</td>
+            </tr>
+            <tr class="total-amount-label">
+              <td></td>
+              <td>Invoice Total</td>
+              <td style="text-align: right;">
+                ${{checkoutObj?.totalPrice + (selectedShippingMethod?.price || 0) + taxObject?.totalTax |
+                number:'1.2-2'}}
+              </td>
+            </tr>
+            <!-- <tr>
+              <td colspan="3">
+                
+              </td>
+            </tr> -->
+          </table>
+          <div class="box-data row">
+            <div class="col-6">
+              Number of boxes: {{checkoutObj.shippingBoxes.length}} &nbsp;&nbsp;&nbsp;
+              [ {{ getBoxNames() }} ]
+              <br> <br>
+              Total Weight: {{checkoutObj.totalWeight | number:'1.2-2'}} lbs
+            </div>
+            <div class="col-6 text-left">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div class="payment-card-holder">
+    <mat-card class="payment-card">
+      <div class="header-label row">
+        <div class="col-md-12 cart-header">
+          <b>SELECT PREFERRED PAYMENT OPTION:</b>
+        </div>
+      </div>
+      <div class="payment-option-wrapper margin-20">
+        <mat-radio-group [(ngModel)]="paymentMethod" matInput aria-label="Select an option"
+          (change)="selectOrganization();setAddress()">
+          <mat-radio-button [value]="3" [checked]="true">Pay by Credit Card</mat-radio-button>
+          <br>
+          <mat-radio-button *ngIf="purchaseType !== 3 && user?.isCreditEnabled == 1" [value]="1">Pay by Invoice
+          </mat-radio-button>
+          <br>
+          <!-- <mat-radio-button *ngIf="purchaseType !== 3" [value]="2">Pay by PO</mat-radio-button> -->
+        </mat-radio-group>
+      </div>
+
+      <div id="creditPayment" class="payment-option-wrapper margin-20" [hidden]="paymentMethod!==3">
+        <div class="row">
+          <div class="col-md-12 row my-3">
+            <div class="col-md-3">
+              <img style="width: 100%;object-fit: contain;height: 100%;" src="../../../../../assets/images/visa.svg"
+                alt="American Express">
+            </div>
+            <div class="col-md-3">
+              <img style="width: 100%;object-fit: contain;height: 100%;"
+                src="../../../../../assets/images/mastercard.jpg" alt="American Express">
+            </div>
+            <div class="col-md-3">
+              <img style="width: 100%;object-fit: contain;height: 100%;"
+                src="../../../../../assets/images/american_express.png" alt="American Express">
+            </div>
+            <div class="col-md-3">
+              <img style="width: 100%;object-fit: contain;height: 100%;" src="../../../../../assets/images/discover.jpg"
+                alt="American Express">
+            </div>
+          </div>
+          <ng-container [formGroup]="cardInfo">
+            <div class="col-md-12 row my-3">
+              <div class="col-md-5 form-inline">
+                Credit Card No. *
+              </div>
+              <div class="col-md-7 float-right">
+                <input type="number" class="w-100 form-control" (change)="validateCardNumber()"
+                  [class.invalid]="cardInfo.get('cardNumber').invalid && cardInfo.get('cardNumber').touched"
+                  (keydown)="onCreditCardKeyDown($event)" formControlName="cardNumber">
+              </div>
+            </div>
+            <div class="col-md-12 row my-3">
+              <div class="col-md-5 form-inline">
+                Card Verification Value *
+              </div>
+              <div class="col-md-3 float-right">
+                <input type="number" class="w-100 form-control" formControlName="cardCode"
+                  [class.invalid]="cardInfo.get('cardCode').invalid && cardInfo.get('cardCode').touched"
+                  (keydown)="onCVVKeyDown($event);">
+              </div>
+              <div class="col-md-3 float-right form-inline">
+                <p class="cvv-hint" title="CVV is the  3/4 digit number at the back of your credit card"> What's this?
+                </p>
+              </div>
+            </div>
+            <div class="col-md-12 row my-3">
+              <div class="col-md-5 form-inline">
+                Expiration Date *
+              </div>
+              <div class="col-md-7 float-right form-inline">
+                <!-- <input type="text" class="w-100 form-control"> -->
+                <select formControlName="expMonth" class="form-control w-40"
+                  [class.invalid]="cardInfo.get('expMonth').invalid && cardInfo.get('expMonth').touched">
+                  <option value="0" selected disabled hidden>Month</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+                <select formControlName="expYear" class="form-control w-40 m-2"
+                  [class.invalid]="cardInfo.get('expYear').invalid && cardInfo.get('expYear').touched">
+                  <option value="0" selected disabled hidden>Year</option>
+                  <option value="{{y}}" *ngFor="let y of cardExpYears">
+                    {{y}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- <div class="col-md-12 row my-3">
+            <div id="dropin-container"></div>
+          </div> -->
+        </div>
+      </div>
+
+      <div id="payByInvoice" class="payment-option-wrapper margin-20" *ngIf="paymentMethod==1">
+
+        <div class="row form-inline  my-3">
+          <div class="col-sm-5">Organization Name</div>
+          <div class="col">
+            <select class="form-control w-100" (change)="selectOrganization($event.target.value)">
+              <option hidden disabled selected> -- Select Organization -- </option>
+              <option *ngFor="let org of organizationArray" [value]="org.id">{{org.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row form-inline creditApprovalCode">
+          <div class="col-5">
+            Credit Limit:
+            <br><br>
+          </div>
+          <div class="col-7" style="font-weight: 600;">
+            ${{selectedOrganization?.creditAmount}}
+            <br><br>
+          </div>
+          <br>
+          <div class="col-sm-5">
+            Credit Approval Code
+          </div>
+          <div class="col">
+            <input type="text" class="form-control w-100 " placeholder="Enter Credit Approval Code"
+              [(ngModel)]="creditApprovalCode">
+            <mat-icon data-toggle="tooltip" data-placement="bottom" class="help-icon"
+              title="Upon approval of credit, you should have received a credit approval code.&#10;Please enter it here. If you do not have a code provided to you,&#10;Please contact AresWear at xxx.xxx.xxxx or xxx@areaswear.com">
+              help
+            </mat-icon>
+          </div>
+          <!-- <div class="col-sm-4"></div>
+          <div class="col-8 credit-tooltip">
+            Upon approval of credit, you should have received a credit approval code. Please enter it here.
+            If you do not have a code provided to you, Please contact AresWear at xxx.xxx.xxxx or xxx@areaswear.com
+          </div> -->
+        </div>
+        <br><br>
+        <div class="row my-3">
+          <a href="http://3.15.235.1/" target="_blank">
+            <button class="btn btn-outline-success">
+              Apply For Credit
+            </button>
+          </a>
+        </div>
+
+        <div class="my-5 font-weight-bold">
+          <p>Note: Invoice purchase related customer information to be filled here</p>
+        </div>
+      </div>
+
+      <div id="payByPo" class="payment-option-wrapper margin-20" *ngIf="paymentMethod==2">
+
+        <div class="row form-inline  my-3">
+          <div class="col-sm-4">Organization Name</div>
+          <div class="col">
+            <select class="form-control w-100" (change)="selectOrganization($event.target.value)">
+              <option hidden disabled selected> -- Select Organization -- </option>
+              <option *ngFor="let org of organizationArray" [value]="org.id">{{org.name}}</option>
+            </select>
+          </div>
+        </div><br>
+
+        <div class="row form-inline">
+          <div class="col-sm-4">Upload PO</div>
+          <div class="col">
+            <input type="file" class="form-control-file w-100" (change)="uploadedPO = $event.target.files[0]"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf"
+              required />
+          </div>
+        </div>
+
+      </div>
+      <div class="submit-buttons">
+        <button class="submit-btn" [disabled]="loading" (click)="backToCart()">
+          BACK TO CART
+        </button>
+        <button class="submit-btn checkout-btn" id="submit-button" (click)="checkout()" [disabled]="loading">
+          SUBMIT
+        </button>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<!-- Billing Address Modal -->
+<div class="modal fade" id="billingAddressModal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Billing Address</h4>
+        <button type="button" class="close" (click)="closeModal()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form [formGroup]="updatedBillingAddress" id="updatedBillingAddressForm" class="needs-validation" novalidate>
+          <input type="text" class="form-control my-2" placeholder="Address" formControlName="billingAddress" required>
+          <input type="text" class="form-control my-2" placeholder="Address 2" formControlName="billingAddress1">
+          <input type="text" class="form-control my-2" placeholder="City" formControlName="billingCity" required>
+          <select class="form-control w-100 my-2" placeholder="State" formControlName="billingState" required>
+            <option hidden disabled selected [value]="-1"> State </option>
+            <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
+          </select>
+          <input type="text" class="form-control my-2" placeholder="Zip Code" formControlName="billingZipCode" required>
+          <br><br>
+          <mat-checkbox class="my-3" formControlName="updateProfile">
+            <mat-hint>Update billing address in profile</mat-hint>
+          </mat-checkbox>
+        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <!-- <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" value=""> Update billing address in profile
+        </label>
+        <br> -->
+        <button type="button" class="btn btn-primary" (click)="updateBillingAddress()">Update</button>
+        <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Shipping Address Modal -->
+<div class="modal fade" id="shippingAddressModal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Shipping Address</h4>
+        <button type="button" class="close" (click)="closeModal()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form [formGroup]="updatedShippingAddress" id="updatedShippingAddressForm" class="needs-validation" novalidate>
+          <input type="text" class="form-control my-2" placeholder="Address 1" formControlName="shippingAddress"
+            required>
+          <input type="text" class="form-control my-2" placeholder="Address 2" formControlName="shippingAddress1">
+          <input type="text" class="form-control my-2" placeholder="City" formControlName="shippingCity" required>
+          <select class="form-control w-100 my-2" placeholder="State" formControlName="shippingState" required>
+            <option hidden disabled selected [value]="-1"> State </option>
+            <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
+          </select>
+          <input type="text" class="form-control my-2" placeholder="Zip Code" formControlName="shippingZipCode"
+            required>
+          <br><br>
+          <mat-checkbox class="my-3" formControlName="updateProfile">
+            <mat-hint>Update shipping address in profile</mat-hint>
+          </mat-checkbox>
+        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <!-- <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" value=""> Update billing address in profile
+        </label>
+        <br> -->
+        <button type="button" class="btn btn-primary" (click)="updateShippingAddress()">Update</button>
+        <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

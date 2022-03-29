@@ -1,0 +1,132 @@
+<div class="filterTabParent"> 
+    <form [formGroup]="filterFormGroup" (ngSubmit)="getOrderList()">
+      <div class="row filterTabBar">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <mat-form-field style="width: 100%">
+            <mat-label>Order Type</mat-label>
+            <mat-select formControlName="orderType" >
+              <mat-option [value]="1">Store</mat-option>
+              <mat-option [value]="2">Bulk</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field>
+            <mat-label>Start Date</mat-label>
+            <input matInput formControlName="startDate" [matDatepicker]="fromPicker" />
+            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+            <mat-form-field>
+              <mat-label>End Date</mat-label>
+              <input matInput formControlName="endDate" [matDatepicker]="ToPicker" />
+              <mat-datepicker-toggle matSuffix [for]="ToPicker"></mat-datepicker-toggle>
+              <mat-datepicker #ToPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        <div class="col-md-2">
+          <mat-form-field style="width: 100%">
+            <mat-label>Payment Mode</mat-label>
+            <mat-select formControlName="paymentMode" >
+              <mat-option [value]="1">Invoice</mat-option>
+              <mat-option [value]="2">PO</mat-option>
+              <mat-option [value]="3">Credit Card</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-1">
+          <button style="margin: 10px;" type="submit" mat-raised-button color="primary" (click)="getOrderList()" >Filter</button>
+        </div>
+      </div>
+    </form>
+  </div> 
+  <br />
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="orderList" class="mat-elevation-z8" width="100%">
+      <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+      <!-- Order Id Column -->
+      <ng-container matColumnDef="orderId"> 
+        <th mat-header-cell *matHeaderCellDef>Order Id</th>
+        <td mat-cell *matCellDef="let element">{{ element?.orderId }}</td>
+      </ng-container>
+  
+      <!-- Customer Name -->
+      <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+        <td mat-cell *matCellDef="let element">{{ element?.customerName }}</td>
+      </ng-container>
+      
+    <!-- Instituition Name Column -->
+    <ng-container matColumnDef="instituitionName">
+      <th mat-header-cell *matHeaderCellDef>Instituition Name</th>
+      <td mat-cell *matCellDef="let element">{{ element?.institution }}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element" >
+          {{element?.customerEmail}}
+      </td>
+    </ng-container>
+  
+    <!-- Phone Column -->
+    <ng-container matColumnDef="storeName">
+      <th mat-header-cell *matHeaderCellDef>Store Name</th>
+      <td mat-cell *matCellDef="let element">{{ element?.storeName }}</td>
+    </ng-container>
+
+      <!-- Order Type Column -->
+      <ng-container matColumnDef="orderType">
+        <th mat-header-cell *matHeaderCellDef>Order Type</th>
+        <td mat-cell *matCellDef="let element" [ngSwitch]="element?.orderType" >
+          <label *ngSwitchCase="'3'">Store Order</label>
+          <label *ngSwitchCase="'2'">Regular Order</label>
+          <label *ngSwitchCase="'1'">Regular Order</label>
+      </ng-container>
+
+      <!-- Status Column -->
+      <!-- <ng-container matColumnDef="payment">
+        <th mat-header-cell *matHeaderCellDef>Payment Mode </th>
+        <td mat-cell *matCellDef="let element" [ngSwitch]="element?.paymentMode" >
+          <label *ngSwitchCase="'1'">Invoice</label>
+          <label *ngSwitchCase="'2'">PO</label>
+          <label *ngSwitchCase="'3'">Credit Card</label>
+        </td>
+      </ng-container> -->
+
+      <!-- Order Date Column -->
+      <ng-container matColumnDef="orderDate">
+        <th mat-header-cell *matHeaderCellDef>Order Date</th>
+        <td mat-cell *matCellDef="let element">
+          <label>{{ element?.orderDate }}</label>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirectToOrderSummary(row)"></tr>
+      <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 10px;">
+        <input type="text" [(ngModel)]="orderIdSearch" placeholder="Order Id Search" (change)="getOrderList()" />
+      </th>
+      <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0px;">
+        <input type="text" [(ngModel)]="customerSearch" placeholder="Customer Search" (change)="getOrderList()" />
+      </th>
+      <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+        <input type="text" [(ngModel)]="instituteSearch" placeholder="Institute Search" (change)="getOrderList()" />
+      </th>
+      <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+        <input type="text" [(ngModel)]="customerEmailSearch" placeholder="Email Search" (change)="getOrderList()" />
+      </th>
+      <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+        <input type="text" [(ngModel)]="customerPhoneSearch" placeholder="Search Store Name"  />
+        <!-- (change)="getOrderList()" -->
+      </th>
+    </table>
+  </div>
+  

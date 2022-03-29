@@ -1,0 +1,120 @@
+.align-right {
+  text-align: right;
+}
+
+.cartitem-img-holder {
+  max-height: 250px;
+  max-width: 240px;
+}
+
+.bold-font {
+  font-weight: bold;
+}
+
+.font-color-green {
+  color: yellowgreen;
+}
+
+.font-color-cyan {
+  color: #4bc8f3;
+}
+
+.font-color-turqouise {
+  color: #36869b;
+}
+
+.custom-padding-label {
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+//changing color of checkbox
+::ng-deep .mat-checkbox-checked.mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  opacity: 0.03 !important;
+  background-color: #36869b !important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #36869b !important;
+}
+
+mat-form-field {
+  width: 75px;
+  height: 40px;
+}
+
+.padding-10 {
+  padding: 10px;
+}
+
+.padding-left-15 {
+  padding-left: 15px;
+}
+
+.headerImage {
+  width: 100%;
+}
+
+.item-details {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.btn-style {
+  color: white;
+  border-radius: 10px;
+  background-color: #004c98;
+  box-shadow: -4px 4px 0px 0px lightgrey;
+  width:100%;
+}
+
+.margin-left {
+  margin-left: 20px;
+}
+
+.cart-header {
+  height: 40px;
+  margin: auto;
+  display: inline;
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.header-label {
+  background-color: #004c98;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white;
+}
+
+.card-holder {
+  display: flex;
+  padding: 10px;
+}
+
+.cart-price-label {
+  font-size: x-large;
+}
+
+.center-align {
+  text-align: center;
+}
+
+.card-item-holder {
+  width: 80%;
+  margin: 20px;
+}
+
+.card-price-holder {
+  width: 20%;
+  margin: 20px;
+}
+
+.price-card-margin {
+  margin-top: 20px;
+}
+

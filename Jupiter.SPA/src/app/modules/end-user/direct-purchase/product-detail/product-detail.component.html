@@ -1,0 +1,74 @@
+<div class="product-view row">
+  <div class="col-md-8 productViewTab">
+    <div class="img-wrapper">
+      <img src="{{ selectedColor?.images[0]?.src || noImage}}" class="img-holder" *ngIf="!loading"/>
+    </div>
+    <div class="img-wrapper">
+      <span *ngFor="let image of selectedColor?.images" (click)="onImgClick(image?.src)">
+        <img id="img1" src="{{ image?.src}}" alt="no image" class="imgTab" /><img />
+      </span>
+    </div>
+    <br>
+    <br>
+    <div style="margin-left: 150px;">
+      <label style="text-align: left;">{{product?.description}}</label>
+    </div>
+  </div>
+  <div class="col-md-4 product-details-tab">
+    <div class="details-holder border">
+      <div class="details-header common-margin">
+        <h4>{{product?.displayName || product?.name}}</h4>
+        <label class="font-color-grey">{{product?.styleName}}</label>
+        <br />
+        <br />
+        <label class="bold">${{selectedColor?.sizeVariants[0].sellingPrice}}</label>&nbsp;<label class="font-color-grey">/each</label>
+      </div>
+      <div class="info-holder display-flex">
+
+        <div class="info-div">
+          <label class="font-color-grey">Order Minimum: 1</label>
+          <br />
+          <label class="font-color-grey">Selected Color: {{selectedColor?.name}}</label>
+          <br />
+          <label class="font-color-grey">Per Color Minimum: 1</label>
+        </div>
+      </div>
+      <div>
+      </div>
+      <div class="product-properties-holder">
+        <div class="common-margin">
+          <div style="font-weight:500">
+            <mat-label class="mb-1">Available Colors: </mat-label> <br>
+            <ng-container *ngFor="let color of product?.variants">
+              <mat-label *ngIf="color?.images?.length > 0">
+                <input type="radio" [(ngModel)]="selectedColor" name="color" class="color-radio" [id]="color.id" [value]="color" />
+                <label for="{{color.id}}" class="color"><span  [ngStyle]="{'background-color': color.hexValue,'background-image':'url('+color.swatch+')'}"></span></label>
+                &nbsp;
+              </mat-label>
+            </ng-container>
+            
+            <!-- <mat-form-field appearance="fill">
+              <mat-label>Favorite food</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let food of foods" [value]="food.value">
+                  {{food.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+          </div>
+          <br />
+          <div class="display-flex" style="font-weight:500">
+            <mat-label>Available Sizes: </mat-label>&nbsp;&nbsp;
+            <mat-label *ngFor="let size of selectedColor?.sizeVariants;let i=index">{{i!=0 ? ", ":""}}{{size.size}}&nbsp;</mat-label>
+          </div>
+        </div>
+      </div>
+      <div class="actions-tab common-margin">
+        <div><button class="btn btn-primary btn-style" (click)="gotoProductView()">Buy Without Customization</button>
+        </div>
+        <br>
+        <div><button class="btn btn-primary btn-style" (click)="goToDesigner()">Design Online</button></div>
+      </div>
+    </div>
+  </div>
+</div>

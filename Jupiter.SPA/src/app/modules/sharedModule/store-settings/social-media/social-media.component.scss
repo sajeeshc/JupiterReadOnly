@@ -1,0 +1,52 @@
+.btnClass {
+    background-color: #1830a3;
+    font-size: small;
+  }
+
+  .example-button-row {
+    display: table-cell;
+    width: 490px;
+  }
+
+  .sideNav-container {
+    width: 400px;
+    height: 200px;
+  }
+
+  .is-active {
+    background-color: red;
+}
+
+.material-light{
+    color: silver;
+}
+
+.full-width{
+    width: 100%;
+}
+
+.padding10{
+    padding: 10px;
+}
+
+.padding5{
+  padding: 5px;
+}
+
+.padding15{
+  padding: 15px;
+}
+
+.smaller{
+  font-size: smaller;
+}
+
+.calendar-wrapper{
+  width: 300px;
+  text-align: center;
+}
+
+#block_container {
+  display: flex;
+  justify-content: left;
+}

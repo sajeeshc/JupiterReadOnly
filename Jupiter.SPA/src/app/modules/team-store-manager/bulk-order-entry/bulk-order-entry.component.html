@@ -1,0 +1,925 @@
+<div class="parent-container">
+    <div class="form-container">
+
+        <div class="order-contact">
+            <div class="customer-detail">
+                <div class="section-head blue-head">Customer Details</div>
+                <div class="user-info">
+                    <table class="table table-striped" [formGroup]='userInfo'>
+                        <tbody>
+                            <tr>
+                                <td>Email Id:</td>
+                                <td>
+                                    <input type="email" class="custom-input" required (change)="checkUserByEmail()"
+                                        formControlName="email" placeholder="Enter customer email"
+                                        title="Email is required">
+                                    <!-- <img src="../../../../assets/images/spinner.svg" alt="Spinner" class="email-spinner"> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Organization:</td>
+                                <td>
+                                    <select class="custom-input" name="selectedOrganization"
+                                        [(ngModel)]="selectedOrganization" [ngModelOptions]="{standalone: true}"
+                                        (input)="onOrganizationChange($event)">
+                                        <option selected disabled hidden [value]="-1">-- Select organization --</option>
+                                        <option value="ADD">Add new organization</option>
+                                        <option [value]="org.id" *ngFor="let org of organizationArray">{{org.name}}
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>First Name:</td>
+                                <td>
+                                    <input type="text" class="custom-input" formControlName="firstName">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Last Name:</td>
+                                <td>
+                                    <input type="text" class="custom-input" formControlName="lastName">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number:</td>
+                                <td>
+                                    <input type="number" class="custom-input" formControlName="phoneNumber"
+                                        (change)="checkUserByPhone()">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="address">
+                    <div class="shipping-address">
+                        <p class="font-weight-bold">Shipping Address:</p>
+                        <p *ngIf="userInfo?.value.shippingAddress">
+                            {{userInfo?.value.shippingAddress}},
+                            {{userInfo?.value.shippingAddress1}},
+                            {{userInfo?.value.shippingCity}},
+                            {{userInfo?.value.shippingState}},
+                            {{userInfo?.value.shippingZipCode}}
+                        </p>
+                        <p *ngIf="!userInfo?.value.shippingAddress" class="custom-link" data-toggle="modal"
+                            data-target="#shippingAddressModal">
+                            Enter shipping address
+                        </p>
+                    </div>
+                    <div class="billing-address">
+                        <p class="font-weight-bold">Billing Address:</p>
+                        <p *ngIf="userInfo?.value.billingAddress">
+                            {{userInfo?.value.billingAddress}},
+                            {{userInfo?.value.billingAddress1}},
+                            {{userInfo?.value.billingCity}},
+                            {{userInfo?.value.billingState}},
+                            {{userInfo?.value.billingZipCode}}
+                        </p>
+                        <p *ngIf="!userInfo?.value.billingAddress" class="custom-link" data-toggle="modal"
+                            data-target="#billingAddressModal">
+                            Enter billing address
+                        </p>
+                    </div>
+                    <!-- <div class="user-btns">
+                    <button *ngIf="!userInfo?.value?.id" class="btn submit-btn mt-3" (click)="createNewUser()">CREATE
+                        USER</button>
+                    <button *ngIf="userInfo?.value?.id" class="btn submit-btn mt-3">UPDATE USER</button>
+                </div> -->
+                </div>
+                <!-- <div class="shipping-method" style="background-color: white;">
+                    <p class="font-weight-bold">Shipping Method:</p>
+                    <select class="custom-input">
+                        <option value="1">Overnight</option>
+                        <option value="2">Second tier</option>
+                    </select>
+                </div> -->
+            </div>
+            <div class="order-detail">
+                <div class="section-head green-head">Order Details</div>
+                <div class="dates-table">
+                    <table class="table dates-table">
+                        <tr>
+                            <td>Order Number</td>
+                            <td>:</td>
+                            <td class="data">
+                                <!-- #123456798 -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Order Placed Date</td>
+                            <td>:</td>
+                            <td class="data">
+                                {{orderPlacedDate | date:'MM/dd/yyyy'}}
+                                <!-- <input type="date" class="custom-input"> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Req. Ship Date</td>
+                            <td>:</td>
+                            <td class="data">
+                                {{reqShipDate | date:'MM/dd/yyyy'}}
+                                <!-- <input type="date" class="custom-input"> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>In Hand By</td>
+                            <td>:</td>
+                            <td class="data">
+                                <!-- <input type="date" class="custom-input"> -->
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="order-alert">
+                    <div class="rush">
+                        Rush Order !!!
+                    </div>
+                    <div class="hold">
+                        Hold !
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-data">
+            <div class="section-head blue-head">Product Details</div>
+            <table class="table table-striped order-data-table">
+                <thead>
+                    <tr>
+                        <th class="productname large-col">Product</th>
+                        <th class="color big-col">Color</th>
+                        <th class="sizes sizes-label small-col">Sizes:</th>
+                        <th class="sizes small-col" *ngFor="let size of sizesArray">{{size.name}}</th>
+                        <th class="data small-col">Total Quantity</th>
+                        <th class="data small-col">Unit Price</th>
+                        <th class="sizes small-col">Personalization</th>
+                        <th class="color big-col">Services</th>
+                        <th class="color big-col">Locations</th>
+                        <th class="data small-col">Discount</th>
+                        <th class="data small-col">Total Price</th>
+                        <th class="data small-col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let lineItem of orderLineItemsGrid?.controls; let i = index;" [formGroup]="lineItem">
+                        <td>
+                            <input type="text" class="custom-input" list="products" formControlName="productName"
+                                (change)="setProduct($event,i)" title="{{lineItem.value.productName}}">
+                        </td>
+                        <td>
+                            <select class="custom-input" formControlName="colorId" (change)="onColorChange(i)">
+                                <option [value]="color.id" *ngFor="let color of getColors(lineItem?.value?.productId);">
+                                    {{color.name}}
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <!-- empty -->
+                        </td>
+                        <td class="small-col"
+                            *ngFor="let size of lineItem?.get('cartItemGrids')['controls'];let j = index">
+                            <ng-container [formGroup]="size">
+                                <input type="number" class="custom-input sizes-input" formControlName="quantity"
+                                    [hidden]="size.get('isAvailable')?.value == false" (input)="onQuantityChange(i)"
+                                    title="{{size.value.quantity}}">
+                                <input type="text" disabled placeholder="N/A"
+                                    class="custom-input" [hidden]="size.get('isAvailable')?.value == true">
+                            </ng-container>
+                        </td>
+                        <td class="big-col">
+                            <input type="number" class="custom-input" formControlName="quantity"
+                                title="{{lineItem.value.quantity}}">
+                        </td>
+                        <td class="data">${{orderLineItemsGrid?.controls[i]?.get('unitPrice').value}}</td>
+                        <td class="data personalization-check">
+                            <div>
+                                <input type="checkbox" formControlName="personalizeName" id="{{'personalizeName'+i}}"
+                                    (change)="updateTotalPrice(i)">
+                                <label for="{{'personalizeName'+i}}">Name</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" formControlName="personalizeNumber"
+                                    id="{{'personalizeNumber'+i}}" (change)="updateTotalPrice(i)">
+                                <label for="{{'personalizeNumber'+i}}">Number</label>
+                            </div>
+                        </td>
+                        <td>
+                            <select class="custom-input" formControlName="serviceId" (change)="updateTotalPrice(i)">
+                                <option selected disabled hidden [value]="0">-- Select Service --</option>
+                                <option [value]="service.id" *ngFor="let service of serviceArray;">
+                                    {{service.name}}
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="custom-input" formControlName="positionId">
+                                <option selected disabled hidden [value]="0">-- Select Location --</option>
+                                <option [value]="location.id"
+                                    *ngFor="let location of getLocations(lineItem?.value?.productId)">
+                                    {{location.position}}
+                                </option>
+                            </select>
+                        </td>
+                        <td class="big-col">
+                            <span class="discount">$</span>
+                            <input type="number" class="custom-input discount" formControlName="discount"
+                                (input)="updateTotalPrice(i)" title="{{lineItem.value.discount}}">
+                        </td>
+                        <td class="data">${{orderLineItemsGrid?.controls[i]?.get('totalPrice').value}}</td>
+                        <td class="btn-td">
+                            <img src="../../../../assets/images/graphic-designer.png" alt="Design Icon"
+                                *ngIf="!orderLineItemsGrid?.controls[i]?.get('isDesigned')?.value"
+                                title="Click to design" class="design-btn" (click)="openDesigner(i)">
+                            <img src="../../../../assets/images/designed-icon-2.png" alt="Design Icon"
+                                *ngIf="orderLineItemsGrid?.controls[i]?.get('isDesigned').value"
+                                title="Click to redesign" class="design-btn" (click)="openDesigner(i)">
+                            <img src="../../../../assets/images/notepad.png" alt="Notes Icon" data-toggle="modal"
+                                data-target="#cart-item-notes-modal" title="Click to add product/design notes"
+                                class="design-btn" (click)="setCartItemNotes(i)">
+                            <img src="../../../../assets/images/close.png" alt="Remove Icon" class="remove-btn"
+                                title="Click to remove this item" (click)="removeOrderLineItem(i)">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="20" class="add-btn-td" *ngIf="productList.length">
+                            <img src="../../../../assets/images/add.png" alt="Add Icon" class="add-btn"
+                                title="Click to add new item" (click)="addNewOrderLineItem()">
+                        </td>
+                        <td colspan="20" style="text-align: center !important;" *ngIf="!productList.length">
+                            Products Loading ...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <datalist id="products">
+                <option [value]="product.id + ' - ' + product.name" *ngFor="let product of productList">
+            </datalist>
+            <!-- <div class="shipping-method">
+                <label class="font-weight-bold">Shipping Method:</label>
+                <select class="custom-input">
+                    <option value="1">Overnight</option>
+                    <option value="2">Second tier</option>
+                </select>
+            </div> -->
+        </div>
+
+        <div class="personalization-info hidden">
+            <div class="section-head blue-head">Personalization Info</div>
+            <table class="table table-striped personalization-info-table">
+                <thead>
+                    <tr>
+                        <th class="slno">Sl. No.</th>
+                        <th>Product name</th>
+                        <th>Service Type</th>
+                        <th>Location 1</th>
+                        <th>Location 2</th>
+                        <th>Location 3</th>
+                        <th>Location 4</th>
+                        <th class="actions"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <select class="custom-input" name="productId" id="productId">
+                                <option value="1">56789</option>
+                                <option value="2">56789</option>
+                                <option value="3">56789</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="custom-input" name="sevice">
+                                <option value="1">Service 1</option>
+                                <option value="2">Service 2</option>
+                                <option value="3">Service 3</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="custom-input" name="loc1">
+                                <option value="1">Front</option>
+                                <option value="2">Back</option>
+                                <option value="3">Left</option>
+                            </select>
+                            <textarea class="custom-input" name="notes" rows="4"></textarea>
+                            <button class="btn btn-sm btn-outline-primary">Add Art</button>
+                        </td>
+                        <td>
+                            <select class="custom-input" name="loc1">
+                                <option value="1">Front</option>
+                                <option value="2">Back</option>
+                                <option value="3">Left</option>
+                            </select>
+                            <textarea class="custom-input" name="notes" rows="4"></textarea>
+                            <button class="btn btn-sm btn-outline-primary">Add Art</button>
+                        </td>
+                        <td>
+                            <select class="custom-input" name="loc1">
+                                <option value="1">Front</option>
+                                <option value="2">Back</option>
+                                <option value="3">Left</option>
+                            </select>
+                            <textarea class="custom-input" name="notes" rows="4"></textarea>
+                            <button class="btn btn-sm btn-outline-primary">Add Art</button>
+                        </td>
+                        <td>
+                            <select class="custom-input" name="loc1">
+                                <option value="1">Front</option>
+                                <option value="2">Back</option>
+                                <option value="3">Left</option>
+                            </select>
+                            <textarea class="custom-input" name="notes" rows="4"></textarea>
+                            <button class="btn btn-sm btn-outline-primary">Add Art</button>
+                        </td>
+                        <td>
+                            <img src="../../../../assets/images/close.png" alt="Remove Icon" class="remove-btn">
+                            <img src="../../../../assets/images/close.png" alt="Remove Icon" class="remove-btn">
+                            <!-- <button class="remove-btn">&times;</button>
+                            <button class="add-btn">+</button> -->
+                            <!-- actions -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <div class="submit-buttons">
+                <button (click)="gotoOrderData()" class="btn submit-btn">BACK TO ORDER DATA</button>
+                <button (click)="gotoReview()" class="btn submit-btn">SAVE AND CONTINUE</button>
+            </div> -->
+        </div>
+
+        <div class="financial-info-container">
+            <div class="financial-info">
+                <div class="section-head blue-head">Financial Info</div>
+                <div class="revenue-info">
+                    <div class="section-head orange-head">Revenue Info</div>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td>Order Revenue:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Shipping Revenue:</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="const-info">
+                    <div class="section-head orange-head">Cost Info</div>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td>Product Cost:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Inbound Freight:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Outbound Freight:</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="profit">
+                    <div class="section-head orange-head">Profit</div>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td>Profit:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Profit Ratio %:</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="submit-buttons">
+                <div class="section-head green-head">Order Submission</div>
+                <div class="actions">
+                    <div class="sales-status">
+                        <p>Sales Status:</p>
+                        <select class="custom-input">
+                            <option value="1">2 Credit Hold</option>
+                            <option value="2">104 Hold - OE (Combo-See Notes)</option>
+                            <option value="3">101 Hold - OE (Credit Review)</option>
+                            <option value="4">100 Hold - OE (General)</option>
+                            <option value="5">105 Hold - OE (NAN List)</option>
+                            <option value="6">102 Hold - OE (Price Adj Request)</option>
+                            <option value="7">106 Hold - OE (Quote)</option>
+                            <option value="8">103 Hold - OE (Rush Review)</option>
+                            <option value="9">200 Hold - Purchasing</option>
+                            <option value="10">1 Quote Approved</option>
+                        </select>
+                    </div>
+                    <div class="shipping-method">
+                        <p class="font-weight-bold">Shipping Method:</p>
+                        <select class="custom-input" (change)="selectShippingMethod($event.target.value)">
+                            <option hidden disabled selected> -- Select Shipping Method -- </option>
+                            <option *ngFor="let method of shippingMethods" [value]="method.id">{{method.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="icons">
+                        <img src="../../../../assets/images/upload_csv.png" alt="Upload CSV Icon" title="Upload CSV"
+                            class="other-btn">
+                        <img src="../../../../assets/images/pencil.png" alt="Notes Icon" title="Add Notes"
+                            data-toggle="modal" data-target="#common-notes-modal" class="other-btn">
+                    </div>
+                    <button class="btn submit-btn" (click)="saveAsDraft()">SAVE AS DRAFT</button>
+                    <button class="btn submit-btn" (click)="openOrderNotes(2)">
+                        SUBMIT AS QUOTE
+                    </button>
+                    <button class="btn submit-btn" (click)="openOrderNotes(1)">
+                        PAY NOW
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="status-container" style="display: none;">
+        <table class="table dates-table">
+            <tr>
+                <td>Order Number:</td>
+                <td class="data">
+                    <!-- #123456798 -->
+                </td>
+            </tr>
+            <tr>
+                <td>Order Placed Date:</td>
+                <td class="data">
+                    {{orderPlacedDate | date:'MM/dd/yyyy'}}
+                    <!-- <input type="date" class="custom-input"> -->
+                </td>
+            </tr>
+            <tr>
+                <td>Req. Ship Date:</td>
+                <td class="data">
+                    {{reqShipDate | date:'MM/dd/yyyy'}}
+                    <!-- <input type="date" class="custom-input"> -->
+                </td>
+            </tr>
+            <tr>
+                <td>In Hand By:</td>
+                <td class="data">
+                    <!-- <input type="date" class="custom-input"> -->
+                </td>
+            </tr>
+        </table>
+        <div class="emergency-alert">
+            <p>Rush Order !!!</p>
+            <p>Hold !</p>
+        </div>
+        <div class="status">
+            <div class="sales-status">
+                <p>Sales Status:</p>
+                <select class="custom-input">
+                    <option value="1">2 Credit Hold</option>
+                    <option value="2">104 Hold - OE (Combo-See Notes)</option>
+                    <option value="3">101 Hold - OE (Credit Review)</option>
+                    <option value="4">100 Hold - OE (General)</option>
+                    <option value="5">105 Hold - OE (NAN List)</option>
+                    <option value="6">102 Hold - OE (Price Adj Request)</option>
+                    <option value="7">106 Hold - OE (Quote)</option>
+                    <option value="8">103 Hold - OE (Rush Review)</option>
+                    <option value="9">200 Hold - Purchasing</option>
+                    <option value="10">1 Quote Approved</option>
+                </select>
+            </div>
+            <div class="shipping-method">
+                <p class="font-weight-bold">Shipping Method:</p>
+                <select class="custom-input">
+                    <option value="1">Overnight</option>
+                    <option value="2">Second tier</option>
+                </select>
+            </div>
+
+            <!-- <ul dir="rtl">
+                <li>Order Approved</li>
+                <li>Art Approved</li>
+                <li>Released</li>
+                <li>Purchased</li>
+                <li>Received</li>
+                <li>Production</li>
+                <li>Shipped</li>
+                <li>Invoiced</li>
+                <li>Paid</li>
+            </ul> -->
+
+            <div class="submit-buttons">
+                <!-- <button class="btn btn-outline-primary mt-3" data-toggle="modal" data-target="#common-notes-modal">
+                    ADD NOTES
+                </button>
+                <button class="btn btn-outline-primary mt-3">IMPORT FROM CSV</button> -->
+                <div>
+                    <img src="../../../../assets/images/upload_csv.png" alt="Upload CSV Icon" title="Upload CSV"
+                        class="other-btn">
+                    <img src="../../../../assets/images/pencil.png" alt="Notes Icon" title="Add Notes"
+                        data-toggle="modal" data-target="#common-notes-modal" class="other-btn">
+                </div>
+                <button class="btn submit-btn mt-3" (click)="saveAsDraft()">SAVE AS DRAFT</button>
+                <button class="btn submit-btn mt-3" (click)="openOrderNotes('QUOTE')">SUBMIT AS QUOTE</button>
+                <button class="btn submit-btn mt-3" (click)="openOrderNotes('ORDER')" data-toggle="modal"
+                    data-target="#order-notes-modal">
+                    PAY NOW
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Billing Address Modal -->
+<div class="modal fade" id="billingAddressModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Billing Address</h4>
+                <button type="button" class="close" (click)="closeModal()">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form [formGroup]="updateBillingAddressForm" id="updateBillingAddressForm" class="needs-validation"
+                    novalidate>
+                    <input type="text" class="form-control my-2" placeholder="Address" formControlName="billingAddress"
+                        required>
+                    <input type="text" class="form-control my-2" placeholder="Address 2"
+                        formControlName="billingAddress1">
+                    <input type="text" class="form-control my-2" placeholder="City" formControlName="billingCity"
+                        required>
+                    <select class="form-control w-100 my-2" placeholder="State" formControlName="billingState" required>
+                        <option hidden disabled selected [value]="-1"> State </option>
+                        <option *ngFor="let state of states" [value]="state.id">{{state.name}}</option>
+                    </select>
+                    <input type="text" class="form-control my-2" placeholder="Zip Code" formControlName="billingZipCode"
+                        required>
+                    <br><br>
+                    <!-- <mat-checkbox class="my-3" formControlName="updateProfile">
+              <mat-hint>Update billing address in profile</mat-hint>
+            </mat-checkbox> -->
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <!-- <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" value=""> Update billing address in profile
+          </label>
+          <br> -->
+                <button type="button" class="btn btn-primary" (click)="updateUserBillingAddress()">Update</button>
+                <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Shipping Address Modal -->
+<div class="modal fade" id="shippingAddressModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Shipping Address</h4>
+                <button type="button" class="close" (click)="closeModal()">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form [formGroup]="updateShippingAddressForm" id="updateShippingAddressForm" class="needs-validation"
+                    novalidate>
+                    <input type="text" class="form-control my-2" placeholder="Address 1"
+                        formControlName="shippingAddress" required>
+                    <input type="text" class="form-control my-2" placeholder="Address 2"
+                        formControlName="shippingAddress1">
+                    <input type="text" class="form-control my-2" placeholder="City" formControlName="shippingCity"
+                        required>
+                    <select class="form-control w-100 my-2" placeholder="State" formControlName="shippingState"
+                        required>
+                        <option hidden disabled selected [value]="-1"> State </option>
+                        <option *ngFor="let state of states" [value]="state.id">{{state.name}}</option>
+                    </select>
+                    <input type="text" class="form-control my-2" placeholder="Zip Code"
+                        formControlName="shippingZipCode" required>
+                    <br><br>
+                    <!-- <mat-checkbox class="my-3" formControlName="updateProfile">
+              <mat-hint>Update shipping address in profile</mat-hint>
+            </mat-checkbox> -->
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateUserShippingAddress()">Update</button>
+                <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Add Organization Modal -->
+<div class="modal" tabindex="-1" role="dialog" id="addOrganizationModal" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Organization</h5>
+                <button type="button" class="close" (click)="closeOrganizationModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="organizationForm" novalidate id="organizationForm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select class="form-control mt-2" formControlName="institutionTypeId" name="institutionType"
+                                required>
+                                <option value="" disabled selected hidden>Institution Type</option>
+                                <option *ngFor="let type of institutionTypeArray" [value]="type.id">{{type.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <input placeholder="Organization Name" formControlName="name" class="form-control mt-2"
+                                required>
+                        </div>
+                        <div class="col-md-12">
+                            <input placeholder="Address 1" formControlName="address" class="form-control mt-2" required>
+                        </div>
+                        <div class="col-md-12">
+                            <input placeholder="Address 2" formControlName="address1" class="form-control mt-2">
+                        </div>
+                        <div class="col-md-12">
+                            <input placeholder="City" formControlName="city" class="form-control mt-2" required>
+                        </div>
+                        <div class="col-md-12">
+                            <select class="form-control mt-2" formControlName="state" name="State" required>
+                                <option value="" disabled selected hidden>State</option>
+                                <option *ngFor="let item of states" [value]="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <input placeholder="Zip Code" formControlName="zip" class="form-control mt-2" required>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="createOrganization()">Create
+                    Organization</button>
+                <button type="button" class="btn btn-secondary" (click)="closeOrganizationModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Designer Modal -->
+<div class="modal" tabindex="-1" role="dialog" id="designerModal" data-keyboard="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Designer</h5>
+                <button type="button" class="close" (click)="closeOrganizationModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <!-- <div class="modal-footer">
+                
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- common notes Modal -->
+<div class="modal fade" id="common-notes-modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-big">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header" style="background-color: #ff7004;">
+                <p>Add Notes</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div style="text-align: right;">
+                    <button class="btn btn-primary m-2 pl-5 pr-5">Stock Notes</button>
+                    <button class="btn btn-primary m-2 pl-5 pr-5" data-dismiss="modal"
+                        aria-label="Close">Submit</button>
+                </div>
+                <div style="display: flex;">
+                    <div style="flex-grow: 1;padding: 15px;">
+                        <label for="common-notes">Enter Your Notes</label>
+                        <textarea id="common-notes" cols="30" rows="10" style="width: 100%;height: 95%;"></textarea>
+                    </div>
+                    <div style="padding: 15px; font-size: 1.2em; line-height: 1.5em;">
+                        <br>
+                        <input type="checkbox"> Internal To This Order <br>
+                        <input type="checkbox"> Why On Hold <br><br><br>
+                        <input type="checkbox"> To Art <br>
+                        <input type="checkbox"> To Production <br>
+                        <input type="checkbox"> To Sub Purchasing <br>
+                        <input type="checkbox"> To Receiving/Picking <br>
+                        <input type="checkbox"> To Shipping <br>
+                        <input type="checkbox"> To Invoicing <br>
+                        <input type="checkbox"> To Manage Order-Customer <br>
+                        <input type="checkbox"> To Manage order-Sales <br>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateUserBillingAddress()">Update</button>
+                <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+            </div> -->
+
+        </div>
+    </div>
+</div>
+
+<!-- cart item notes Modal -->
+<div class="modal fade" id="cart-item-notes-modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header" style="background-color: #ff7004;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" [formGroup]="cartItemNotes">
+                <div style="display: flex;flex-direction: column;">
+                    <div style="flex-grow: 1;padding: 15px; margin: 10px;">
+                        <label for="common-notes">Add Product Notes</label>
+                        <textarea id="common-notes" cols="30" rows="10" formControlName="productNotes"
+                            style="width: 100%;height: 95%;"></textarea>
+                    </div>
+                    <div style="flex-grow: 1;padding: 15px;">
+                        <label for="common-notes">Add Design Notes</label>
+                        <textarea id="common-notes" cols="30" rows="10" formControlName="designNotes"
+                            style="width: 100%;height: 95%;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button class="btn btn-primary m-2 pl-5 pr-5" data-dismiss="modal" aria-label="Close"
+                    (click)="saveCartItemNotes()">
+                    Save & Continue
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- order notes Modal -->
+<div class="modal fade" id="order-notes-modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header" style="background-color: #ff7004;">
+                <p>Add Order Notes</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <textarea id="common-notes" cols="30" rows="10" style="width: 100%;height: 95%;"></textarea>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button class="btn btn-primary m-2 pl-5 pr-5" data-dismiss="modal" aria-label="Close"
+                    (click)="saveOrderNotes()">
+                    Save
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- card detail modal -->
+<div class="modal fade" id="card-detail-modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header" style="background-color: #ff7004;">
+                <p>Enter credit card details</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="creditPayment" class="payment-option-wrapper margin-20">
+                    <div class="row">
+                        <div class="col-md-12 row my-3">
+                            <div class="col-md-3">
+                                <img src="../../../../../assets/images/visa.svg" alt="American Express">
+                            </div>
+                            <div class="col-md-3">
+                                <img src="../../../../../assets/images/mastercard.jpg" alt="American Express">
+                            </div>
+                            <div class="col-md-3">
+                                <img src="../../../../../assets/images/american_express.png" alt="American Express">
+                            </div>
+                            <div class="col-md-3">
+                                <img src="../../../../../assets/images/discover.jpg" alt="American Express">
+                            </div>
+                        </div>
+                        <ng-container [formGroup]="cardInfo">
+                            <div class="col-md-12 row my-3">
+                                <div class="col-md-6 form-inline">
+                                    Credit Card No. *
+                                </div>
+                                <div class="col-md-6 float-right">
+                                    <input type="number" class="w-100 form-control" (change)="validateCardNumber()"
+                                        [class.invalid]="cardInfo?.get('cardNumber').invalid && cardInfo?.get('cardNumber').touched"
+                                        (keydown)="onCreditCardKeyDown($event)" formControlName="cardNumber">
+                                </div>
+                            </div>
+                            <div class="col-md-12 row my-3">
+                                <div class="col-md-6 form-inline">
+                                    Card Verification Value *
+                                </div>
+                                <div class="col-md-3 float-right">
+                                    <input type="number" class="w-100 form-control" formControlName="cardCode"
+                                        [class.invalid]="cardInfo?.get('cardCode').invalid && cardInfo?.get('cardCode').touched"
+                                        (keydown)="onCVVKeyDown($event);">
+                                </div>
+                                <div class="col-md-3 float-right form-inline">
+                                    <p class="cvv-hint"
+                                        title="CVV is the  3/4 digit number at the back of your credit card"> What's
+                                        this?</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12 row my-3">
+                                <div class="col-md-6 form-inline">
+                                    Expiration Date *
+                                </div>
+                                <div class="col-md-6 float-right form-inline">
+                                    <!-- <input type="text" class="w-100 form-control"> -->
+                                    <select formControlName="expMonth" class="form-control w-40"
+                                        [class.invalid]="cardInfo?.get('expMonth').invalid && cardInfo?.get('expMonth').touched">
+                                        <option value="0" selected disabled hidden>Month</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                    <select formControlName="expYear" class="form-control w-40 m-2"
+                                        [class.invalid]="cardInfo?.get('expYear').invalid && cardInfo?.get('expYear').touched">
+                                        <option value="0" selected disabled hidden>Year</option>
+                                        <option value="{{y}}" *ngFor="let y of cardExpYears">
+                                            {{y}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button class="btn btn-primary m-2 pl-5 pr-5" (click)="payNow()">
+                    Submit Order
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

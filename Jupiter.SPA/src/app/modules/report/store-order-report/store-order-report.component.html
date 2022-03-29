@@ -1,0 +1,118 @@
+<div class="grid-container">
+    <div class="store-details">
+        <div class="heading">
+            <h4 class="store-name"> {{dataSource?.teamStoreName}} </h4>
+            <div class="dates">
+                <h6 class="open-date"> Open Date: <span class="font-weight-bold"> {{ dataSource?.openDate }} </span>
+                </h6>
+                <h6 class="close-date"> Close Date: <span class="font-weight-bold"> {{ dataSource?.closeDate }} </span>
+                </h6>
+            </div>
+        </div>
+        <div class="cash-details">
+            <div class="summary">
+                <table>
+                    <!-- <tr>
+                        <td>Total Collected</td>
+                        <td>${{dataSource?.revenueInfo.totalCollected | number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Credit Card Fees</td>
+                        <td>${{dataSource?.revenueInfo.creditCardFees | number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Invoiced Fees</td>
+                        <td>${{dataSource?.revenueInfo.invoicedFees | number:'1.2-2'}}</td>
+                    </tr>
+                    <tr class="net">
+                        <td>Net Revenue</td>
+                        <td>${{dataSource?.revenueInfo.netRevenue | number:'1.2-2'}}</td>
+                    </tr> -->
+                    <tr class="net">
+                        <td colspan="2">
+                            Revenue Info
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Subtotal</td>
+                        <td> ${{dataSource?.revenueInfo?.subTotalCollected | number:'1.2-2'}} </td>
+                    </tr>
+                    <tr>
+                        <td> Sales Tax</td>
+                        <td> ${{dataSource?.revenueInfo?.totalTaxCollected | number:'1.2-2'}} </td>
+                    </tr>
+                    <tr>
+                        <td> Shipping Charge </td>
+                        <td> ${{dataSource?.revenueInfo?.totalShippingAmountCollected | number:'1.2-2'}} </td>
+                    </tr>
+                    <tr class="net">
+                        <td> Grand Total </td>
+                        <td> ${{dataSource?.revenueInfo?.grandTotal | number:'1.2-2'}} </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="detailed-breakdown">
+                <table>
+                    <tr class="net">
+                        <td colspan="2">
+                            Detailed Breakdown
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fundraising Collected</td>
+                        <td>${{dataSource?.fundraisingInfo.fundraisingCollected | number:'1.2-2'}}</td>
+                    </tr>
+                    <!-- <tr>
+                        <td>Card Processing Fees</td>
+                        <td>${{dataSource?.fundraisingInfo.creditProcessingFees | number:'1.2-2'}}</td>
+                    </tr>
+                    <tr class="net">
+                        <td>Net Fundraising</td>
+                        <td>${{dataSource?.fundraisingInfo.netFundraising | number:'1.2-2'}}</td>
+                    </tr> -->
+                </table>
+            </div>
+        </div>
+        <div class="additional-row">
+            <div class="store-size">
+                <p class="font-weight-bold">
+                    Store Size: {{ dataSource?.revenueInfo?.storeSize }}
+                </p>
+            </div>
+            <div class="buttons">
+                <button class="btn btn-outline-dark" [routerLink]="['../../slow-moving-products',storeId]">
+                    Slow Moving Products >
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="order-table">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Billing Name</th>
+                    <th>Player</th>
+                    <th>Fulfillment Status</th>
+                    <th>Payment</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="dataSource?.orders?.length">
+                <tr *ngFor="let data of dataSource?.orders" [routerLink]="['../../order-report',data.orderId]">
+                    <td>#{{data.orderId}}</td>
+                    <td>{{data.orderDate}}</td>
+                    <td>{{data.billingName}}</td>
+                    <td>{{data.player}}</td>
+                    <td>{{data.fullfillmentStatus}}</td>
+                    <td>{{data.payment}}</td>
+                    <td>${{data.total | number:'1.2-2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="no-data" *ngIf="!dataSource?.orders?.length && !loading">
+            <h1>NO ORDERS FOUND</h1>
+        </div>
+    </div>
+</div>

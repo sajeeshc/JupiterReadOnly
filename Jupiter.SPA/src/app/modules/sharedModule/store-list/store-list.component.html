@@ -1,0 +1,142 @@
+<div class="filterTabParent">
+  <form [formGroup]="filterFormGroup" (ngSubmit)="getStoreRequestList()">
+    <div class="row filterTabBar">
+      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <mat-form-field>
+          <mat-label>From</mat-label>
+          <input matInput [matDatepicker]="fromPicker" />
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-form-field style="height: 20px">
+          <mat-label>To</mat-label>
+          <input matInput [matDatepicker]="toPicker" [min]="minDate"/>
+          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker ></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field style="width: 100%">
+          <mat-label>Stage</mat-label>
+          <mat-select formControlName="stage" (selectionChange)="getStoreRequestList()">
+            <mat-option [value]="0">All</mat-option>
+            <mat-option [value]="6">Pending Approval</mat-option>
+            <mat-option [value]="9">Published</mat-option>
+            <mat-option [value]="19">Customer Rejected</mat-option>
+            <mat-option [value]="20">Customer Approved</mat-option>
+            <mat-option [value]="10">Live</mat-option>
+            <mat-option [value]="11">Closed</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <div class="wrapper">
+          <img class="search-icon" src="../../../../assets/images/search.png" />
+          <input class="search" formControlName="name" placeholder="Search" type="text" />
+        </div>
+        <button type="submit" class="btn btn-primary" style="height: 0px;width:0px;padding: 0px !important;border: 0px !important;">
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<br />
+<div class="table-wrapper">
+
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Store Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="contactName">
+      <th mat-header-cell *matHeaderCellDef> Store Owner </th>
+      <td mat-cell *matCellDef="let element"> {{element.contactName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="storeId">
+      <th mat-header-cell *matHeaderCellDef> Order Number </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="accountManager">
+      <th mat-header-cell *matHeaderCellDef> Account Manager </th>
+      <td mat-cell *matCellDef="let element"> {{element.accountManager}} </td>
+    </ng-container>
+    <ng-container matColumnDef="userVerified">
+      <th mat-header-cell *matHeaderCellDef> Customer Verified </th>
+      <td mat-cell *matCellDef="let element">
+        <label *ngIf='element.isUserVerified == 0'>Pending</label>
+        <label *ngIf='element.isUserVerified == 1'>Rejected</label>
+        <label *ngIf='element.isUserVerified == 2'>Approved</label>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="stage">
+      <th mat-header-cell *matHeaderCellDef> Store Status </th>
+      <td mat-cell *matCellDef="let element">
+        <label *ngIf='element.stage == 2'>Requested</label>
+        <label *ngIf='element.stage == 3 || element.stage == 4 || element.stage == 5 || element.stage == 7 || element.stage == 18'>In Progress</label>
+        <label *ngIf='element.stage == 6'>Pending Approval</label>
+        <label *ngIf='element.stage == 9'>Published</label>
+        <label *ngIf='element.stage == 19'>Customer Rejected</label>
+        <label *ngIf='element.stage == 20'>Customer Approved</label>
+        <label *ngIf='element.stage == 10'>Live</label>
+        <label *ngIf='element.stage == 11'>Closed</label>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="closeDate">
+      <th mat-header-cell *matHeaderCellDef> Closing Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.closeDate}} </td>
+    </ng-container>
+    <ng-container matColumnDef="viewStore">
+      <th mat-header-cell  *matHeaderCellDef > <span *ngIf="stage != '3,15' && stage != '4'">View Store</span> </th>
+      <td mat-cell *matCellDef="let element" (click)="viewStoreBuild(element)"> <span *ngIf="stage != '3,15' && stage != '4'">View</span>  </td>
+    </ng-container>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+        <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <button *ngIf='element.stage == 6' mat-raised-button color="primary" (click)="verifyStoreBuild(element.id)">Verify Store Build</button>
+          <button *ngIf='element.stage == 6' mat-raised-button color="primary" (click)="verifyArt(element)">View Art</button>
+          <button *ngIf='element.stage == 6' mat-raised-button color="primary" (click)="updateStoreStage(element,9)">Publish Store</button>
+          <button *ngIf='element.stage == 20' mat-raised-button color="primary" (click)="updateStoreStage(element,10)">Open Store</button>
+          <button *ngIf='element.stage == 10' mat-raised-button color="primary" (click)="updateStoreStage(element,11)">Close Store</button>
+          <button *ngIf='element.stage == 11' mat-raised-button color="primary" (click)="updateStoreStage(element,9)">Re-Publish Store</button>
+          <button mat-raised-button color="primary" (click)="openStoreClosureModal(element)">Edit Store Closure Date</button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  </table>
+</div>
+
+<div class="modal fade" id="storeClosureModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="storeForm" (ngSubmit)="updateStoreClosure()">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Close Date</mat-label>
+            <input matInput [matDatepicker]="closeDate" formControlName="closeDate" (click)="closeDate.open()" />
+            <mat-datepicker-toggle matSuffix [for]="closeDate"></mat-datepicker-toggle>
+            <mat-datepicker #closeDate></mat-datepicker>
+          </mat-form-field><br><br>
+          <button type="submit" [disabled]="loading" class="btn btn-primary commonBtnStyle">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            update
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

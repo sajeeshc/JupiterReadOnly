@@ -1,0 +1,7 @@
+<div class="view-wrapper">
+  <div *ngIf="!selectedComponent" style="width: 100%;text-align: center;color: darkgray;padding: 10% 0%;">
+    <h2><b>Please design the layout to view store.</b></h2>
+  </div>
+  <app-layout1 *ngIf="selectedComponent == 1" [teamStoreId]="teamStoreId" [layoutData]="layoutData"></app-layout1>
+  <app-layout2 *ngIf="selectedComponent == 2" [teamStoreId]="teamStoreId" [layoutData]="layoutData"></app-layout2>
+</div>

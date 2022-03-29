@@ -1,0 +1,16 @@
+.order-panel:nth-child(even){
+    // background-color: red;
+    // .order-line-items:nth-child(odd){
+    //     background-color: #b9b2b25d;
+    // }
+}
+.order-panel:nth-child(odd){
+    background-color: #b9b2b25d;
+    // .order-line-items:nth-child(odd){
+    //     background-color: #fff;
+    // }
+}
+
+.shipping-address{
+    word-break: break-all;
+}

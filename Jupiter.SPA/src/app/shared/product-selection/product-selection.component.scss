@@ -1,0 +1,54 @@
+.mat-icon-button .mat-button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.btnColour {
+  background-color: #1830a3;
+  // color: white;
+  // text-align: right;
+  // position: absolute;
+  // right: 25px;
+  // bottom: 10px;
+}
+
+.dropdownButton {
+  height: 60px;
+  width: 40px;
+}
+
+.mainContainer {
+  border: thin solid grey;
+  box-shadow: 0px 3px 3px lightgrey;
+  height: 650px;
+}
+
+.imgTab {
+  height: 80px;
+  width: 60px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.mainImgTab {
+  height: 350px;
+}
+
+.productViewTab {
+  height: 500px;
+  text-align: center;
+  border: thin solid grey;
+  box-shadow: 0px 1px 1px lightgrey;
+}
+
+.imgCard {
+  text-align: center;
+  padding-top: 15px;
+}
+.btn-designer{
+  vertical-align: middle;
+}
+
+.product-view-padding{
+  padding-top: 55px;
+}

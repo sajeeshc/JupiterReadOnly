@@ -1,0 +1,47 @@
+.report-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    // grid-template-columns: repeat(auto-fill, minmax(90rem, 1fr));
+    gap: 2rem;
+    justify-items: center;
+    padding: 2rem;
+    .product{
+        width: 90rem;
+        max-width: 90rem;
+        max-height: 350px;
+        display: flex;
+        gap: 2rem;
+        .product-image{
+            max-height: 100%;
+            width: fit-content;
+            img{
+                max-height: 100%;
+            }
+        }
+        .product-detail{
+            font-size: 1.2rem;
+            line-height: 1.3rem;
+            display: flex;
+            flex-direction: column;
+            // justify-content: space-around;
+            justify-content: center;
+            .product-name{
+                font-weight: 500;
+            }
+        }
+    }
+    .report{
+        width: 90rem;
+        max-width: 90rem;
+        thead tr{
+            background-color: #eb475d;
+            color: white;
+        }
+    }
+}
+
+.no-data{
+    width: 100%;
+    text-align: center;
+    margin-top: 10rem;
+}

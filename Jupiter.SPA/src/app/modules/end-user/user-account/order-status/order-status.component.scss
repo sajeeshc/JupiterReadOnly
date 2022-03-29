@@ -1,0 +1,136 @@
+.header-label {
+  background-color: #004c98;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white;
+  width: 100%;
+  padding: 10px;
+}
+
+.header-wrapper {
+  padding: 0;
+  margin-left: 15px;
+}
+
+.order-status-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.btn-style {
+    color: white;
+    border-radius: 10px;
+    background-color: #004c98;
+    box-shadow: -4px 4px 0px 0px lightgrey;
+    width:10%;
+  }
+
+  .btn-position{
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+  }
+
+.padding-top-15 {
+  padding-top: 15px;
+}
+
+.margin-top-15 {
+  padding-top: 15px;
+}
+
+.font-color-grey {
+  color: #b1b1b1;
+}
+
+.font-color-cyan {
+  color: #0cc0f1;
+}
+
+.font-color-blue {
+  color: #004c98;
+}
+
+.font-size-x-small {
+  font-size: x-small;
+}
+
+.font-size-small {
+  font-size: small;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.select-order-wrapper {
+  padding-top: 10px;
+}
+
+.select-order-dropdown {
+  padding-left: 0px;
+  padding-top: 5px;
+}
+
+.margin-top-50 {
+  margin-top: 50px;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+//progress-bar css
+.circles {
+  height: 0.938em;
+  width: 0.938em;
+  border: 0.188em solid #000;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.active {
+  background-color: #0cc0f1;
+}
+
+.circle-desc-active {
+  font-weight: bold;
+}
+
+.bar {
+  width: 16%;
+  height: 0.063em;
+  margin-bottom: 0.469em;
+  border: 0.031em solid #000;
+  color: #000;
+  background-color: #000;
+  display: inline-block;
+  text-align: center;
+  margin: "0 auto";
+}
+
+.container {
+  min-width: 320px;
+  margin: "0px auto";
+  text-align: center;
+}
+
+.circle-desc {
+  position: absolute;
+  top: 3em;
+  font-size: 1.125em;
+  width: auto;
+  max-width: 9.375em;
+  margin-left: -0.75em;
+}
+
+//mat-form-field & mat-select css
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0px !important;
+}
+
+::ng-deep .mat-select-value {
+  padding-bottom: 5px !important;
+}

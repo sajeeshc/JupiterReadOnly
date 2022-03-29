@@ -1,0 +1,438 @@
+<ng-container [formGroup]="productForm">
+   <div class="row page-wrapper">
+      <div class="product-data">
+         <div class="product-details-wrapper">
+            <mat-form-field appearance="none" class="w-100">
+               <label><b>Product Name</b> <sup>*</sup></label>
+               <div class="flex-child" style="float: right;margin-bottom: 5px;">
+                  <mat-slide-toggle matInput formControlName="active">
+                     <span *ngIf="productForm.value.active == true">Active</span>
+                     <span *ngIf="productForm.value.active == false">Inactive</span>
+                  </mat-slide-toggle>
+               </div>
+               <br>
+               <input matInput formControlName="name" class="custom-input border-0">
+            </mat-form-field>
+            <mat-form-field appearance="none" class="w-100">
+               <label><b>Display Name</b></label>
+               <br>
+               <input matInput formControlName="displayName" class="custom-input border-0">
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="w-100">
+               <label><b>Description</b></label>
+               <br>
+               <textarea matInput formControlName="description" class="custom-textarea" cdkTextareaAutosize
+                  cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="w-100">
+               <label><b>Ad Copy</b></label> <br>
+               <textarea matInput formControlName="adCopy" class="custom-textarea" cdkTextareaAutosize
+                  cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="w-100">
+               <label><b>Metadata</b></label>
+               <textarea matInput formControlName="metaData" class="custom-textarea" cdkTextareaAutosize
+                  cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="w-100">
+               <label><b>Vendor Name</b></label>
+               <input matInput formControlName="vendorName" class="custom-input border-0">
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="w-100">
+               <label><b>Style Name</b></label>
+               <input matInput formControlName="styleName" class="custom-input border-0">
+            </mat-form-field>
+
+         </div>
+      </div>
+      <div class="product-data">
+         <div class="product-details-wrapper">
+            <!-- <mat-form-field appearance="none" class="w-100">
+               <label><b>Colors</b></label>
+               <mat-select matInput [formControl]="colorsSelected" class="custom-mat-select"
+                  multiple>
+                  <mat-option *ngFor="let color of colorList" [value]="color.id">
+                     {{color?.name}}</mat-option>
+               </mat-select>
+            </mat-form-field> -->
+
+            <label class="mt-2"><b>Colors</b><sup>*</sup></label>
+            <mat-form-field class="color-chips" appearance="fill">
+               <mat-chip-list #chipList aria-label="Color selection">
+                  <mat-chip *ngFor="let color of this.productForm.get('variants').value" [removable]="true"
+                     (removed)="removeVariant(color.id)">
+                     {{color.name}}
+                     <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                     </button>
+                  </mat-chip>
+                  <input #colorInput [formControl]="colorControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                     (matChipInputTokenEnd)="addColor($event.value)">
+               </mat-chip-list>
+               <mat-autocomplete #auto="matAutocomplete" (optionSelected)="colorSelected($event)">
+                  <mat-option *ngFor="let color of filteredColors | async" [value]="color">
+                     {{color.name}}
+                  </mat-option>
+               </mat-autocomplete>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="none" class="w-100">
+               <label><b> Markets </b></label>
+               <mat-select matInput formControlName="groups" [compareWith]="attributeDisplay" class="custom-mat-select"
+                  multiple>
+                  <mat-option *ngFor="let group of productGroupList" [value]="group">{{group?.name}}
+                  </mat-option>
+               </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="none" class="w-100">
+               <label><b>Store Status</b><sup>*</sup></label>
+               <mat-select matInput formControlName="storeStatus" [compareWith]="attributeDisplay"
+                  class="custom-mat-select">
+                  <mat-option *ngFor="let status of statusList" [value]="status">
+                     {{status?.name}}</mat-option>
+               </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="w-100">
+               <label><b>Product Category</b></label>
+               <mat-select matInput formControlName="categories" [compareWith]="attributeDisplay"
+                  class="custom-mat-select" multiple>
+                  <mat-option *ngFor="let category of categoryList" [value]="category">{{category.name}}
+                  </mat-option>
+               </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="w-100">
+               <label><b>Dimension and Weight Group</b></label>
+               <mat-select matInput formControlName="itemTypeId" class="custom-mat-select">
+                  <mat-option *ngFor="let type of itemTypeList" [value]="type.id">
+                     {{type?.name}}</mat-option>
+               </mat-select>
+               <div class="row px-3 pt-2 pb-0">
+                  <div class="col-6 p-2 border-bottom" *ngIf="itemType?.weight">Weight: {{itemType?.weight}} lbs
+                  </div>
+                  <div class="col-6 p-2 border-bottom" *ngIf="itemType?.volume">Volume: {{itemType?.volume}} l</div>
+               </div>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="w-100">
+               <label><b>Deco Group</b></label>
+               <mat-select matInput formControlName="decoGroupId" class="custom-mat-select">
+                  <mat-option *ngFor="let grp of decoGroupList" [value]="grp.id">
+                     {{grp?.name}}</mat-option>
+               </mat-select>
+            </mat-form-field>
+            <!-- <div class="row p-3 mb-0">
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th>Location</th>
+                        <th>Services</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let loc of decoGroup?.locations">
+                        <td>{{ loc.name }}</td>
+                        <td>
+                           <ng-container *ngFor="let service of loc.services;let i = index">
+                              {{ service.name }}{{ loc.services.length - 1 != i ? ", " : ""}}
+                           </ng-container>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div> -->
+            <div class="buttons">
+               <button class="btn btn-size mr-2" data-toggle="modal" data-target="#sizeChartModal">
+                  Size Chart
+               </button>
+               <button class="btn btn-size mr-2" data-toggle="modal" data-target="#productAttributeModal">
+                  Product Relations
+               </button>
+               <button class="btn btn-size mr-2" data-toggle="modal" data-target="#productImageModal"
+                  (click)="setColorGroupIndex()">
+                  Size and Images
+               </button>
+               <button class="btn btn-update mr-2" (click)="submitProduct()"> 
+                  {{isUpdate ? "Update Product" : "Add Product"}}
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!--category attributes modal-->
+   <div class="modal fade" id="productAttributeModal" tabindex="-1" role="dialog" data-keyboard="false"
+      data-backdrop="static" aria-labelledby="productAttributeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <!-- <div class="product-list">
+                  <div class="filter"></div>
+                  <div class="product-grid"></div>
+               </div> -->
+               <div class="attribute">
+                  <label><b>Component Products</b></label>
+                  <input type="search" placeholder="Search products" matInput [formControl]="relatedAutoText"
+                     class="custom-input" [matAutocomplete]="relProd">
+                  <mat-autocomplete #relProd="matAutocomplete" (optionSelected)="relatedProductSelected($event)">
+                     <mat-option *ngFor="let element of filteredRelProd | async" [value]="element">
+                        {{element.name}}
+                     </mat-option>
+                  </mat-autocomplete>
+                  <div class="custom-btn-holder">
+                     <button class="btn btn-primaty custom-attribute-btn"
+                        *ngFor="let element of productForm.value.relatedProducts;let i=index">
+                        {{element.name}}
+                        <span class="material-icons custom-icons" (click)="removeRelatedProducts(i)">
+                           highlight_off
+                        </span>
+                     </button>
+                  </div>
+               </div>
+               <div class="attribute">
+                  <label><b>Comparable Products</b></label>
+                  <input type="search" placeholder="Search products" matInput [formControl]="alternateAutoText"
+                     class="custom-input" [matAutocomplete]="altProd">
+                  <mat-autocomplete #altProd="matAutocomplete" (optionSelected)="alternateProductSelected($event)">
+                     <mat-option *ngFor="let element of filteredAltProd | async" [value]="element">
+                        {{element.name}}
+                     </mat-option>
+                  </mat-autocomplete>
+                  <div class="custom-btn-holder">
+                     <button class="btn btn-primaty custom-attribute-btn"
+                        *ngFor="let element of productForm.value.alternateProducts;let i=index">
+                        {{element.name}}
+                        <span class="material-icons custom-icons" (click)="removeAlternateProducts(i)">
+                           highlight_off
+                        </span>
+                     </button>
+                  </div>
+               </div>
+               <div class="attribute">
+                  <label><b>Companion Products</b></label>
+                  <input type="search" placeholder="Search products" matInput [formControl]="companionAutoText"
+                     class="custom-input" [matAutocomplete]="compProd">
+                  <mat-autocomplete #compProd="matAutocomplete" (optionSelected)="companionProductSelected($event)">
+                     <mat-option *ngFor="let element of filteredCompProd | async" [value]="element">
+                        {{element.name}}
+                     </mat-option>
+                  </mat-autocomplete>
+                  <div class="custom-btn-holder">
+                     <button class="btn btn-primaty custom-attribute-btn"
+                        *ngFor="let element of productForm.value.requiredComponents;let i=index">
+                        {{element.name}}
+                        <span class="material-icons custom-icons" (click)="removeCompanionProducts(i)">
+                           highlight_off
+                        </span>
+                     </button>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!--image modal-->
+   <div class="modal fade" id="productImageModal" tabindex="-1" role="dialog" data-keyboard="false"
+      data-backdrop="static" aria-labelledby="productImageModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document" style="max-width: 80vw;">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body" formArrayName="colors" *ngIf="selectedColorIndex != null">
+               <div class="attribute row">
+                  <div class="col">
+                     <label><b>Select Color</b></label>
+                     <mat-select matInput [(ngModel)]="selectedColorIndex" [ngModelOptions]="{standalone: true}"
+                        (selectionChange)="updateImageAndSize()" class="custom-mat-select border">
+                        <mat-option *ngFor="let color of productForm?.value?.variants;let i = index" [value]="i">
+                           {{color?.name}}
+                        </mat-option>
+                     </mat-select>
+                  </div>
+                  <div class="col-2 pl-3">
+                     <label class="w-100"><b>Swatch</b></label>
+                     <div class="img-wraps" *ngIf="!productForm?.value?.variants[selectedColorIndex]?.swatch">
+                        <span>
+                           <img id="img1" src="../../../../assets/images/add-image.png" class="swatchTab"
+                              (click)="swatchFile.click()" /><img />
+                           <input #swatchFile type="file" id="swatch" style="display: none;"
+                              (change)="selectSwatchFile($event)">
+                        </span>
+                     </div>
+                     <div class="img-wraps" *ngIf="productForm?.value?.variants[selectedColorIndex]?.swatch">
+                        <span>
+                           <span class="closes" title="Delete" (click)="deleteSwatch()">×</span>
+                           <img class="img-responsive swatchTab"
+                              [src]="productForm?.value?.variants[selectedColorIndex]?.swatch ? productForm?.value?.variants[selectedColorIndex]?.swatch : ''">
+                        </span>
+                     </div>
+                  </div>
+               </div>
+               <div class="attribute" [formGroup]="productForm.get('variants')['controls'][selectedColorIndex]">
+                  <div class="row">
+                     <div class="col">
+                        <label><b>Sizes</b></label>
+                        <mat-select matInput [formControl]="sizeVariants" multiple class="custom-mat-select border">
+                           <mat-option *ngFor="let size of sizeList" [value]="size.id">
+                              {{size?.name}}</mat-option>
+                        </mat-select>
+                     </div>
+                     <div class="col-2 clone-icons">
+                        <mat-icon *ngIf="selectedColorIndex == 0" style="cursor: pointer; margin-left: 10px;"
+                           (click)="copySizeToAll()" title="Copy size to all variants">
+                           filter_none
+                        </mat-icon>
+                        <mat-icon *ngIf="selectedColorIndex != 0" style="cursor: pointer;"
+                           (click)="copySizeFromPrevious()" title="Copy size from previous variant">
+                           sync
+                        </mat-icon>
+                     </div>
+                  </div>
+                  <div style="max-width: 100%;overflow-x: scroll;">
+                     <table class="table pricing-table">
+                        <thead>
+                           <tr>
+                              <th style="min-width: 10em;width: 10em;">Pricing</th>
+                              <th *ngFor="let size of getSizeVariants()" style="min-width: 5em;width: 5em;">
+                                 {{size.value.size}}
+                              </th>
+                              <th></th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr formArrayName="sizeVariants">
+                              <td>Original Cost ($)</td>
+                              <td *ngFor="let size of getSizeVariants()" [formGroup]="size">
+                                 <input type="number" class="form-control form-control-sm"
+                                    formControlName="originalPrice">
+                              </td>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <td>Sale Price ($)</td>
+                              <td *ngFor="let size of getSizeVariants()" [formGroup]="size">
+                                 <input type="number" class="form-control form-control-sm"
+                                    formControlName="sellingPrice" (keyup)="setStorePrice(size)">
+                              </td>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <td>Store Price ($)</td>
+                              <td *ngFor="let size of getSizeVariants()" [formGroup]="size">
+                                 <input type="number" class="form-control form-control-sm" formControlName="storePrice">
+                              </td>
+                              <td></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <div class="attribute row" style="display: flex;justify-content: center;">
+                  <div class="thumbnail-wrapper col-1 ">
+                     <!-- <div cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)">
+                        <div class="img-wraps" [ngClass]="{'selected' : i==0}"
+                           *ngFor="let img of productForm?.value?.variants[selectedColorIndex]?.images;let i=index"
+                           (click)="onImgClick(img.src,i)" cdkDrag>
+                           <span class="closes" title="Delete" (click)="deleteImg(img)">×</span>
+                           // give image path
+                           <img class="img-responsive imgTab" [src]="img.src == null ? img : img.src">
+                        </div>
+                     </div> -->
+                     <ng-container *ngFor="let side of sides;let n = index">
+                        <!-- *ngFor="let img of productForm?.value?.variants[selectedColorIndex]?.images;let i=index"> -->
+                        <div class="img-wraps" [ngClass]="{'selected' : i==0}"
+                           (click)="onImgClick(productForm.value.variants[selectedColorIndex].images[n].src,i)">
+                           <!-- productForm?.value?.variants[selectedColorIndex]?.images[n] &&  -->
+                           <ng-container *ngIf="productForm?.value?.variants[selectedColorIndex]?.images[n]?.src">
+                              <span class="closes" title="Delete"
+                                 (click)="deleteImg(productForm?.value?.variants[selectedColorIndex]?.images[n],n)">×</span>
+                              <img class="img-responsive imgTab"
+                                 [src]="productForm.value.variants[selectedColorIndex].images[n].src">
+                              <!-- <img class="img-responsive imgTab" [src]="img.src == null ? '' : img.src"> -->
+                           </ng-container>
+                           <ng-container *ngIf="!productForm?.value?.variants[selectedColorIndex]?.images[n].src">
+                              <img id="img1" src="../../../../assets/images/add-image.png" class="imgTab"
+                                 (click)="imgFile.click()" /><img />
+                              <input #imgFile type="file" style="display:none;" (change)="selectImageFile($event,n)" />
+                           </ng-container>
+                           <p style="font-size: medium;">{{ side }}</p>
+                        </div>
+                     </ng-container>
+                     <!-- <div class="img-wraps"
+                        *ngIf="productForm?.value?.variants[selectedColorIndex]?.images?.length < 4">
+                        <span>
+                           <img id="img1" src="../../../../assets/images/add-image.png" class="imgTab"
+                              (click)="imgFile.click()" /><img />
+                           <input #imgFile type="file" style="display:none;" (change)="selectImageFile($event)" />
+                        </span>
+                     </div> -->
+                  </div>
+                  <div class="img-wrapper" style="width: min-content;">
+                     <div *ngIf="productForm?.value?.variants[selectedColorIndex]?.images[0]?.src ==''"
+                        class="error-msg">
+                        <p>Please add image</p>
+                     </div>
+                     <img id="productImg" *ngIf="productForm?.value?.variants[selectedColorIndex]?.images[0]?.src !=''"
+                        [src]="productForm?.value?.variants[selectedColorIndex]?.images[0]?.src" alt="no image"
+                        class="img-holder" />
+                  </div>
+               </div>
+            </div>
+            <div class="modal-body mt-4 text-center" *ngIf="selectedColorIndex == null">
+               <h3>Select colors to add images</h3>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="modal fade" id="sizeChartModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document" style="max-width: 80vw;">
+         <div class="modal-content">
+            <!-- <div class="modal-header">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div> -->
+            <div class="modal-body">
+               <!-- <div class="upload-size-chart">
+
+               </div> -->
+               <div class="view-size-chart">
+                  <img src="../../../../assets/images/add-image.png" class="upload-size-chart-img"
+                     *ngIf="!sizeCharts.length"
+                     (click)="sizeChartFile.click()" /><img />
+                  <input #sizeChartFile type="file" id="size-chart-file" style="display: none;" (change)="uploadSizeChart($event.target.files)">
+                  <img src="{{obj.url}}" class="upload-size-chart-img" *ngFor="let obj of sizeCharts">
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-outline-danger" (click)="sizeCharts = [];">Reset</button>
+               <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</ng-container>

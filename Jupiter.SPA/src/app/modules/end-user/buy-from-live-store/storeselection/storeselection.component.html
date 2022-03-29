@@ -1,0 +1,46 @@
+<img src="../../../../assets/images/buyFromLiveStoreHeader.png" class="headerImage" style="height: 300px;width: 100%;">
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <mat-card style="text-align: center;">
+        <div class="row custom-header">
+          <!-- <div class="col-md-12" style="height: 40px; margin: auto; display: inline; padding: 10px; margin-left: 10px;">
+            <h2>BUY FROM A LIVE STORE </h2>
+          </div>
+          <br><br><br><br> -->
+        </div>
+        <div style="text-align: center;width:100%;" class="row">
+          <div class="col-md-6" style="text-align: right;">
+            Select Institution Name :
+          </div>
+          <div class="col-md-5">
+            <!-- <mat-form-field appearance="outline"> -->
+            <mat-select (selectionChange)="getStores(selectedInstitution)" [(ngModel)]="selectedInstitution">
+              <mat-option *ngFor="let institute of institutionArray" [(value)]="institute">{{institute}}</mat-option>
+            </mat-select>
+            <!-- </mat-form-field> -->
+          </div>
+        </div>
+        <br><br>
+        <div style="text-align: center;width:100%;" class="row">
+          <div class="col-md-6" style="text-align: right;">
+            Select Store Name :
+          </div>
+          <div class="col-md-5">
+            <!-- <mat-form-field appearance="outline"> -->
+            <mat-select (selectionChange)="setStoreImage(selectedStore)" [(ngModel)]="selectedStore">
+              <mat-option *ngFor="let store of storeArray" [(value)]="store">{{store.teamStore}}</mat-option>
+            </mat-select>
+            <!-- </mat-form-field> -->
+          </div>
+        </div>
+        <br><br><br>
+        <img class="store-img-holder" src="{{selectedStore?.previewImage}}" style="width: 300px;height:200px;">
+        <br><br><br><br>
+        <button (click)="storeSelected(selectedStore.teamStoreId)" class="btn btn-primary">Shop from this store</button>
+
+      </mat-card>
+    </div>
+  </div>
+</div>

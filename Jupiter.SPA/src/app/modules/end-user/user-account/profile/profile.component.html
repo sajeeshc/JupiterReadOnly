@@ -1,0 +1,126 @@
+<div class="card-holder">
+  <mat-card>
+    <form [formGroup]="userProfileForm">
+      <div class="form-padding row">
+        <div class="col-md-12">
+          <h5>Personal Details</h5>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-label>First Name</mat-label>
+            <input type="text" matInput formControlName="firstName" required />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-label>Last Name</mat-label>
+            <input type="text" matInput formControlName="lastName" required />
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <mat-label>Email ID</mat-label>
+            <input type="text" matInput formControlName="email" readonly />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-label>Phone</mat-label>
+            <input type="text" matInput formControlName="phoneNumber" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="dp3" [max]="today" formControlName="dateofBirth">
+            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 form-inline">
+
+          <mat-label class="w-100 my-2">Billing Address</mat-label>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput required formControlName="billingAddress" placeholder="Address 1">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput  formControlName="billingAddress1" placeholder="Address 2">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput required formControlName="billingCity" placeholder="City">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <mat-label>State</mat-label>
+              <mat-select  formControlName="billingState"  name="State" required>
+                <mat-option *ngFor="let item of stateArray" [value]="item.name">{{item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput required formControlName="billingZipCode" placeholder="Zip Code">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-12 form-inline" [ngSwitch]="userProfileForm.value.isSameAsBillingAddress">
+          <div class="w-100 my-2 form-inline">
+            <mat-label class="mr-3">Shipping Address</mat-label>
+            <mat-checkbox formControlName="isSameAsBillingAddress">
+              <mat-hint>Same as billing address</mat-hint>
+            </mat-checkbox>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput required formControlName="shippingAddress" placeholder="Address 1" *ngSwitchCase="false">
+              <input matInput [value]="userProfileForm.value.billingAddress" 
+              class="disabled" placeholder="Address 1" *ngSwitchCase="true" readonly>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput  formControlName="shippingAddress1" placeholder="Address 2" *ngSwitchCase="false">
+              <input matInput [value]="userProfileForm.value.billingAddress1" 
+              class="disabled" placeholder="Address 2" *ngSwitchCase="true" readonly>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput required formControlName="shippingCity" placeholder="City" *ngSwitchCase="false">
+              <input matInput [value]="userProfileForm.value.billingCity" 
+              class="disabled" placeholder="City" *ngSwitchCase="true" readonly>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width" *ngSwitchCase="true">
+              <mat-label>State</mat-label>
+              <mat-select name="State" required disabled [(value)]="userProfileForm.value.billingState">
+                <mat-option *ngFor="let item of stateArray" [value]="item.name">{{item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="full-width" *ngSwitchCase="false">
+              <mat-label>State</mat-label>
+              <mat-select  formControlName="shippingState"  name="State" required>
+                <mat-option *ngFor="let item of stateArray" [value]="item.name">{{item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput required formControlName="shippingZipCode" placeholder="Zip Code" *ngSwitchCase="false">
+              <input matInput [value]="userProfileForm.value.billingZipCode" 
+              class="disabled" placeholder="Zip Code" *ngSwitchCase="true" readonly>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-style update-btn-position" (click)="updateUserProfile()">UPDATE</button>
+    </form>
+  </mat-card>
+</div>

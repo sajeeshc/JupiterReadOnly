@@ -1,0 +1,112 @@
+<form [formGroup]="customDomainGroup">
+    <div class="row padding10">
+        <div class="col-md-8">
+          <p style="font-size: x-large;">Custom Domain & SSL</p>
+          <mat-hint>Do you have a custom URL for this store?</mat-hint>
+        </div>
+        <div class="col-md-4"  style="text-align: right;">
+          <button class="btn btn-primary btnClass" (click)="saveTeamStoreChanges()" [disabled]="!customDomainGroup.valid">
+            SAVE
+          </button>
+        </div>
+      </div><br><br>
+      <div class="row padding10">
+      <div class="col-md-12 padding10">
+          <mat-radio-group aria-label="Select an option">
+            <mat-radio-button value="1" (change)="changeCustomDomainBoxHidden(true)" [checked]="customDomainType===0">No, I'll use my InkSoft subdomain.</mat-radio-button>
+            <div class="col-md-12" style="margin: 10px;">
+              <mat-hint>The subdomain for this store is stores.inksoft.com/123test</mat-hint>
+            </div>
+            <div class="padding10"></div>
+            <mat-radio-button value="2" (change)="changeCustomDomainBoxHidden(false)" [checked]="customDomainType===1">Yes, I have a custom domain</mat-radio-button>
+            <div class="col-md-12" style="margin: 10px;">
+              <mat-hint>This must be a domain that is already registered.</mat-hint>
+            </div>
+          </mat-radio-group>
+      </div>
+    </div>
+    
+    <div class="row padding10" style="margin-left: 10px; width: 60%;" [hidden]="isCustomDomainBoxVisible">
+      <mat-card>
+        <div class="col-md-12 padding10" style="font-size: large;">
+          <mat-label>Connect Your Domain</mat-label>  &nbsp;
+          <span class="success" *ngIf="isDomainValidated===true && isDomainValid===true" style="font-size: small;">Connected</span>
+          <span class="error" *ngIf="isDomainValidated===false && isDomainValid===true" style="font-size: small;">Not Connected</span>
+        </div>
+      <div class="col-md-12 padding10">
+        <mat-label>Domain</mat-label>
+        <mat-form-field class="formField" style="width: 100%;">
+          <input type="text" matInput formControlName="domainUrl"/>
+        </mat-form-field>
+        <span class="smaller error" *ngIf="!customDomainGroup.valid">Domain Invalid</span>
+      </div>
+      <div class="col-md-12 padding10">
+        <mat-label>Configure Your Domain</mat-label>
+      </div>
+      <div class="col-md-12 padding10 smaller">
+        <mat-label>1. Locate the DNS records for your custom domain on your registrar's website.</mat-label>
+      </div>
+      <div class="col-md-12 padding10 smaller">
+        <mat-label>2. Create an A record for customsite.com and point it to our ip addresss 38.72.123.9 or create a CNAME record for customsite.com and point it to stores.inksoft.com.</mat-label>
+      </div>
+      <div class="col-md-12 padding10 smaller">
+        <mat-label>3. Click Validate to check the status. DNS changes can take up to 72 hours to take effect.</mat-label>
+      </div>
+      <div class="col-md-12 padding10 smaller">
+        <button class="btn btn-primary btnClass" (click)="validateDomain()" [disabled]="!customDomainGroup.valid">VALIDATE</button>
+      </div>
+      <div class="col-md-12 padding10"></div>
+    </mat-card>
+        </div>
+        <div class="row padding10" style="margin-left: 10px; width: 60%;" [hidden]="isCustomDomainBoxVisible">
+          <mat-card>
+            <div style="background-color:moccasin">
+            <div class="col-md-10 padding10" style="font-size: small; font-weight: bold;">
+              <mat-label>Low Security</mat-label>
+            </div>
+            <div class="col-md-12 padding10" style="font-size: small;">
+              <mat-hint>Your site's security has not been authenticated. Some customers may have trouble accessing your site. Install an SSL to avoid browser interference.</mat-hint>
+            </div>
+          </div>
+            <mat-divider></mat-divider><br>
+            <div class="col-md-12 padding10" style="font-size: large;">
+              <mat-label>SSL Encryption</mat-label>
+            </div>
+          <div class="col-md-12 padding10">
+            <mat-label>Configure Your Domain</mat-label>
+          </div>
+          <div class="col-md-12 padding10 smaller">
+            <mat-label>An SSL certificate authenticates your online business to visitors. When your domain has been successfully validated, install an SSL to fully secure your site.</mat-label>
+          </div>
+          <br>
+          <div id="block_container">
+            <div class="col-md-4 padding10 smaller">
+            <div id="block1"><mat-label>SSL Option</mat-label></div>
+            </div>
+            <div class="col-md-8 padding10 smaller">
+            <div id="block2" style="margin-left: 10px; font-weight: bold;"><mat-label>Shared SSL</mat-label></div>
+          </div>
+          </div>
+          <div id="block_container">
+            <div class="col-md-4 padding10 smaller">
+            <div id="block1"><mat-label>Site Secured</mat-label></div>
+            </div>
+            <div class="col-md-8 padding10 smaller">
+            <div id="block2" style="margin-left: 10px; font-weight: bold;"><mat-label>Cart/Checkout Only</mat-label></div>
+          </div>
+          </div>
+          <div id="block_container">
+            <div class="col-md-4 padding10 smaller">
+            <div id="block1"><mat-label>Authentication</mat-label></div>
+            </div>
+            <div class="col-md-8 padding10 smaller">
+            <div id="block2" style="margin-left: 10px; font-weight: bold;"><mat-label style="color: red;">None, SSL Recommended</mat-label></div>
+          </div>
+          </div>
+        <div class="col-md-12 padding10 smaller">
+            <button class="btn btn-primary btnClass">MANAGE SSL</button>
+          </div>
+          <div class="col-md-12 padding10"></div>
+        </mat-card>
+            </div>
+  </form>

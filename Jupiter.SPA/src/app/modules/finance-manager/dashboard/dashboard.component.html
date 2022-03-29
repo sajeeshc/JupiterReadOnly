@@ -1,0 +1,324 @@
+<div class="row">
+  <div class="col-md-1">
+    <div class="sideTab" [routerLink]="['/financemanager/creditrequestlist']" (click)="setHeader('Customer Credit Request')">
+      <img src="../../../../assets/images/store.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Credit Request</p>
+    </div>
+    <div class="sideTab" [routerLink]="['/financemanager/orderpendingpayment']" (click)="setHeader('Po/Invoice Customer Order Approval')">
+      <img src="../../../../assets/images/productivity.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Pending Orders</p>
+    </div>
+    <div class="sideTab" [routerLink]="['/financemanager/financialreport']">
+      <img src="../../../../assets/images/notepad.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Financial Report</p>
+    </div>
+    <div class="sideTab" [routerLink]="['/financemanager/discountapplications']">
+      <img src="../../../../assets/images/paint-palette.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Discount Applications</p>
+    </div>
+    <div class="sideTab" [routerLink]="['/financemanager/cancelleditems']">
+      <img src="../../../../assets/images/Layer_6.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Cancelled Items</p>
+    </div>
+    <!-- <div class="sideTab" [routerLink]="['/financemanager/settings/shippingmethods']">
+      <img src="../../../../assets/images/XMLID_3639_.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Settings</p>
+    </div> -->
+    <!-- <div class="sideTab" style="background-color: #fff1d6">
+      <img src="../../../../assets/images/chat.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">xxxxxxxxxx</p>
+    </div>
+    <div class="sideTab" style="background-color: #fff1d6">
+      <img src="../../../../assets/images/review.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">xxxxxxxxxx</p>
+    </div> -->
+  </div>
+  <div class="col-md-11">
+    <mat-grid-list cols="3" rowHeight="100px">
+      <mat-grid-tile [colspan]="1" [rowspan]="6">
+        <div class="summaryWrapper">
+          <div class="height50" id="taskSummaryHeader">
+            <p style="font-size: large"><b>TASK SUMMARY</b></p>
+          </div>
+          <div class="row">
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab" [routerLink]="['/financemanager/orderpendingpayment']" (click)="setHeader('Po/Invoice Customer Order Approval')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.pendingPaymentsCount}}</h4>
+                <span class="summaryTabInfo">Customer Order Invoice Approval</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab" [routerLink]="['/financemanager/creditrequestlist']" (click)="setHeader('Customer Credit Request')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.creditRequestedCount}}</h4>
+                <span class="summaryTabInfo">Customer Credit Request</span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab" [routerLink]="['/financemanager/shippingchargeupdaterequestlist']">
+                <h4 class="summaryTabHeader">7</h4>
+                <span class="summaryTabInfo">Shipping Charge Update Request</span>
+              </div>
+            </div>
+            <!-- <div class="col-md-6 rightColTab">
+              <div class="summaryTab" [routerLink]="['/storemanager/storelist/3']" (click)="setHeader('Assigned To Builder Queue')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.assignedToBuilderCount}}</h4>
+                <span class="summaryTabInfo">xxxxxxxxxx</span>
+              </div>
+            </div> -->
+            <!-- <div class="col-md-6 leftColTab">
+              <div class="summaryTab" [routerLink]="['/storemanager/storelist/4']" (click)="setHeader('Store Build In Progress')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.buildingStoreCount}}</h4>
+                <span class="summaryTabInfo">xxxxxxxxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab" [routerLink]="['/storemanager/storelist/6']" (click)="setHeader('Stores Ready to Publish')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.submittedForApprovalCount }}</h4>
+                <span class="summaryTabInfo">xxxxxxxxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab" [routerLink]="['/storemanager/storelist/7']" (click)="setHeader('Stores Rejected to Builder')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.makingAdjustmentsCount }}</h4>
+                <span class="summaryTabInfo">xxxxxxxxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab" [routerLink]="['/storemanager/storelist/9']" (click)="setHeader('Stores Published')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.storePublishedCount}}</h4>
+                <span class="summaryTabInfo">xxxxxxxxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab" [routerLink]="['/storemanager/storelist/10']" (click)="setHeader('Live Stores')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.storeOpenedCount}}</h4>
+                <span class="summaryTabInfo">xxxxxxxxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab" [routerLink]="['/storemanager/storelist/9']" (click)="setHeader('Store Builds Awaiting Customer Approval')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.storePublishedCount}}</h4>
+                <span class="summaryTabInfo">xxxxxxxxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">10</h4>
+                <span class="summaryTabInfo">xxxxxxxxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">7</h4>
+                <span class="summaryTabInfo">xxxxxxxxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">8</h4>
+                <span class="summaryTabInfo">xxxxxxxxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab" [routerLink]="['/storemanager/bulkorderentrylist']" (click)="setHeader('Bulk Order Entries')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.bulkOrderCount}}</h4>
+                <span class="summaryTabInfo">xxxxxxxxxx</span>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="5">
+        <div class="inboxWrapper">
+          <div class="table-scroll">
+            <div class="row expiry-table-header">
+              <div class="col-md-6" style="padding-top: 10px;">
+                <!-- <label style="font-size: medium;"><b>NEW CUSTOMER STORE REQUEST</b></label> -->
+              </div>
+              <div class="col-md-6 padding-top-15" style="text-align: right">
+                <!-- <label> ({{newReqList.length}}) </label> -->
+              </div>
+            </div>
+            <!-- <table mat-table [dataSource]="newReqList" style="width: 100%" multiTemplateDataRows class="mat-elevation-z8">
+              <ng-container matColumnDef="name">
+                <th class="table-header" mat-header-cell *matHeaderCellDef>Store Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="createdDate">
+                <th class="table-header" mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.createdDate }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+              <tr (click)="redirectToRequestPage(element.id,'NEW CUSTOMER STORE REQUEST')" mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row">
+              </tr>
+            </table> -->
+          </div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="5">
+        <div class="inboxWrapper">
+          <div class="table-scroll">
+            <div class="row expiry-table-header">
+              <div class="col-md-6 padding-top-20">
+                <!-- <p style="font-size: large"><b>STORE EXPIRY</b></p> -->
+              </div>
+              <div class="col-md-6 padding-top-15" style="text-align: right">
+                <!-- <label> ({{storeReqList.length}}) </label> -->
+              </div>
+            </div>
+            <!-- <table mat-table [dataSource]="storeReqList" style="width: 100%" multiTemplateDataRows class="mat-elevation-z8">
+              <ng-container matColumnDef="name">
+                <th class="table-header" mat-header-cell *matHeaderCellDef>Store Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="createdDate">
+                <th class="table-header" mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.closeDate }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="expandedDetail">
+                <td class="extended-form" mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                  <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div class="row form-wrapper">
+                      <div class="col-md-12">
+                        <mat-form-field class="formFieldWidth">
+                          <mat-label>Store Name</mat-label>
+                          <input type="text" matInput value={{element.name}} disabled />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <mat-form-field class="formFieldWidth">
+                          <mat-label>Owner Name</mat-label>
+                          <input type="text" matInput value={{element.createdBy.name}} disabled />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <mat-form-field class="formFieldWidth">
+                          <mat-label>Expiry Date</mat-label>
+                          <input type="text" matInput value="{{element.closeDate}}" disabled />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <mat-form-field class="formFieldWidth">
+                          <mat-label>Order ID</mat-label>
+                          <input type="text" matInput value="0202" disabled />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <mat-form-field class="formFieldWidth">
+                          <mat-label>Phone Number</mat-label>
+                          <input type="text" matInput value="{{element.phoneNumber}}" disabled />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="formFieldWidth">
+                          <mat-label>Email ID</mat-label>
+                          <input type="text" matInput value="{{element.emailId}}" disabled />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                        <button class="btn btn-primary btnstyle">Notify owner</button>
+                      </div>
+                      <div class="col-md-4">
+                        <button class="btn btn-primary btnstyle">Take down store</button>
+                      </div>
+                      <div class="col-md-4">
+                        <button class="btn btn-primary btnstyle">Re-publish store</button>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+              <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
+              </tr>
+              <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+            </table> -->
+          </div>
+        </div>
+      </mat-grid-tile>
+      <!-- <mat-grid-tile [colspan]="1" [rowspan]="2">
+        <div class="notificationWrapper">
+          <table class="table table-striped tableLineHeight">
+            <thead>
+              <tr class="notificationTableHeader">
+                <th width="90%">NOTIFICATIONS/ALERTS</th>
+                <th width="10%"><span class="material-icons"> info </span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td width="90%">Store build alert time</td>
+                <td width="10%">
+                  <span class="material-icons"> report_problem </span>
+                </td>
+              </tr>
+              <tr>
+                <td width="90%">New request overdue</td>
+                <td width="10%">
+                  <span class="material-icons"> report_problem </span>
+                </td>
+              </tr>
+              <tr>
+                <td width="90%">Store build ready to publish</td>
+                <td width="10%">
+                  <span class="material-icons"> report_problem </span>
+                </td>
+              </tr>
+              <tr>
+                <td width="90%">Store expired</td>
+                <td width="10%">
+                  <span class="material-icons"> report_problem </span>
+                </td>
+              </tr>
+              <tr>
+                <td width="90%">Store build ready to publish</td>
+                <td width="10%">
+                  <span class="material-icons"> report_problem </span>
+                </td>
+              </tr>
+              <tr>
+                <td width="90%">Store expired</td>
+                <td width="10%">
+                  <span class="material-icons"> report_problem </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-grid-tile> -->
+      <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <div class="quickLinkWrapper">
+          <div class="height50" id="quickLinkHeader">
+            <p style="font-size: large">
+              <b>RELATED LIST QUICK LINKS</b>
+            </p>
+          </div>
+          <!-- <div class="row">
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/Group 2829.png" class="imgTabSize" />xx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/contacts.png" class="imgTabSize" />xxxxx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/people.png" class="imgTabSize" />xxxx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/pencil.png" class="imgTabSize" />xxxxxx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/crown.png" class="imgTabSize" />x
+            </div>
+          </div> -->
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+<form [formGroup]="storePoliciesGroup">
+  <div class="row padding10">
+      <div class="col-md-8">
+        <p style="font-size: x-large;">Store Policies</p>
+        <mat-hint>Keep your customers informed by providing easy-to-understand store policies on important topics like product returns, information privacy, and delivery expectations. Create Policies that impute confidence and trust. Hint: The more details you provide your customers here, the less likely they will be calling you!</mat-hint>
+      </div>
+      <div class="col-md-4"  style="text-align: right;">
+        <button class="btn btn-primary btnClass" (click)="saveTeamStoreChanges()">SAVE</button>
+      </div>
+    </div><br><br>
+    <div class="row padding10">
+      <div class="col-md-12">
+        <mat-label>Thank You Message</mat-label><br><br>
+        <mat-form-field appearance="fill" style="width: 75%;">
+          <mat-label>--Select--</mat-label>
+          <mat-select formControlName="thankYouMessage">
+            <mat-option [value]="0" (click)="onThankYouMessageSelect()">Generic</mat-option>
+            <mat-option [value]="1" (click)="onThankYouMessageSelect()">Custom</mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;
+        <button *ngIf="thankYouMessage != null" (click)="onThankYouMessageSelect()" class="btn btn-primary btnClass">
+          <span >VIEWEDIT</span>
+        </button>
+      </div>
+      <div class="col-md-12">
+        <mat-label>Packing Slip Footer</mat-label><br><br>
+        <mat-form-field appearance="fill" style="width: 75%;">
+          <mat-label>--Select--</mat-label>
+          <mat-select formControlName="PackingSlipFooter" [(value)]="PackingSlipFooterSelected">
+            <mat-option [value]="0" (click)="onPackingSlipSelect()">Generic</mat-option>
+            <mat-option [value]="1" (click)="onPackingSlipSelect()">Custom</mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;
+        <button class="btn btn-primary btnClass" (click)="onPackingSlipSelect()">
+          <span >VIEW/EDIT</span>
+        </button>
+      </div>
+      <div class="col-md-12">
+        <mat-label>Privacy Policy</mat-label><br><br>
+        <mat-form-field appearance="fill" style="width: 75%;">
+          <mat-label>--Select--</mat-label>
+          <mat-select formControlName="privacyPolicy" [(value)]="privacyPolicySelected">
+            <mat-option [value]="0" (click)="onPrivacyPolicySelect()">Generic</mat-option>
+            <mat-option [value]="1" (click)="onPrivacyPolicySelect()">Custom</mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;
+        <button class="btn btn-primary btnClass" (click)="onPrivacyPolicySelect()">
+          <span >VIEW/EDIT</span>
+        </button>
+      </div>
+      <div class="col-md-12">
+        <mat-label>Terms of Use</mat-label><br><br>
+        <mat-form-field appearance="fill" style="width: 75%;">
+          <mat-label>--Select--</mat-label>
+          <mat-select  formControlName="termsOfUse" [(value)]="termsOfUseSelected">
+            <mat-option [value]="0" (click)="onTermsOfUseSelect()">Generic</mat-option>
+            <mat-option [value]="1" (click)="onTermsOfUseSelect()">Custom</mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;
+        <button class="btn btn-primary btnClass" (click)="onTermsOfUseSelect()">
+          <span >VIEW/EDIT</span>
+        </button>
+      </div>
+    </div>
+</form>
+
+
+
+
+
+
+<div class="modal fade" id="addModal" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="toggleModal()">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+          
+        <form [formGroup]="addPolicyFormGroup">
+          <quill-editor formControlName="text" [styles]="{height: '200px'}" id="courseText" placeholder="">
+            <div quill-editor-toolbar>
+              <span class="ql-formats">
+                <button class="ql-bold" [title]="'Bold'"></button>
+                <button class="ql-italic" [title]="'Italic'"></button>
+                <button class="ql-underline" [title]="'Underline'"></button>
+              </span>
+              <span class="ql-formats">
+                <select class="ql-align" [title]="'Aligment'">
+                  <option selected></option>
+                  <option value="center"></option>
+                  <option value="right"></option>
+                  <option value="justify"></option>
+                </select>
+                <button class="ql-list" value="ordered" [title]="'Numbering'"></button>
+                <button class="ql-list" value="bullet" [title]="'Bullets'"></button>
+              </span>
+              <span class="ql-formats">
+                <select class="ql-color" [title]="'Font colour'"></select>
+                <select class="ql-background" [title]="'Text Highlight Colour'"></select>
+              </span>
+              <span class="ql-formats">
+                <button class="ql-link" [title]="'Add a Hyperlink'"></button>
+                <button class="ql-image" [title]="'Insert Pictures'"></button>
+              </span>
+            </div>
+
+          </quill-editor>
+        </form>
+        <button *ngIf="isEditable" class="btn btn-primary mat-raised-button mat-button-base mat-primary" (click)="savePolicyText()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

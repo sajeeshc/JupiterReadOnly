@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-6">
+    <mat-form-field>
+      <mat-label>Store Name</mat-label>
+      <input type="text" matInput [readonly]="true" [value]="name"/>
+    </mat-form-field>
+  </div>
+  <div class="col-md-6">
+    <mat-form-field>
+      <mat-label>Account Manager</mat-label>
+      <input type="text" matInput [readonly]="true" [value]="contactName"/>
+    </mat-form-field>
+  </div>
+  <div class="col-md-6" style="display: flex;align-items: center;justify-content: space-between;">
+    <mat-form-field style="width: 85%;">
+      <mat-label>Store URL</mat-label>
+      <input type="text" matInput [formControl]="storeUrl" (change)="onUrlChange()" [maxLength]="50" />
+      <mat-error *ngIf="storeUrl.errors?.pattern">
+        URL should contain only alphabets, numbers, underscore (_) and hyphen (-)
+      </mat-error>
+    </mat-form-field>
+    <button class="btn btn-sm btn-outline-dark" (click)="validateStoreUrl()">Validate URL</button>
+  </div>
+  <div class="col-md-6">
+    <mat-form-field>
+      <mat-label>Store Created By</mat-label>
+      <input type="text" matInput [readonly]="true" [value]="createdBy"/>
+    </mat-form-field>
+  </div>
+  <div class="col-md-6">
+    <!-- <mat-form-field> -->
+      <label>{{baseUrl + storeUrl.value}}</label>
+      <label style="color: green;float: right;" *ngIf="urlValidated && isUrlValid && storeUrl.valid">URL Valid</label>
+      <label style="color: red;float: right;" *ngIf="urlValidated && !isUrlValid && !storeUrl.valid">URL Invalid</label>
+      <label style="color: red;float: right;" *ngIf="!urlValidated">URL not validated</label>
+      <!-- <input type="text" matInput [readonly]="true" [value]="storeUrl"/> -->
+    <!-- </mat-form-field> -->
+  </div>
+  <div class="col-md-12">
+    <mat-form-field>
+      <mat-label>Builder Notes</mat-label>
+      <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5" [(ngModel)]="customerNotes"></textarea>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <button class="btn btn-primary btnClass bottom-right" (click)="submit()" [disabled]="!hasLayoutDesign">Submit Store Build</button>
+</div>

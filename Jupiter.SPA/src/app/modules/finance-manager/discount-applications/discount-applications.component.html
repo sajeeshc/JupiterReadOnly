@@ -1,0 +1,245 @@
+<div>
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Orders">
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="orders" class="mat-elevation-z8" width="100%">
+          <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.customerName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="emailId">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{ element.emailId }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="organizationName">
+            <th mat-header-cell *matHeaderCellDef>Organization</th>
+            <td mat-cell *matCellDef="let element">{{ element.organizationName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="productId">
+            <th mat-header-cell *matHeaderCellDef>Product Id</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.productId }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef>Product Name</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.productName }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="originalProductCost">
+            <th mat-header-cell *matHeaderCellDef>Original Cost</th>
+            <td mat-cell *matCellDef="let element">
+              ${{ element.originalProductCost }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="sellingPrice">
+            <th mat-header-cell *matHeaderCellDef>Selling Price</th>
+            <td mat-cell *matCellDef="let element">
+              ${{ element?.sellingPrice }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="discount">
+            <th mat-header-cell *matHeaderCellDef>Discount</th>
+            <td mat-cell *matCellDef="let element">
+              ${{ element?.discount }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="referenceId">
+            <th mat-header-cell *matHeaderCellDef>Reference Id</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.referenceId }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef=" let element;let i = index">
+              <button mat-button color="primary" (click)="approveDiscountApplication(element,i)">Approve</button>
+              <button mat-button color="warn" (click)="rejectDiscountApplication(element,i)">Reject</button>
+              <!-- <button mat-button *ngIf="element.creditStatus == 3" data-toggle="modal"
+                  (click)="showLogs(element.id)" data-target="#logsModal">
+                  Logs
+                </button> -->
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns_Orders"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns_Orders;"></tr>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <input type="text" [(ngModel)]="filterParamsOrders.customerName" 
+            placeholder="Customer Name" (change)="getPendingDiscountApplications()" />
+          </th>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <input type="text" [(ngModel)]="filterParamsOrders.customerEmail" 
+            placeholder="Customer Email" (change)="getPendingDiscountApplications()" />
+          </th>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <input type="text" [(ngModel)]="filterParamsOrders.organization" 
+            placeholder="Organization" (change)="getPendingDiscountApplications()" />
+          </th>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;width:100px">
+            <input type="text" [(ngModel)]="filterParamsOrders.productId" style="width:100px"
+            placeholder="Product Id" (change)="getPendingDiscountApplications()" />
+          </th>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <input type="text" [(ngModel)]="filterParamsOrders.productName" 
+            placeholder="Product Name" (change)="getPendingDiscountApplications()" />
+          </th>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <input type="text" [(ngModel)]="filterParamsOrders.referenceId" 
+            placeholder="Reference Id" (change)="getPendingDiscountApplications()" />
+          </th>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <button class="btn btn-primary btn-sm" (click)="getPendingDiscountApplications()">Filter</button>
+          </th>
+        </table>
+      </div>
+      <mat-paginator (page)="onPageOrders($event)" [length]="filterParamsOrders.totalLength"
+        [pageSize]="filterParamsOrders.per_page" [pageSizeOptions]="filterParamsOrders.pageSizeOptions"
+        aria-label="Select page">
+      </mat-paginator>
+    </mat-tab>
+    <mat-tab label="Stores">
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="stores" class="mat-elevation-z8" width="100%">
+          <ng-container matColumnDef="accountManagerName">
+            <th mat-header-cell *matHeaderCellDef>Account Manager</th>
+            <td mat-cell *matCellDef="let element">{{ element.accountManagerName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="teamStoreId">
+            <th mat-header-cell *matHeaderCellDef>Store Id</th>
+            <td mat-cell *matCellDef="let element">{{ element.teamStoreId }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="teamStoreName">
+            <th mat-header-cell *matHeaderCellDef>Store Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.teamStoreName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.customerName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="emailId">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{ element.emailId }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="submittedDate">
+            <th mat-header-cell *matHeaderCellDef>Submitted Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.submittedDate | date:'MM-dd-yyyy'}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="teamStoreOpenDate">
+            <th mat-header-cell *matHeaderCellDef>Store Open Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.teamStoreOpenDate | date:'MM-dd-yyyy'}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="teamStoreCloseDate">
+            <th mat-header-cell *matHeaderCellDef>Store Close Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.teamStoreCloseDate | date:'MM-dd-yyyy'}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button color="info" (click)="gotoStoreDiscountApplication(element.teamStoreId,i)">View
+                Details</button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns_Stores"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns_Stores;"></tr>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <input type="text" [(ngModel)]="filterParamsStores.accountManagerName" 
+            placeholder="Account Manager" (change)="getPendingStoreDiscountApplications()" />
+          </th>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <input type="text" [(ngModel)]="filterParamsStores.teamStoreId" style="width: 100px;"
+            placeholder="Store Id" (change)="getPendingStoreDiscountApplications()" />
+          </th>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <input type="text" [(ngModel)]="filterParamsStores.teamStoreName" 
+            placeholder="Store Name" (change)="getPendingStoreDiscountApplications()" />
+          </th>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <input type="text" [(ngModel)]="filterParamsStores.customerName" 
+            placeholder="Customer Name" (change)="getPendingStoreDiscountApplications()" />
+          </th>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <input type="text" [(ngModel)]="filterParamsStores.emailId" 
+            placeholder="Email" (change)="getPendingStoreDiscountApplications()" />
+          </th>
+          <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+            <button class="btn btn-primary btn-sm" (click)="getPendingStoreDiscountApplications()">Filter</button>
+          </th>
+        </table>
+      </div>
+      <mat-paginator (page)="onPageStores($event)" [length]="filterParamsStores.totalLength"
+        [pageSize]="filterParamsStores.per_page" [pageSizeOptions]="filterParamsStores.pageSizeOptions"
+        aria-label="Select page">
+      </mat-paginator>
+    </mat-tab>
+    <!-- <mat-tab label="Third">Content 3</mat-tab> -->
+  </mat-tab-group>
+
+</div>
+
+<!-- logs modal -->
+<div class="modal fade" id="logsModal" tabindex="-1" role="dialog" aria-labelledby="logsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logsModalLabel">Logs</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <table class="table" *ngIf="applicationHistory">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Modified Date</th>
+              <th>Modified By</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of applicationHistory">
+              <td>{{ row.creditStatus == 0 ? "Requested" : row.creditStatus == 1 ? "Approved" : row.creditStatus ==
+                2 ? "Rejected" : row.creditStatus == 3 ? "Re-applied" : ""}}</td>
+              <td>{{ row.modifiedDate | date:'MM-dd-yyyy' }}</td>
+              <td>{{ row.modifiedBy.name }}</td>
+              <td>{{ row.notes }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <img src="../../../../assets/images/spinner.svg" alt="Loading Image" *ngIf="!applicationHistory"
+          class="spinner">
+        <p *ngIf="applicationHistory && !applicationHistory.length">No logs available</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="common-margin">
+  <button mat-raised-button (click)="updateArtRequest()" color="primary" style="float: right;">
+    Submit
+  </button>
+</div>
+<br><br>
+<div class="row">
+  <div class="col-md-4" *ngFor="let item of orderArtList; let i =index;">
+    <mat-card>
+      <div class="row">
+        <div class="col-md-12">
+          <label>{{item.orderInfo.orderLineItems[i].product.name}}</label>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <img mat-card-image src="https://jupiterstorage01.blob.core.windows.net/jupiterblob01/{{item.digitizedUrl}}" style="height: 200px;width:100%;position: relative;top: 0;">
+        </div>
+      </div>
+      <button mat-button color="primary" (click)="openPersonalizationDetails(item.orderInfo.orderLineItems[i].orderLineItemPersonalizations)">View Personalizaiton details</button>&nbsp;
+      <mat-card-content>
+        <div class="row">
+          <!-- <div class="col-md 6">
+            <h5>Art Data</h5>
+            <mat-card-subtitle>Type : {{item.metaData?.artServiceType}}</mat-card-subtitle>
+            <mat-card-subtitle>Art Position : {{item.metaData?.artPosition}}</mat-card-subtitle>
+            <mat-card-subtitle>No of colors : {{item.metaData?.noOfColors}}</mat-card-subtitle>
+            <mat-card-subtitle>Colors : {{item.metaData?.colors}}</mat-card-subtitle>
+            <mat-card-subtitle>Size : {{item.metaData?.artSize}}</mat-card-subtitle>
+          </div>
+          <div class="col-md 6">
+            <h5>Teamstore Data</h5>
+            <mat-card-subtitle>Type : {{item.teamStoreArt?.artServiceType}}</mat-card-subtitle>
+            <mat-card-subtitle>Art Position : {{item.teamStoreArt?.artPosition}}</mat-card-subtitle>
+            <mat-card-subtitle>No of colors : {{item.teamStoreArt?.noOfColors}}</mat-card-subtitle>
+            <mat-card-subtitle>Colors : {{item.metaData?.colors}}</mat-card-subtitle>
+          </div> -->
+          <!-- <div class="col-md-12">
+            <div [ngStyle]="{'color': item.isApproved ? 'green' : 'red'}">
+              <span *ngIf="item.isApproved">Approved</span>
+              <span *ngIf="!item.isApproved && !item.updated">Pending</span>
+              <span *ngIf="!item.isApproved && item.updated">Rejected</span>
+            </div>
+          </div> -->
+          <div class="col-md-12">
+            <button mat-raised-button class="mat-success" (click)="downloadImg(item.url)">Download Art</button>&nbsp;
+            <button mat-raised-button class="mat-success" (click)="downloadImg(item.digitizedUrl)">Download AI</button>&nbsp;
+            <button mat-raised-button class="mat-success" (click)="downloadImg(item.pdfUrl)">Download Pdf</button>&nbsp;
+          </div>
+          <br>
+          <div class="col-md-12">
+            <mat-form-field style="width: 100%;">
+              <mat-label>Comment</mat-label>
+              <textarea matInput [(ngModel)]="item.note"></textarea>
+            </mat-form-field>
+            <!-- <button mat-raised-button color="primary" (click)="changeStatus(notes,true,i)">Approve</button>&nbsp; -->
+            <button mat-raised-button color="warn" (click)="changeStatus(item.note,false,i)">Reject</button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <br>
+  </div>
+</div>
+
+<div class="modal fade" id="personalizationDetails" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <mat-label>Personalization details </mat-label>
+        <button type="button" class="close" (click)="closeMOdal()">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <table style="width:100%">
+              <tr>
+                <th>Name</th>
+                <th>Number</th>
+              </tr>
+              <tr *ngFor="let personalization of personalizationDetails">
+                <td>{{personalization.name}}</td>
+                <td>{{personalization.number}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <button mat-button color="primary" (click)="closeMOdal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

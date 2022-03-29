@@ -1,0 +1,21 @@
+h4 {
+    font-family: "Copperplate Gothic Bold", Copperplate, sans-serif;
+    color: #1830a3;
+  }
+
+  .navbar-btn{
+    cursor: pointer;
+  }
+
+  
+.fullscreen-spinner {
+  height: 100vh;
+  width: 100vw;
+  background-color: #182fa32d;
+  z-index: 10000;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

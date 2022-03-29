@@ -1,0 +1,124 @@
+.mat-row:nth-child(even) {
+  background-color: white;
+  //height: 40px;
+  cursor: pointer;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: #f1f1f1;
+  //height: 40px;
+  cursor: pointer;
+}
+
+.mat-header-cell {
+  color: white;
+  font-size: large;
+  cursor: default;
+}
+
+tr.mat-header-row {
+  //height: 40px;
+  background-color: #eb3a79;
+}
+
+tr.mat-header-row {
+ // height: 40px;
+  background-color: #eb3a79;
+}
+
+.filterTabBar {
+  height: 30px;
+}
+
+.filterTabParent {
+  border: lightgrey solid 1px;
+  height: 60px;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px lightgrey;
+}
+
+.wrapper {
+  margin-top: 12px;
+  position: relative;
+  display: flex;
+  min-width: 150px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  width: 14px;
+}
+
+.search {
+  border: 1px solid grey;
+  border-radius: 5px;
+  height: 30px;
+  width: 70%;
+  padding: 2px 23px 2px 30px;
+  outline: 0;
+  background-color: white;
+}
+
+.table-wrapper{
+  height: 600px;
+  // overflow: scroll;
+}
+
+
+////////////////////
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+
+////////////////
+
+.example-element-detail .mat-button-base {
+  margin: 8px 8px 8px 0;
+}

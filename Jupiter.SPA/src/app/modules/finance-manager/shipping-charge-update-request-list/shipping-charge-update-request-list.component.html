@@ -1,0 +1,32 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Store Id</th>
+            <th>Store Name</th>
+            <th>Account Manager</th>
+            <th>Proposed Shipping Charge</th>
+            <th>Permitted Shipping Charge</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of dataSource">
+            <td>{{row?.teamStoreId}}</td>
+            <td>{{row?.teamStoreName}}</td>
+            <td>{{row?.accountManager}}</td>
+            <td>$ {{row?.proposedIndividualShippingCharge}}</td>
+            <td>
+                <span style="position: absolute;margin-top: 0.7em; margin-left: .1em;">$</span>
+                <input type="number" id="{{row.teamStoreId}}" class="form-control pl-3" [value]="row.proposedIndividualShippingCharge">
+            </td>
+            <td>
+                <button class="btn btn-sm btn-success mr-3" (click)="updateStatus(row.teamStoreId,3)">Approve</button>
+                <button class="btn btn-sm btn-danger" (click)="updateStatus(row.teamStoreId,2)">Reject</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngIf="!loading && !dataSource.length" class="empty-list">
+    <h4>No new request available</h4>
+</div>

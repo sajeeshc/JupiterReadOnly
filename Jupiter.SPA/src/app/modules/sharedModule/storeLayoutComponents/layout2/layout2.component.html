@@ -1,0 +1,96 @@
+<div class="outer-wrapper">
+    <div class="outer-container" [ngStyle]="{'background-color': layoutData.header.backgroundColor,'color': layoutData.header.fontColor}">
+        <div class="header row">
+            <div class="side-nav col ">
+                <!-- <a class="nav-link" *ngIf="layoutData.header.showHomeLink">Home</a>
+                <a class="nav-link" *ngIf="layoutData.header.showProductsLink">Products</a>
+                <a class="nav-link" *ngIf="layoutData.header.showStoreLink">Store</a>
+                <a class="nav-link" *ngIf="layoutData.header.showContactLink">Contact</a> -->
+            </div>
+            <div class="col title-wrapper ">
+                <a class="title-link">
+                    <h2 class="title" *ngIf="layoutData.header.logoUrl == ''">
+                        AC Sandhills All Sports Apparel
+                    </h2>
+                    <img src={{layoutData.header.logoUrl}} *ngIf="layoutData.header.logoUrl != ''" [ngStyle]="{'height': layoutData.header.logoHeight}" style="max-width: 350px;">
+                </a>
+            </div>
+            <div class="side-nav col align-right">
+                <!-- <a class="nav-link">Signin</a> -->
+                <a class="nav-link">
+                    <mat-icon aria-hidden="true" data-mat-icon-type="font">shopping_cart</mat-icon>
+                    0
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="outer-container" [ngStyle]="{'background-color': layoutData.layout.backgroundColor,'color': layoutData.layout.fontColor}">
+        <div class="container" style="margin: 0 auto;text-align: center;" *ngFor="let category of productsByCategory">
+            <div style="text-transform: uppercase;">
+                <h5>{{category.categoryName}}</h5>
+            </div>
+            <div class="product-section">
+                <div class="product-card-wrapper " *ngFor="let product of category.products">
+                    <div class="product-card " (click)="redirectToProductView(product.id)">
+                        <div class="product ">
+                            <img [src]="product.images[0]" style="width: 100%;">
+                        </div>
+                        <div class="product-info ">
+                            <div style="margin: 0 auto;" *ngIf="layoutData.layout.displayColor">
+                                <div style="height: 15px;width: 15px;background-color: red;margin: 10px auto 0 auto;"></div>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <p style="word-break: break-all;"> {{product.name}} </p>
+                                <p style="font-size:12px"> Adidas </p>
+                                <p *ngIf="layoutData.layout.displayPrice"> ${{product.price}} </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="outer-container" [ngStyle]="{'background-color': layoutData.footer.backgroundColor,'color': layoutData.footer.fontColor}"> -->
+    <!-- <div class="reach-out">
+            <h3>Looking for something else?</h3><br>
+            <p>Let us know more about what you need and we'll reach out with a quote.</p><br>
+            <button mat-raised-button color="primary">REQUEST A QUOTE</button>
+        </div> -->
+    <!-- <div class="footer-nav row">
+            <div class="col">
+                <h5>NAVIGATION</h5>
+                <ul>
+                    <li *ngIf="layoutData.footer.showHomeLink">Home</li>
+                    <li *ngIf="layoutData.footer.showProductCatalogsLink">Product Catalog</li>
+                </ul>
+            </div>
+            <div class="col">
+                <h5>ACCOUNT</h5>
+                <ul>
+                    <li>Signin</li>
+                    <li>Create Account</li>
+                    <li>Forgot Password</li>
+                </ul>
+            </div>
+            <div class="col">
+                <h5>CONTACT US</h5>
+                <ul class="contact-ul">
+                    <li>
+                        <mat-icon aria-hidden="true" data-mat-icon-type="font">place</mat-icon>
+                        <a> 3704 Lacon Rd<br> Hilliard, OH 43026 </a>
+                    </li>
+                    <li>
+                        <mat-icon aria-hidden="true" data-mat-icon-type="font">phone</mat-icon>
+                        <a> 6147101682 </a>
+                    </li>
+                    <li>
+                        <mat-icon aria-hidden="true" data-mat-icon-type="font">mail</mat-icon>
+                        <a> girard@areswear.com </a>
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+    <!-- </div> -->
+
+</div>

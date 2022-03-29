@@ -1,0 +1,165 @@
+<form [formGroup]="designerGroup">
+    <div class="row padding10">
+        <div class="col-md-8">
+          <p style="font-size: x-large;">Designer</p>
+          <mat-hint>Allow shoppers to customize blank products right from your store.</mat-hint>
+        </div>
+        <div class="col-md-4" style="text-align: right;">
+          <button class="btn btn-primary btnClass" (click)="submit()">SAVE</button>
+        </div>
+      </div><br><br>
+      <div class="row padding10">
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <mat-radio-group aria-label="Select an option" formControlName="allowDesigner">
+            <mat-radio-button value="false" (change)="changeDesignerSettingsHidden(true)" >Off</mat-radio-button><br>
+            <div class="col-md-12"><br><mat-divider></mat-divider></div>
+            <div class="padding10"></div>
+            <mat-radio-button value="true" (change)="changeDesignerSettingsHidden(false)">On</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+      <div class="row padding10" style="margin-left: 15px;" [hidden]="isDesignerSettingsVisible">
+        <div class="col-md-12 padding10" style="margin-left: 10px;background-color:moccasin">
+          <div class="col-md-12 padding10" style="font-size: small; ">
+            <mat-label>No Blank Products Assigned</mat-label>
+          </div>
+          <div class="col-md-12 padding10" style="font-size: small;">
+            <mat-hint>Blank products must be assigned to the Store in order for it to show on the store front.</mat-hint>
+          </div>
+          <div class="col-md-12 padding10" style="font-size: small;">
+          <a href="">Manage Products</a>
+        </div>
+        </div>
+        <div class="col-md-12 padding10">
+        </div>
+        <div class="col-md-12 padding10" style="font-size: large;">
+          <mat-label>Designer Display Settings</mat-label>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-label>Reveal Blank Pricing in Catalog</mat-label><br>
+        </div>
+        <div class="col-md-6 padding10">
+          <mat-hint style="font-size: smaller;">Show the single unit price (without printing) in your catalog.
+          </mat-hint>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <mat-slide-toggle formControlName="revealBlankPricinginCatalog"></mat-slide-toggle>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-label>Require Approval for Designer Order</mat-label><br>
+        </div>
+        <div class="col-md-6 padding10">
+          <mat-hint style="font-size: smaller;">Enabling this setting will require orders from this store that contain a custom designed product to be approved by a member of your team. Production cards and purchasing cards will not be created until the order is approved.
+          </mat-hint>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <mat-slide-toggle formControlName="requireApprovalforDesignerOrder"></mat-slide-toggle>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-label>Distressed Files</mat-label><br>
+        </div>
+        <div class="col-md-6 padding10">
+          <mat-hint style="font-size: smaller;">Allow your customers to add a distress layer to their design.
+          </mat-hint>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <mat-slide-toggle formControlName="allowDistressedFiles"></mat-slide-toggle>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-label>Share Design</mat-label><br>
+        </div>
+        <div class="col-md-6 padding10">
+          <mat-hint style="font-size: smaller;">Allow your customers to share their design via social media or email.
+          </mat-hint>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <mat-slide-toggle formControlName="allowShareDesign"></mat-slide-toggle>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-label>Enforce Boundaries</mat-label><br>
+        </div>
+        <div class="col-md-6 padding10">
+          <mat-hint style="font-size: smaller;">When enabled, the layers of the design cannot exceed the print region of the product.
+          </mat-hint>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <mat-slide-toggle formControlName="enforceBoundaries"></mat-slide-toggle>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-divider></mat-divider>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-label>Design Ideas</mat-label><br>
+        </div>
+        <div class="col-md-6 padding10">
+          <mat-hint style="font-size: smaller;">Allow your customers to access the Designs you have assigned to this store.
+          </mat-hint>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <mat-slide-toggle formControlName="allowDesignIdeas"></mat-slide-toggle>
+        </div>
+        <div class="col-md-12 padding10">
+          <button type="button" class="btn btn-primary btnClass" (click)="changeDesignerPopupTitle('Add Design Ideas')" data-toggle="modal" data-target="#designIdeaModal">
+            ADD
+          </button>&nbsp;&nbsp;
+          <button class="btn btn-primary btnClass">MANAGE</button>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-divider></mat-divider>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-label>Clip Art</mat-label><br>
+        </div>
+        <div class="col-md-6 padding10">
+          <mat-hint style="font-size: smaller;">Allow your customers to access the Clip Art you have assigned to this store.
+          </mat-hint>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <mat-slide-toggle formControlName="allowClipArt"></mat-slide-toggle>
+        </div>
+        <div class="col-md-12 padding10" style="margin-left: 10px;background-color:moccasin">
+          <div class="col-md-12 padding10" style="font-size: small; ">
+            <mat-label>Clip Art must be added before customers can use them in the designer.</mat-label>
+          </div>
+        </div>
+        <div class="col-md-12 padding10">
+          <button type="button" class="btn btn-primary btnClass" (click)="changeDesignerPopupTitle('Add Clip Art')" data-toggle="modal" data-target="#designIdeaModal">
+            ADD
+          </button>&nbsp;&nbsp;
+          <button class="btn btn-primary btnClass">MANAGE</button>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-divider></mat-divider>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-label>Upload Art</mat-label><br>
+        </div>
+        <div class="col-md-6 padding10">
+          <mat-hint style="font-size: smaller;">Allow your customers to upload their own artwork.
+          </mat-hint>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <mat-slide-toggle formControlName="uploadArt"></mat-slide-toggle>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-label>Upload Vector Only</mat-label><br>
+        </div>
+        <div class="col-md-6 padding10">
+          <mat-hint style="font-size: smaller;">When enabled, only vector files can be uploaded.
+          </mat-hint>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <mat-slide-toggle formControlName="uploadVectorOnly"></mat-slide-toggle>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-label>Upload Art Terms</mat-label><br>
+        </div>
+        <div class="col-md-12 padding10">
+          <mat-form-field class="formField"  style="width: 100%;">
+            <input type="text" multiple matInput formControlName="artTerms" />
+          </mat-form-field>
+        </div>
+        </div>
+  </form>

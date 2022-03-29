@@ -1,0 +1,128 @@
+<form [formGroup]="storeBrandingGroup">
+    <div class="row">
+        <div class="col-md-8">
+          <p style="font-size: x-large;">Store Branding</p>
+          <mat-hint>Branding is a key. Add clean high-resolution images to make this store stand out.</mat-hint>
+        </div>
+        <div class="col-md-4" style="text-align: right;">
+          <button class="btn btn-primary btnClass" (click)="save()">SAVE </button>
+        </div>
+      </div><br><br>
+      <div class="row padding10">
+      <div class="col-md-12">
+        <mat-label>Store Logo</mat-label><br><br>
+        <mat-hint>This logo is used in the store header, customer emails, and packing slips.</mat-hint>
+      </div>
+      
+      <div class="col-md-12 padding10">
+        <ul>
+          <li class="padding10"><mat-hint> height: 100px, but a higher resolution logo will look better!</mat-hint></li>
+          <li style="padding: 10px;"><mat-hint>Supported file types: .png, .jpg, .gif, .svg</mat-hint></li>
+        </ul>
+      </div>
+      <div class="col-md-12" id="logoBtn">
+        <button class="btn btn-primary btnClass" (click)="fileInput1.click()">
+          <span>UPLOAD LOGO</span>
+          <input #fileInput1 type="file"  style="display:none;" (change)="handleImageInput($event.target.files,'logo')" accept="image/*" />
+          <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+          </span>
+        </button>
+      </div>
+      <div class="col-md-6 padding10" >
+        <!-- <mat-progress-bar mode="determinate" value="40"></mat-progress-bar> -->
+          <mat-card class="cardHolder">
+              <img
+              mat-card-image id="logo"
+            />
+            
+
+            <mat-card-actions>
+              <span>
+                <button class="btn btn-primary card-btn" (click)="fileInput1.click()">REPLACE </button>
+                <button class="btn btn-primary card-btn" (click)="removeImg('logo')">DELETE </button>
+              </span>
+            </mat-card-actions>
+          </mat-card>
+      </div>
+      <div class="col-md-12 padding10"><mat-divider></mat-divider></div>
+      </div>
+      <div class="row padding10">
+        <div class="col-md-12" >
+          <mat-label>Store Icon</mat-label><br><br>
+          <mat-hint>This should be a square, simplified version of your logo. It is used as your website’s favicon, as well as the icon for phone and tablet bookmarks.</mat-hint>
+        </div>
+        <div class="col-md-12 padding10">
+          <ul>
+            <li class="padding10"><mat-hint>Minimum size: 128px by 128px</mat-hint></li>
+            <li class="padding10"><mat-hint>Image must be square</mat-hint></li>
+            <li class="padding10"><mat-hint>Supported file types: .png, .jpg, .gif, .svg</mat-hint></li>
+          </ul>
+        </div>
+        <div class="col-md-12" id="iconBtn">
+          <button class="btn btn-primary btnClass" (click)="fileInput2.click()">
+            <span>UPLOAD ICON</span>
+            <input #fileInput2 type="file" style="display:none;" (change)="handleImageInput($event.target.files,'icon')" accept="image/*" />
+            <span>
+              <span class="mdl-ripple">
+              </span>
+            </span>
+          </button>
+        </div>
+        <div class="col-md-6 padding10">
+          <!-- <mat-progress-bar mode="determinate" value="40"></mat-progress-bar> -->
+            <mat-card class="cardHolder">
+                <img
+                mat-card-image id="icon"
+              />
+              
+  
+              <mat-card-actions>
+                <span>
+                  <button class="btn btn-primary card-btn" (click)="fileInput2.click()">REPLACE </button>
+                  <button class="btn btn-primary card-btn" (click)="removeImg('icon')">DELETE </button>
+                </span>
+              </mat-card-actions>
+            </mat-card>
+        </div>
+        <div class="col-md-12 padding10"><mat-divider></mat-divider></div>
+        </div>
+        <div class="row padding10">
+          <div class="col-md-12">
+            <mat-label>Store Preview Image</mat-label><br><br>
+            <mat-hint>Set a custom preview image for your store when shoppers share your website. Note product detail pages will use the product image as the share preview image.</mat-hint>
+          </div>
+          <div class="col-md-12 padding10">
+            <ul>
+              <li class="padding10"><mat-hint>Image dimensions: 1600px by 900px</mat-hint></li>
+              <li class="padding10"><mat-hint>Supported file types: .jpg (recommended), .gif, .png</mat-hint></li>
+            </ul>
+          </div>
+          <div class="col-md-12" id="imgBtn">
+            <button class="btn btn-primary btnClass" (click)="fileInput3.click()">
+              <span>UPLOAD IMAGE</span>
+              <input #fileInput3 type="file" style="display: none;" (change)="handleImageInput($event.target.files , 'image')" accept="image/*" />
+              <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple">
+                </span>
+              </span>
+            </button>
+          </div>
+          <div class="col-md-6 padding10" >
+            <!-- <mat-progress-bar mode="determinate" value="40"></mat-progress-bar> -->
+              <mat-card class="cardHolder">
+                  <img
+                  mat-card-image id="image"
+                />
+                
+    
+                <mat-card-actions>
+                  <span>
+                    <button class="btn btn-primary card-btn" (click)="fileInput3.click()">REPLACE </button>
+                    <button class="btn btn-primary card-btn" (click)="removeImg('image')">DELETE </button>
+                  </span>
+                </mat-card-actions>
+              </mat-card>
+          </div>
+          </div>

@@ -1,0 +1,19 @@
+<div class="grid-container" *ngIf="productList.length">
+    <div class="product" *ngFor="let prod of productList" (click)="goToReport(prod.mapCode)">
+        <div class="img-container">
+            <img src="{{prod.product.images[0].src}}">
+        </div>
+        <div class="product-detail">
+            <p class="product-name">
+                {{prod.product.displayName || prod.product.name}}
+            </p>
+            <p class="style-name">
+                {{prod.product.styleName || "-" }} / {{prod.product.vendorName || "-" }}
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="no-data" *ngIf="!productList.length && !loading">
+    <h1>NO PRODUCTS FOUND</h1>
+</div>

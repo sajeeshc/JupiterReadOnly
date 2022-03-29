@@ -1,0 +1,79 @@
+<h5><strong>REVIEW PRODUCTS</strong></h5>
+<div class="row">
+  <form [formGroup]="filterFormGroup" (ngSubmit)="filter()">
+    <span class="filterTab">
+      <mat-form-field>
+        <mat-label>Product Name</mat-label>
+        <input type="submit" formControlName="name" matInput type="text" />
+      </mat-form-field>
+    </span>
+    <!-- <span class="filterTab">
+      <mat-form-field>
+        <mat-label>Min Price</mat-label>
+        <input type="text" matInput />
+      </mat-form-field>
+    </span>
+    <span class="filterTab">
+      <mat-form-field>
+        <mat-label>Max Price</mat-label>
+        <input type="text" matInput />
+      </mat-form-field>
+    </span>
+    <span class="filterTab checkboxPadding">
+      <mat-checkbox class="custom-frame">Hide Inactive</mat-checkbox>
+    </span> -->
+    <span class="filterTab buttonTopPadding">
+      <button type="submit" class="btn btn-primary addBtn">Search</button>
+      <button type="button" class="btn btn-primary addBtn" (click)="clearFilters()">Clear Filter</button>
+    </span>
+  </form>
+</div>
+<div class="productListView" *ngFor="let item of storeProducts">
+  <div class="productWrapper">
+    <div class="productHeader">
+      <h6 class="productHeading"><strong>{{item.name}}</strong></h6>
+    </div>
+    <div class="productInfoWrapper" width="100%">
+      <div style="width: 60%">
+        <!-- <br>
+        <label class="product-detail-label productImgHeading"><i>Product Images</i></label>
+        <br> -->
+        <span *ngFor="let imageUrl of item.designImages"><img class="imgTab" src="{{imageUrl}}" /><img /></span>
+        <br>
+        <span class="colorTab">
+          <button *ngFor="let color of item.color" class="btn-color-height" [ngStyle]="{'background-color': color,'background-image':'url('+color.swatch+')'}"></button>
+        </span>
+      </div>
+      <div style="width: 20%">
+        <br>
+        <label class="product-detail-label"><i>Pricing & Sku</i></label>
+        <br>
+        <br>
+        <label class="product-detail-label label-grey-font">Sku: {{item.sku}}</label>
+        <br>
+        <label class="product-detail-label label-grey-font">Product Price: ${{item.unitPrice}}</label>
+        <br>
+        <label class="product-detail-label label-grey-font">Fundraising: ${{item.fundraiserAmount}}</label>
+        <br>
+        <label class="product-detail-label label-grey-font">Discount: ${{item.discount}}</label>
+        <br>
+        <label class="product-detail-label label-grey-font">Deco Cost: ${{item.decoPrice}}</label>
+        <br>
+        <label class="product-detail-label label-grey-font">Total Cost: ${{item.total}}</label>
+      </div>
+      <div style="width: 20%">
+        <br>
+        <label class="product-detail-label"><i>Catergories</i></label>
+        <br><br>
+        <span *ngFor="let category of item.categories">
+          <label class="product-detail-label label-grey-font"> {{category.categoryName}}</label>
+          <br>
+        </span>
+        <br>
+        <label class="product-detail-label"><i>Sizes</i></label>
+        <br>
+        <label class="product-detail-label label-grey-font">{{item.size}}</label>
+      </div>
+    </div>
+  </div>
+</div>

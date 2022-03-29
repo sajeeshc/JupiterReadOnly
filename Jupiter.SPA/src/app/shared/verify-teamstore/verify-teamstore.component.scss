@@ -1,0 +1,25 @@
+.button-container {
+  width: 100%;
+  text-align: center;
+}
+
+.button-container button {
+  margin: 8px 8px 8px 0;
+}
+
+.error-page {
+  margin: 100px 0 40px;
+  text-align: center;
+  font: normal 16px/26px Arial, sans-serif;
+  // background: #fafafa;
+  color: #2a3744;
+}
+
+.error-page__header-image {
+  width: 112px;
+}
+
+.error-page__title {
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 31px;
+}

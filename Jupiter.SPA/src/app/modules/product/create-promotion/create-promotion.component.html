@@ -1,0 +1,199 @@
+<div class="page-wrapper">
+   <div class="row top-section">
+      <div class="col">
+         <div class="wrapper">
+            <div class="table-scroll">
+               <div class="heading">
+                  Product List
+               </div>
+               <div class="search-wrapper">
+                  <!-- <img class="search-icon" src="../../../../assets/images/search.png" />
+                  <span class="advanced-search">Filter</span> -->
+                  <input class="search" [(ngModel)]="filterText" (keyup)="filterUncategorized()" placeholder="Search"
+                     type="text" />
+                  <ng-container *ngIf="productsLoading">
+                     <button class="btn btn-outline-success btn-sm" style="cursor: default;">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                     </button>
+                  </ng-container>
+                  <ng-container *ngIf="!productsLoading">
+                     <button (click)="getProductList()" class="btn btn-outline-success btn-sm">
+                        Search
+                     </button>
+                  </ng-container>
+                  <!-- <div class="filter" id="filter" (blur)="hideFilter()">
+                     <div style="display: flex;flex-wrap: wrap;">
+                        <div class="w-100 p-1">
+                           <ngx-slider [(value)]="filterParams.minPrice" [(highValue)]="filterParams.maxPrice"
+                              [options]="options"></ngx-slider>
+                        </div>
+                        <div class="w-50 p-1">
+                           <mat-form-field appearance="fill" class="w-100">
+                              <mat-label>Colors</mat-label>
+                              <mat-select multiple [(ngModel)]="filterParams.colors">
+                                 <mat-option *ngFor="let color of colorList" [value]="color.id">{{color.name}}
+                                 </mat-option>
+                              </mat-select>
+                           </mat-form-field>
+                        </div>
+                        <div class="w-50 p-1">
+                           <mat-form-field appearance="fill" class="w-100">
+                              <mat-label>Categories</mat-label>
+                              <mat-select multiple [(ngModel)]="filterParams.categories">
+                                 <mat-option *ngFor="let element of categoryList" [value]="element.id">{{element.name}}
+                                 </mat-option>
+                              </mat-select>
+                           </mat-form-field>
+                        </div>
+                        <div class="w-50 p-1">
+                           <mat-form-field appearance="fill" class="w-100">
+                              <mat-label>Sizes</mat-label>
+                              <mat-select multiple [(ngModel)]="filterParams.sizes">
+                                 <mat-option *ngFor="let element of sizeList" [value]="element.id">{{element.name}}
+                                 </mat-option>
+                              </mat-select>
+                           </mat-form-field>
+                        </div>
+                        <div class="w-50 p-1">
+                           <mat-form-field appearance="fill" class="w-100">
+                              <mat-label>Brand</mat-label>
+                              <mat-select multiple [(ngModel)]="filterParams.brands">
+                                 <mat-option *ngFor="let element of brandList" [value]="element.id">{{element.name}}
+                                 </mat-option>
+                              </mat-select>
+                           </mat-form-field>
+                        </div>
+                        <div class="w-100 p-2 text-right">
+                           <button class="btn btn-sm btn-info mr-2" (click)="closeFilter()">Close</button>
+                           <button class="btn btn-sm btn-danger mr-2" (click)="resetFilter()">Reset</button>
+                           <button class="btn btn-sm btn-success" (click)="getProductList()">Apply</button>
+                        </div>
+                     </div>
+                  </div> -->
+               </div>
+
+               <div class="product select-all">
+                  <mat-checkbox [value]="-1" [(ngModel)]="selectAll_1" (change)="checkAll($event,1)"> Select all
+                  </mat-checkbox>
+               </div>
+               <div class="uncategorized-list">
+                  <div class="product" *ngFor="let product of filteredProductList">
+                     <mat-checkbox [value]="product" (change)="setChecked($event,product,0)"
+                        [checked]="checkAllUncategorized">
+                        <!-- {{ product.id + " - " + product.name }} -->
+                        <!-- {{ ((product.id + " - " + product.name).length>70) ?
+                        ((product.id + " - " + product.name) | slice:0:70)+' ...' :
+                        (product.id + " - " + product.name) }} -->
+                        {{ ((product.displayName || product.name)?.length>70) ?
+                        (((product.displayName || product.name)) | slice:0:70)+' ...' :
+                        ((product.displayName || product.name)) }}
+                        {{" / "+ (product.vendorName || "-") +" / " + (product.styleName || "-") }}
+                     </mat-checkbox>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col arrow-container">
+         <div id="btn-holder">
+            <div>
+               <button class="btn header-font add-btn" (click)="addProducts()">
+                  Add
+                  <span class="material-icons" style="vertical-align: top">
+                     east
+                  </span>
+               </button>
+               <br />
+               <br />
+               <button class="btn header-font remove-btn" (click)="removeProducts()">
+                  <span class="material-icons" style="vertical-align: top">
+                     west
+                  </span>
+                  <span> Remove</span>
+               </button>
+            </div>
+         </div>
+      </div>
+      <div class="col">
+         <div class="wrapper">
+            <div class="table-scroll">
+               <div class="heading tableHeader">
+                  Selected Products
+               </div>
+               <div class="search-wrapper">
+                  <img class="search-icon" src="../../../../assets/images/search.png" />
+                  <input class="search" placeholder="Search" type="text" [(ngModel)]="filterSelectedText"
+                     (keyup)="filterSelected()" />
+               </div>
+
+               <div class="product select-all">
+                  <mat-checkbox [value]="-1" [(ngModel)]="selectAll_2" (change)="checkAll($event,2)"> Select all
+                  </mat-checkbox>
+               </div>
+               <div class="uncategorized-list">
+                  <div class="product" *ngFor="let product of selectedFilteredProductList">
+                     <mat-checkbox [value]="product.id" (change)="setChecked($event,product,1)"
+                        [checked]="checkAllSelected">
+                        {{ product.id + " - " + product.name }}
+                     </mat-checkbox>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row bottom-section">
+      <div class="promotion-details">
+         <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Bundle Name</mat-label>
+            <input matInput placeholder="Enter name" [(ngModel)]="name">
+         </mat-form-field>
+
+         <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea rows="4" matInput [(ngModel)]="description" placeholder="Enter description"></textarea>
+         </mat-form-field>
+      </div>
+      <div class="promotion-details">
+         <!-- <mat-form-field appearance="fill" class="w-50 pl-2 pr-2">
+            <mat-label>Starting Date</mat-label>
+            <input matInput [matDatepicker]="sDate" [(ngModel)]="startDate">
+            <mat-datepicker-toggle matSuffix [for]="sDate"></mat-datepicker-toggle>
+            <mat-datepicker #sDate></mat-datepicker>
+         </mat-form-field> -->
+
+         <mat-form-field class="w-50 pl-2 pr-2">
+            <mat-label>Start Date</mat-label>
+            <input matInput [ngxMatDatetimePicker]="sDate" [(ngModel)]="startDate" (click)="sDate.open()"
+               [min]="minDate" readonly>
+            <mat-datepicker-toggle matSuffix [for]="sDate"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #sDate [enableMeridian]="true"></ngx-mat-datetime-picker>
+         </mat-form-field>
+
+         <mat-form-field class="w-50 pl-2 pr-2">
+            <mat-label>End Date</mat-label>
+            <input matInput [ngxMatDatetimePicker]="eDate" [(ngModel)]="endDate" (click)="eDate.open()" [min]="minDate"
+               readonly>
+            <mat-datepicker-toggle matSuffix [for]="eDate"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #eDate [enableMeridian]="true"></ngx-mat-datetime-picker>
+         </mat-form-field>
+
+         <!-- <mat-form-field appearance="fill" class="w-50 pl-2 pr-2">
+            <mat-label>Ending Date</mat-label>
+            <input matInput [matDatepicker]="eDate" [(ngModel)]="endDate">
+            <mat-datepicker-toggle matSuffix [for]="eDate"></mat-datepicker-toggle>
+            <mat-datepicker #eDate></mat-datepicker>
+         </mat-form-field> -->
+
+         <mat-form-field class="w-100 pl-2 pr-2" appearance="fill">
+            <mat-label>Promotion Price</mat-label>
+            <input matInput type="number" placeholder="Enter price" [(ngModel)]="price">
+         </mat-form-field>
+
+         <div class="submit-buttons">
+            <button class="btn btn-primary float-right custom-btn header-font" (click)="submit()"> {{id ? "UPDATE
+               PROMOTION" : "CREATE PROMOTION"}} </button>
+         </div>
+      </div>
+   </div>
+</div>

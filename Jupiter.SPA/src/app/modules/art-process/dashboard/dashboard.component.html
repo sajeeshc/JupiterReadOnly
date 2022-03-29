@@ -1,0 +1,251 @@
+<div class="row">
+  <div class="col-md-1">
+    <div class="sideTab" [routerLink]="['/artprocess/artqueuelist']"(click)="setHeader('Art Process Queue')">
+      <img src="../../../../assets/images/store.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Art Process Queue</p>
+    </div>
+    <div class="sideTab" [routerLink]="['/artprocess/artlist']"(click)="setHeader('Art Management')">
+      <img src="../../../../assets/images/productivity.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Art Management</p>
+    </div>
+    <div class="sideTab">
+      <img src="../../../../assets/images/paint-palette.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">xxxxxxxx</p>
+    </div>
+    <div class="sideTab">
+      <img src="../../../../assets/images/Layer_6.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">xxxxxxxx</p>
+    </div>
+    <div class="sideTab">
+      <img src="../../../../assets/images/productivity.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">xxxx</p>
+    </div>
+    <div class="sideTab">
+      <img src="../../../../assets/images/productivity.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">xxxxxxxx</p>
+    </div>
+    <div class="sideTab" >
+      <img src="../../../../assets/images/XMLID_3639_.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Customer Chat</p>
+    </div>
+    <div class="sideTab">
+      <img src="../../../../assets/images/chat.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Inhouse Chat</p>
+    </div>
+  </div>
+  <div class="col-md-11">
+    <mat-grid-list cols="3" rowHeight="100px">
+      <mat-grid-tile [colspan]="1" [rowspan]="6">
+        <div class="summaryWrapper">
+          <div class="height50" id="taskSummaryHeader">
+            <p style="font-size: large"><b>SUMMARY</b></p>
+          </div>
+          <div class="row">
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">25</h4>
+                <span class="summaryTabInfo">My Inbox</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">28</h4>
+                <span class="summaryTabInfo">New Customer Request</span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">12</h4>
+                <span class="summaryTabInfo">Ready for Publish</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">8</h4>
+                <span class="summaryTabInfo">Build Complete Awaiting AM Action
+                </span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">1008</h4>
+                <span class="summaryTabInfo">Stores Open</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">3</h4>
+                <span class="summaryTabInfo">Rejected Store Builds</span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">6</h4>
+                <span class="summaryTabInfo">xxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">6</h4>
+                <span class="summaryTabInfo">Art awaiting customer approval</span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">4</h4>
+                <span class="summaryTabInfo">Build complete awaiting customer approval</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">0</h4>
+                <span class="summaryTabInfo">Store build exceeding allocated time</span>
+              </div>
+            </div>
+          </div>
+        </div> </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="5">
+        <div class="inboxWrapper" >
+          <!-- <table class="table table-striped" >
+            <thead>
+              <tr id="inboxTableHeader">
+                <th>ART PROCESS QUEUE</th>
+                <th style="text-align: right">
+                  <span class="material-icons"> info </span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of artQueueList">
+                <td width="70%">{{item.name}}</td>
+                <td width="30%">{{item.dueDate}}</td>
+              </tr>
+            </tbody>
+          </table> -->
+          <div class="row expiry-table-header">
+            <div class="col-md-6" style="padding-top: 10px;">
+              <label style="font-size: medium;"><b>ART PROCESS QUEUE</b></label>
+            </div>
+            <div class="col-md-6 padding-top-15" style="text-align: right">
+              <label> ({{artQueueList.length}}) </label>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table mat-table [dataSource]="artQueueList" style="width: 100%" multiTemplateDataRows class="mat-elevation-z8">
+              <ng-container matColumnDef="name">
+                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="dueDate">
+                <td mat-cell *matCellDef="let element">
+                  {{ element.dueDate }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="expandedDetail">
+                <td class="extended-form" mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                  <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div style="margin: 15px;">
+                      <button class="mat-raised-button mat-button-base mat-primary" color="primary" (click)="assignToArtist(element)">Assign to me</button>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
+              </tr>
+              <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  
+            </table>
+          </div>
+         
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="5">
+        <div class="inboxWrapper" >
+          <div class="table-scroll">
+            <table class="table table-striped" >
+              <thead>
+                <tr id="inboxTableHeader">
+                  <th>ART MANAGEMENT</th>
+                  <th style="text-align: right">
+                    <label> ({{artList.length}}) </label>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of artList" (click)="openArtList(item)">
+                  <td width="70%">{{item.name}}</td>
+                  <td width="30%">{{item.dueDate}}</td>
+                </tr>
+              </tbody>
+            </table>
+</div>
+          
+        </div>
+      </mat-grid-tile>
+      <!-- <mat-grid-tile [colspan]="1" [rowspan]="2">
+        <div class="notificationWrapper">
+          <table class="table table-striped tableLineHeight">
+            <thead>
+              <tr class="notificationTableHeader">
+                <th width="90%" >NOTIFICATIONS/ALERTS</th>
+                <th width="10%"><span class="material-icons"> info </span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td width="90%">Store build alert time</td>
+                <td width="10%">
+                  <span class="material-icons"> report_problem </span>
+                </td>
+              </tr>
+              <tr>
+                <td width="90%">New request overdue</td>
+                <td width="10%">
+                  <span class="material-icons"> report_problem </span>
+                </td>
+              </tr>
+              <tr>
+                <td width="90%">Store build ready to publish</td>
+                <td width="10%">
+                  <span class="material-icons"> report_problem </span>
+                </td>
+              </tr>
+              <tr>
+                <td width="90%">Store expired</td>
+                <td width="10%">
+                  <span class="material-icons"> report_problem </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-grid-tile> -->
+      <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <div class="quickLinkWrapper">
+          <div class="height50" id="quickLinkHeader">
+            <p style="font-size: large">
+              <b>RELATED LIST QUICK LINKS</b>
+            </p>
+          </div>
+          <div class="row">
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/Group 2829.png" class="imgTabSize" />xx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/contacts.png" class="imgTabSize" />xxxxx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/people.png" class="imgTabSize" />xxxx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/pencil.png" class="imgTabSize" />xxxxxx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/crown.png" class="imgTabSize" />x
+            </div>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

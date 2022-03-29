@@ -1,0 +1,104 @@
+<div class="card-holder">
+  <mat-card>
+      <form [formGroup]="filterMyStoreForm" (ngSubmit)="filter()">
+        <div class="row">
+            <div class="col-md-3">
+                <mat-form-field class="full-width">
+                    <mat-label>Search</mat-label>
+                    <input formControlName="name" type="text" matInput  >
+                  </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="full-width">
+                    <mat-label>Open date - From</mat-label>
+                    <input matInput [matDatepicker]="fromDate" formControlName="fromDate" (click)="fromDate.open()" readonly />
+                    <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                    <mat-datepicker #fromDate></mat-datepicker>
+                  </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="full-width">
+                    <mat-label>Open date - To</mat-label>
+                    <input matInput [matDatepicker]="toDate" formControlName="toDate" (click)="toDate.open()" readonly />
+                    <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                    <mat-datepicker #toDate></mat-datepicker>
+                  </mat-form-field>
+            </div>
+            <div class="col-md-1 padding-top-10">
+                <button type="submit" class="btn btn-primary addArtBtn">
+                    FILTER
+                  </button>
+            </div>
+            <div class="col-md-1 padding-top-10">
+              <button type="button" class="btn btn-primary addArtBtn" (click)="clearFilter()">
+                  CLEAR
+                </button>
+          </div>
+          <div class="col-md-1 padding-top-10"></div>
+            <br>
+            <div>
+                <mat-tab-group (selectedTabChange)="tabClick($event)" class="full-width">
+                    <mat-tab label="COMPLETED">
+                    </mat-tab>
+                    <mat-tab label="IN PROGRESS">
+                    </mat-tab>
+                  </mat-tab-group>
+            </div>
+           
+            <br>
+            <div class="col-md-12">
+                <table class="table custom-table">
+                    <thead>
+                      <tr>
+                        <th>Sl No.</th>
+                        <th>Store Name</th>
+                        <th>Builder Name</th>
+                        <th>Open Date</th>
+                        <th>Close Date</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     <tr *ngFor="let store of teamStoreList let i = index">
+                         <td>
+                             <label>{{i+1}}</label>
+                         </td>
+                         <td>
+                            <label>{{store?.name}}</label>
+                        </td>
+                        <td>
+                            <label>{{store?.builderName}}</label>
+                        </td>
+                        <td>
+                            <label>{{store?.openDate}}</label>
+                        </td>
+                        <td>
+                            <label>{{store?.closeDate}}</label>
+                        </td>
+                        <td [ngSwitch]="store?.status">
+                            <label *ngSwitchCase="1">Pending</label>
+                            <label *ngSwitchCase="2">Requested</label>
+                            <label *ngSwitchCase="3">Assigned To Builder</label>
+                            <label *ngSwitchCase="4">Building Store</label>
+                            <label *ngSwitchCase="5">Proofing Store</label>
+                            <label *ngSwitchCase="6">Submitted For Approval</label>
+                            <label *ngSwitchCase="7">Making Adjustments</label>
+                            <label *ngSwitchCase="8">Finalized Awaiting</label>
+                            <label *ngSwitchCase="9">Store Published</label>
+                            <label *ngSwitchCase="10">Store Opened</label>
+                            <label *ngSwitchCase="11">Closed</label>
+                        </td>
+                     </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+      </form>
+    </mat-card>
+</div>
+<div class="pagination-container">
+      <mat-paginator [length]="paginatorLength" [pageSize]="paginatorPageSize" 
+        [pageSizeOptions]="paginatorPageSizeOptions" (page)="pageEvent($event)">
+        </mat-paginator>
+        <br><br>
+  </div>

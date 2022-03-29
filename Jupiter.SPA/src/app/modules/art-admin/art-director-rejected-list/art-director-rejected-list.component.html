@@ -1,0 +1,67 @@
+<div class="filterTabParent">
+    <div class="row filterTabBar">
+      <div class="col-md-3"></div>
+      <div class="col-md-3">
+        <mat-form-field>
+          <mat-label>From</mat-label>
+          <input matInput [matDatepicker]="fromPicker" />
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field style="height: 20px">
+          <mat-label>To</mat-label>
+          <input matInput [matDatepicker]="toPicker" />
+          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <div class="wrapper">
+          <img class="search-icon" src="../../../../assets/images/search.png" />
+          <input class="search" placeholder="Search" type="text" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="table-wrapper">
+  
+    <table mat-table [dataSource]="artList" multiTemplateDataRows class="mat-elevation-z8">
+      <ng-container matColumnDef="artTask">
+        <th mat-header-cell *matHeaderCellDef> Art Task </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="contactName">
+        <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.customer}} </td>
+      </ng-container>
+      <ng-container matColumnDef="orderId">
+        <th mat-header-cell *matHeaderCellDef> Order ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dueDate">
+        <th mat-header-cell *matHeaderCellDef> Due Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.dueDate}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dueTime">
+        <th mat-header-cell *matHeaderCellDef>Due Time</th>
+        <td mat-cell *matCellDef="let element">{{ element.dueTime }}</td>
+      </ng-container>
+      <ng-container matColumnDef="artist">
+        <th mat-header-cell *matHeaderCellDef>Artist </th>
+        <td mat-cell *matCellDef="let element"> {{element.artist}} </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+            <button class="mat-raised-button mat-button-base mat-primary" color="primary" (click)="openArtApprovalList(element)" >View/Approve</button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row">
+      </tr>
+    </table>
+  </div>

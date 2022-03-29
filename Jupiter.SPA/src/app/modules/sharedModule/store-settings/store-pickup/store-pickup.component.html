@@ -1,0 +1,468 @@
+<div class="row">
+  <div class="col-md-8">
+    <p style="font-size: x-large">Store Pickup</p>
+  </div>
+  <div class="col-md-4" style="text-align: right;">
+    <button (click)="save()" class="btn btn-primary btnClass">SAVE</button>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-md-12">
+    <mat-label
+      >Shoppers will be able to choose from these pickup locations when they
+      check out.</mat-label
+    >
+  </div>
+  <br />
+  <div class="col-md-12">
+    <div *ngIf="!pickUpArray.length > 0" style="width: 100%">
+      <div class="col-md-12 padding10" style="text-align: center">
+        <img
+          src="../../../../assets/images/parcel van.png"
+          style="width: 100px"
+        />
+      </div>
+      <div class="col-md-12 padding10" style="text-align: center">
+        <mat-hint>No pickup locations</mat-hint>
+      </div>
+    </div>
+    <div class="col-md-12 padding10" *ngIf="pickUpArray.length > 0">
+      <div cdkDropList class="drag-list" (cdkDropListDropped)="drop($event)">
+        <div
+          class="row padding10 pickup-items"
+          *ngFor="let option of pickUpArray; let i = index"
+          cdkDrag
+        >
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-1" style="border: 1 solid black">
+                <mat-icon aria-hidden="false" aria-label="drag icon"
+                  >open_with</mat-icon
+                >
+              </div>
+              <div class="col-md-11">
+                <div class="row">
+                    <div class="col-md-8">
+                      <div>
+                        <h5>{{ option.locationName }}</h5>
+                      </div>
+                    </div>
+                    <div class="col-md-4 align-right">
+                      <span>
+                        <button
+                          class="btn btnClass list-btn"
+                          (click)="fillModal(option,i)"
+                        >
+                          EDIT
+                        </button>
+                        <button (click)="delete(i)">
+                          <mat-icon class="btn-trash">delete</mat-icon>
+
+                        </button>
+                      </span>
+                    </div>
+                    <div class="col-md-12">
+                      <div>
+                        <mat-label>Pick Up Details/Instructions:</mat-label>
+                        <br />
+                        <mat-label class="details-font-content">{{
+                          option.pickUpDetails
+                        }}</mat-label>
+                      </div>
+                      <br />
+                    </div>
+
+                    <div class="col-md-6">
+                      <div>
+                        <mat-label>Pick Up Schedule:</mat-label>
+                        <br />
+                        <span [ngSwitch]="option.pickUpSchedule">
+                          <mat-label class="details-font-content" *ngSwitchCase="0">On Demand</mat-label>
+                          <mat-label class="details-font-content" *ngSwitchCase="1">No Pick Up Date</mat-label>
+                          <mat-label class="details-font-content" *ngSwitchCase="2">Set Pick Up Date</mat-label>
+                          <mat-label class="details-font-content" *ngSwitchCase="3">Set Pick Up Date Range</mat-label>
+                        </span>
+                        
+                        <br />
+                        <mat-label
+                          class="details-font-content"
+                          *ngIf="option.processingTime != ''"
+                          >Processing time:
+                          {{ option.processingTime }}</mat-label
+                        >
+                        <br />
+                        <mat-label
+                          class="details-font-content"
+                          *ngIf=" option.teamStorePickUpDate != null && option.teamStorePickUpDate.pickUpStartDate != null && option.teamStorePickUpDate.pickUpStartDate != ''"
+                          >{{ option.teamStorePickUpDate.pickUpStartDate  }} 
+                        </mat-label>
+                        <mat-label
+                          class="details-font-content"
+                          *ngIf="option.teamStorePickUpDate !=null && option.teamStorePickUpDate.pickUpEndDate!=null && option.teamStorePickUpDate.pickUpEndDate != ''"
+                          >-{{ option.teamStorePickUpDate.pickUpEndDate  }}</mat-label
+                        >
+                        <br />
+                        <mat-label
+                          class="details-font-content"
+                          *ngIf="option.teamStorePickUpDate!=null && option.teamStorePickUpDate.startTime != null && option.teamStorePickUpDate.startTime != ''"
+                          >{{ option.teamStorePickUpDate.startTime }}-</mat-label
+                        >
+                        <mat-label
+                          class="details-font-content"
+                          *ngIf="option.teamStorePickUpDate!=null && option.teamStorePickUpDate.endTime != ''"
+                          >{{ option.teamStorePickUpDate.endTime }}</mat-label
+                        ><br />
+                        <mat-label
+                          class="details-font-content"
+                          *ngIf="option.teamStorePickUpDate!=null && option.teamStorePickUpDate.timeZone != ''"
+                          >{{ option.timeZone }}</mat-label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-6" *ngIf="option.pickUpAddressOn==true">
+                      <div >
+                        <mat-label *ngIf="option.teamStorePickUpAddress!=null && option.teamStorePickUpAddress.country!=null &&  option.teamStorePickUpAddress.country != ''"
+                          >Street Address:</mat-label
+                        >
+                        <br />
+                        <mat-label  class="details-font-content">{{
+                          option.teamStorePickUpAddress.country
+                        }}</mat-label>
+                        <br />
+                        <mat-label class="details-font-content">{{
+                          option.teamStorePickUpAddress.address
+                        }}</mat-label>
+                        <br />
+                        <mat-label class="details-font-content">{{
+                          option.teamStorePickUpAddress.apartment
+                        }}</mat-label>
+                        <br />
+                        <mat-label class="details-font-content">{{
+                          option.teamStorePickUpAddress.city
+                        }}</mat-label>
+                        <br />
+                        <mat-label class="details-font-content" *ngIf="option.teamStorePickUpAddress!=null && option.teamStorePickUpAddress.state!=null && option.teamStorePickUpAddress.state !=''">{{
+                          option.teamStorePickUpAddress.state
+                        }},</mat-label
+                        >
+                        <mat-label class="details-font-content" >{{
+                          option.teamStorePickUpAddress.zipCode
+                        }}</mat-label>
+                      </div>
+                    </div>
+                </div>
+                
+              </div>
+              <div class="col-md-12">
+                <br />
+                <mat-divider></mat-divider>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+
+<div>
+  <button
+    type="button"
+    data-toggle="modal"
+    data-target="#addPickUpModal"
+    class="btn btn-primary btnClass"
+    (click)="showBtns()"
+  >
+    ADD PICKUP METHOD
+  </button>
+<!-- </div>
+<div class="box box-default">                     
+  <pre>{{pickUpArray |json}}</pre>                  
+</div> -->
+<div class="modal fade" id="addPickUpModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Create New Pickup Method</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addPickUpGroup">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12">
+                <mat-label>Location Name</mat-label>
+                <mat-form-field class="full-width" appearance="outline">
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="locationName"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <mat-label>Pick Up Details/Instructions</mat-label>
+                <mat-form-field class="full-width" appearance="outline">
+                  <textarea class="" matInput formControlName="pickUpDetails">
+                  </textarea>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-label>Pick Up Schedule</mat-label>
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-select
+                    [(ngModel)]="selectedValue"
+                    formControlName="pickUpSchedule"
+                    (selectionChange)="toggleTimeModal()"
+                  >
+                    <mat-option value="0">On Demand</mat-option>
+                    <mat-option value="1"
+                      >No Pick Up Date</mat-option
+                    >
+                    <mat-option value="2"
+                      >Set Pick Up Date</mat-option
+                    >
+                    <mat-option value="3"
+                      >Set Pick Up Date Range</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6"></div>
+              <div class="col-md-12" id="time-picker">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-label>Pick Up Start Date</mat-label>
+                    <mat-form-field class="full-width">
+                      <input
+                        matInput
+                        [matDatepicker]="StartDate"
+                        formControlName="pickUpStartDate"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="StartDate"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #StartDate
+                        appearance="outline"
+                      ></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6" id="end-date">
+                    <mat-label>Pick Up End Date</mat-label>
+                    <mat-form-field class="full-width">
+                      <input
+                        matInput
+                        [matDatepicker]="EndDate"
+                        formControlName="pickUpEndDate"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="EndDate"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #EndDate
+                        appearance="outline"
+                      ></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-divider></mat-divider>
+                  </div>
+
+                  <div class="col-md-6">
+                    <br />
+                    <mat-label>Start Time</mat-label>
+                    <div class="toggle-example time-picker">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <input
+                          [ngxTimepicker]="startTime"
+                          matInput
+                          [format]="24"
+                          formControlName="startTime"
+                        />
+                        <ngx-material-timepicker-toggle
+                          matSuffix
+                          [for]="startTime"
+                        ></ngx-material-timepicker-toggle>
+                        <ngx-material-timepicker
+                          #startTime
+                        ></ngx-material-timepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <br />
+                    <mat-label>End Time</mat-label>
+                    <div class="toggle-example time-picker">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <input
+                          [ngxTimepicker]="endTime"
+                          matInput
+                          [format]="24"
+                          formControlName="endTime"
+                        />
+                        <ngx-material-timepicker-toggle
+                          matSuffix
+                          [for]="endTime"
+                          
+                        ></ngx-material-timepicker-toggle>
+                        <ngx-material-timepicker
+                          #endTime 
+                        ></ngx-material-timepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-label>Time Zone</mat-label>
+                    <mat-form-field class="full-width" appearance="outline">
+                      <mat-select formControlName="timeZone">
+                        <mat-option value="Time Zone 1">Time Zone 1</mat-option>
+                        <mat-option value="Time Zone 2">Time Zone 2</mat-option>
+                        <mat-option value="Time Zone 3">Time Zone 3</mat-option>
+                        <mat-option value="Time Zone 4">Time Zone 4</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <br />
+              </div>
+
+              <div class="col-md-12" id="processing-time">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-label>Processing Time</mat-label>
+                    <br />
+                    <mat-label class="details-font"
+                      >Once an order is placed, how many days does it take to
+                      have the order ready for pick up?</mat-label
+                    >
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="half-width" appearance="outline">
+                      <input
+                        type="text"
+                        matInput
+                        formControlName="processingTime"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <mat-divider></mat-divider>
+              </div>
+              <br />
+
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-label> Pick Up Address </mat-label>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-slide-toggle formControlName="pickUpAddressOn"
+                      (change)="toggleAddressModal()"
+                    ></mat-slide-toggle>
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <div class="col-md-12" *ngIf="showAddressModal">
+                <div class="col-md-12">
+                  <mat-label>Country</mat-label>
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-select formControlName="country">
+                      <mat-option value="United States"
+                        >United States</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-label>Address</mat-label>
+                  <mat-form-field appearance="outline" class="full-width">
+                    <input type="text" matInput formControlName="address" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-label>Appartment</mat-label>
+                  <mat-form-field appearance="outline" class="full-width">
+                    <input type="text" matInput formControlName="apartment" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-label>City</mat-label>
+                  <mat-form-field appearance="outline" class="full-width">
+                    <input type="text" matInput formControlName="city" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-label>State</mat-label>
+                      <mat-form-field appearance="outline" class="full-width">
+                        <mat-select formControlName="state">
+                          <mat-option value="Okalahoma">Okalahoma</mat-option>
+                          <mat-option value="Ohio">Ohio</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-label>ZIP Code</mat-label>
+                      <mat-form-field appearance="outline" class="full-width">
+                        <input type="text" matInput formControlName="zipCode" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="!showAddressModal">
+                <mat-label>Taxable ZIP Code</mat-label>
+                <mat-form-field appearance="outline" class="full-width">
+                  <input type="text" matInput formControlName="taxableZipCode" />
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-12 fixed align-items-right" id="create">
+                <span>
+                  <button type="button" class="btn" (click)="dismissModal()">
+                    CANCEL
+                  </button>
+                  <button type="button" (click)="addRow()" class="btn">
+                    CREATE
+                  </button>
+                </span>
+              </div>
+              
+                <div class="col-md-12" id="edit" style="display: flex;">
+                  <div class="col-md-6 fixed align-items-left">
+                    <button type="button" class="btn" (click)="delete()">
+                      DELETE
+                    </button>
+                  </div>
+                  <div class="col-md-6 fixed align-items-right">
+                    <button type="button" class="btn" (click)="dismissModal()">
+                      CANCEL
+                    </button>
+                    <button type="button" (click)="update()" class="btn">
+                      APPLY
+                    </button>
+                  </div>
+                </div>
+                
+              </div>
+              
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

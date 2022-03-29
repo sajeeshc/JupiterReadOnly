@@ -1,0 +1,150 @@
+<br><br>
+<div class="row  justify-content-center">
+  <mat-card class="col-md-4">
+    <form [formGroup]="registrationForm" style="text-align: center;">
+      <img width="60%" height="25%" src="../../../../assets/images/ares-userlogo.png">
+      <br><br>
+      <h2>Sign Up</h2>
+      <mat-form-field style="width: 100%;">
+        <mat-label>First Name <span class="mandatory-star">*</span></mat-label>
+        <input type="text" matInput formControlName="firstName" [readonly]="isRegistered">
+        <mat-error *ngIf="registrationForm.get('email').errors?.required">
+          First name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Last Name</mat-label>
+        <input type="text" matInput formControlName="lastName" [readonly]="isRegistered">
+      </mat-form-field>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Email <span class="mandatory-star">*</span></mat-label>
+        <input type="email" matInput formControlName="email" [readonly]="isRegistered">
+        <mat-error *ngIf="registrationForm.get('email').errors?.required">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="registrationForm.get('email').errors?.pattern">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Phone Number</mat-label>
+        <input type="text" matInput formControlName="phoneNumber" [readonly]="isRegistered">
+      </mat-form-field>
+      <!-- <div style="width: 100%;">
+        <label>Gender : </label>
+        <mat-radio-group matInput aria-label="Select an option" formControlName="gender">
+          <mat-radio-button value="Male">Male</mat-radio-button> &nbsp;
+          <mat-radio-button value="Female">Female</mat-radio-button>
+        </mat-radio-group>
+      </div> -->
+      <mat-form-field style="width: 100%;">
+        <mat-label>Password <span class="mandatory-star">*</span></mat-label>
+        <input type="password" matInput formControlName="password" [readonly]="isRegistered">
+        <mat-error *ngIf="registrationForm.get('password').errors?.required">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Confirm Password <span class="mandatory-star">*</span></mat-label>
+        <input type="password" matInput formControlName="confirmPassword" [readonly]="isRegistered" >
+      </mat-form-field>
+      <mat-form-field style="width: 100%;" *ngIf="isRegistered">
+        <mat-label>6 Digit Verification Code</mat-label>
+        <input type="text" matInput formControlName="otp">
+      </mat-form-field>
+      <br>
+      <div class="form-group">
+        <button class="btn btn-primary" style="margin-right: 10px;" (click)="login()">
+          Back
+        </button>
+        <button [disabled]="loading" class="btn btn-primary" (click)="createUser()" *ngIf="!isRegistered">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Sign Up
+        </button>
+        <button [disabled]="loading" class="btn btn-primary" style="margin-right: 10px;" (click)="resendOtp()" *ngIf="isRegistered">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Resend Code
+        </button>
+        <button [disabled]="loading" class="btn btn-primary" (click)="verifyUser()" *ngIf="isRegistered">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Verify
+        </button>
+      </div>
+      <br><br>
+    </form>
+  </mat-card>
+</div>
+
+<!-- <mat-card class="container">
+    <form [formGroup]="registrationForm">
+      <div class="row commonBorder custom-shadow custom-header">
+        <div class="col-md-12" style="height: 40px; margin: auto; display: inline; padding: 10px; margin-left: 5px;">
+          <h5>Create User Account</h5><br>
+        </div>
+      </div>
+      <div class="row commonBorder container">
+        <div class="col-md-12">
+          <mat-form-field style="width: 100%;">
+            <mat-label>First Name</mat-label>
+            <input type="text" matInput formControlName="firstName">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Last Name</mat-label>
+            <input type="text" matInput formControlName="lastName">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email">
+            <mat-error *ngIf="registrationForm.get('email').errors?.required">
+              Email is required
+            </mat-error>
+            <mat-error *ngIf="registrationForm.get('email').errors?.pattern">
+              Please enter a valid email address
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Phone Number</mat-label>
+            <input type="text" matInput formControlName="phoneNumber">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <div style="width: 100%;">
+            <mat-label>Gender</mat-label><br><br>
+            <mat-radio-group matInput aria-label="Select an option" formControlName="gender">
+              <mat-radio-button value="Male">Male</mat-radio-button> &nbsp;
+              <mat-radio-button value="Female">Female</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput formControlName="password">
+            <mat-error *ngIf="registrationForm.get('password').errors?.required">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" matInput formControlName="confirmPassword">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12" mat-dialog-actions align="end">
+          <div class="form-group">
+            <button [disabled]="!registrationForm.valid" class="btn btn-primary commonBtnStyle" (click)="createUser()">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Create
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+</mat-card> -->

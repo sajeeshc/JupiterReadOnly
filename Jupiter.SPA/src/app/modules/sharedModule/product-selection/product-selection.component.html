@@ -1,0 +1,34 @@
+<div class="mainContainer container">
+  <div class="row" style="height: 650px">
+    <div class="col-md-3" style="text-align: center">
+      <br />
+      <h5>Select Garment:</h5>
+      <mat-form-field appearance="outline" style="line-height: 2.5;">
+        <mat-label>Choose an option</mat-label>
+        <mat-select [(ngModel)]="selectedValue" (selectionChange)="setImages()">
+          <mat-option *ngFor="let c of garmentArray" [(value)]="c">
+            {{c.productName}} <img src={{c.images[0].src}} style="height: 40px;width: 40px;border-radius: 20px;float: right;padding-top: 3px;">
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-9 product-view-padding">
+      <div class="productViewTab">
+        <div class="imgCard"><img class="mainImgTab" /><img /></div>
+        <br />
+        <span *ngFor="let product of selectedValue.images" (click)="onImgClick(product.src)">
+          <img id="img1" src={{product.src}} alt="no image" class="imgTab" /><img />
+        </span>
+      </div>
+      <br>
+      <div class="btn-group" role="group" aria-label="Basic example" style="float: right;">
+        <!-- <button type="button" class="btn btn-primary btnColour" [routerLink]="['/storebuilder/storedetails/productspreadsheet']">
+          Go to Product List</button>&nbsp; -->
+          <button type="button" class="btn btn-primary btnColour" (click)="goToProductListing()">
+            Go to Store Product List</button>&nbsp;
+        <button type="button" class="btn btn-primary btnColour" (click)="goToDesigner()" >
+          Open Designer<mat-icon class="btn-designer">keyboard_arrow_right</mat-icon></button>
+      </div>
+    </div>  
+  </div>
+</div>

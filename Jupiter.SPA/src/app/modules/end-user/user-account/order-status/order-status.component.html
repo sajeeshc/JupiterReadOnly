@@ -1,0 +1,59 @@
+<div class="order-status-wrapper">
+  <div class="row order-status-card">
+    <div class="col-md-12 header-wrapper">
+      <div class="header-label row">
+        <div class="col-md-12 cart-header">
+          <b>ORDER STATUS</b>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 select-order-wrapper margin-top-15">
+      <div class="row">
+        <div class="col-md-3 padding-top-15">
+          <label class="padding-top-30">Select Order:</label>
+        </div>
+        <div class="col-md-9 padding-top-15 align-left select-order-dropdown">
+          <mat-form-field appearance="outline">
+            <mat-select f value="1">
+              <mat-option value="1">Select Order ID</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 margin-top-50">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="font-color-blue">Out for Delivery</h4>
+          <label class="font-size-small">Expected delivery: </label
+          ><label class="font-color-cyan font-size-small"
+            >Thursday,April 15 2021,by 3:00pm</label
+          >
+        </div>
+        <div class="col-md-6">
+          <br />
+          <label class="font-size-small"
+            >Your package is out for delivery and will arrive today.
+          </label>
+          <br /><label class="font-color-grey font-size-x-small"
+            >(Updated 0 minute(s)ago)</label
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 margin-top-50">
+      <div class="container">
+        <span *ngFor="let item of counts; let i = index">
+          <span
+            class="circle-desc"
+            [class.circle-desc-active]="orderStatus == item"
+            >{{ item }}</span
+          >
+          <span class="circles" [class.active]="orderStatus == item"></span>
+          <span class="bar" *ngIf="i != counts.length - 1"></span>
+        </span>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-style btn-position font-bold">BACK</button>
+  </div>
+</div>

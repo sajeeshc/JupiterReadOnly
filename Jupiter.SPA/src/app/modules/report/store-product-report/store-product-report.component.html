@@ -1,0 +1,49 @@
+<div class="report-container">
+    <div class="product">
+        <div class="product-image">
+            <img src="{{report?.src}}">
+        </div>
+        <div class="product-detail">
+            <p class="product-name"> {{report?.productDisplayName}} </p>
+            <!-- <p> Style name / Vendor name </p> -->
+            <p> Color: {{report?.color}} </p>
+            <p> Base Price: ${{report?.basePrice - report?.fundRaiserAmount}} </p>
+            <p> Fundraising: ${{ report?.fundRaiserAmount}}</p>
+        </div>
+    </div>
+    <div class="report">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Size</th>
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Quantity</th>
+                    <th>Paid Price</th>
+                    <!-- <th>Base Price</th> -->
+                </tr>
+            </thead>
+            <tbody *ngIf="report">
+                <tr *ngFor="let row of report.personalizations">
+                    <td>{{row.size}}</td>
+                    <td>{{row.name || "-"}}</td>
+                    <td>{{row.number || "-"}}</td>
+                    <td>{{row.quantity}}</td>
+                    <td>${{row.paid}}</td>
+                    <!-- <td>${{row.basePrice}}</td> -->
+                </tr>
+                <tr  *ngIf="report.personalizations.length">
+                    <td colspan="2"></td>
+                    <th>Product Total</th>
+                    <th>{{report.totalQuantity}}</th>
+                    <th>${{report.totalPaid}}</th>
+                    <!-- <td></td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="no-data" *ngIf="report && !report.personalizations.length">
+    <h1>NO DATA FOUND</h1>
+</div>

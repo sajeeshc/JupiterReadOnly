@@ -1,0 +1,115 @@
+.addBtn {
+  float: right;
+  background-color: #1730a3;
+  font-size: small;
+  color: white;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.modalBtn {
+  background-color: #1730a3;
+  float: right;
+  font-size: small;
+}
+
+.category-item-btn {
+  text-align: right;
+}
+
+.error {
+  font-size: 10px;
+  color: red;
+}
+
+.align-vertical {
+  vertical-align: middle;
+}
+
+.font-small {
+  font-size: small;
+}
+
+.padding-10 {
+  padding: 10px;
+}
+
+li {
+  padding: 5px;
+}
+
+h6 {
+  font-size: x-large;
+}
+
+.category-products-wrapper {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 5px;
+}
+
+.cardImgHolder {
+  height: 200px;
+  width: 200px;
+  margin: 5px;
+  text-align: center;
+}
+
+.category-header {
+  text-align: center;
+}
+
+.category-item {
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0px 1px 2px 1px lightgrey;
+}
+
+::ng-deep .mat-checkbox-layout,
+::ng-deep .mat-checkbox-label {
+  width: 100%;
+  max-width: 100%;
+}
+
+.modal-lg {
+  // width: fit-content !important;
+}
+
+.checkbox-content {
+  display: flex;
+  .prod-name {
+    padding: 0.5rem;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+  }
+  .prod-img {
+    height: 50px;
+    width: 50px;
+    border: 1px solid black;
+    // background: red;
+    img {
+      width: 100%;
+      max-height: 100%;
+    }
+  }
+}
+.drag-list-item:active{
+  // border: 2px solid violet;
+
+}
+
+.custom-drag-placeholder {
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.cdk-drag-preview {
+  // border: 1px solid black;
+  background: #fff;
+  z-index: 9000 !important;
+}

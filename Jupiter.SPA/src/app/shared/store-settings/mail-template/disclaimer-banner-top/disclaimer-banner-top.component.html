@@ -1,0 +1,46 @@
+<div class="edit">
+   <h4 class="mb-4">Disclaimer Template</h4>
+   <mat-form-field appearance="fill" class="w-100">
+      <mat-label></mat-label>
+      <textarea matInput [(ngModel)]="disclaimer" rows="5"></textarea>
+   </mat-form-field>
+   <!-- <quill-editor [formControl]="templateHtml">
+       <div quill-editor-toolbar>
+          <span class="ql-formats">
+             <button class="ql-bold"></button>
+             <button class="ql-italic"></button>
+             <button class="ql-underline"></button>
+          </span>
+ 
+          <span class="ql-formats">
+             <select class="ql-align" [title]="'Aligment'">
+                <option selected></option>
+                <option value="center"></option>
+                <option value="right"></option>
+                <option value="justify"></option>
+             </select>
+          </span>
+ 
+          <span class="ql-formats">
+             <select class="ql-size">
+                <option value="small"></option>
+                <option selected></option>
+                <option value="large"></option>
+                <option value="huge"></option>
+             </select>
+          </span>
+ 
+          <span class="ql-formats">
+             <select class="ql-color"></select>
+             <select class="ql-background"></select>
+          </span>
+       </div>
+    </quill-editor> -->
+   <div class="upload-logo-container mt-3 text-right w-100">
+      <div class="buttons text-right">
+         <!-- <button class="btn btn-outline-success ml-2" data-toggle="modal" data-target="#preview-modal"
+            (click)="updatePreview()">Preview</button> -->
+         <button class="btn btn-primary ml-2" (click)="saveDisclaimer()()">Save</button>
+      </div>
+   </div>
+</div>

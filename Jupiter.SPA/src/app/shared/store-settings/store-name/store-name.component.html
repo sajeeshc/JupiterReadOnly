@@ -1,0 +1,35 @@
+
+<form [formGroup]="nameAndDirectoryGroup" (ngSubmit) = "save()">
+  <div class="row">
+      <div class="col-md-8">
+        <p style="font-size: x-large;">Store Name</p>
+      </div>
+      <div class="col-md-4" style="text-align: right;">
+        <button class="btn btn-primary btnClass" type="submit">SAVE</button>
+      </div>
+    </div><br>
+    <div class="row">
+    <div class="col-md-12">
+      <mat-label>Store Name</mat-label><br><br>
+      <mat-label>This is the official name of this store. This name will be used to find your store on the web and it will also display when customers visit your store.</mat-label>
+      <mat-form-field class="formField"  style="width: 100%;">
+        <input type="text" matInput formControlName="storeName" />
+        <mat-error *ngIf="nameAndDirectoryGroup.get('storeName').errors?.required">
+          Store name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <!-- <div class="col-md-12">
+      <mat-label>Store Directory</mat-label><br><br>
+      <mat-label>This is the permanent store ID that you’ll use to access and edit your store. It must be unique and contain only letters, numbers, underscores, and/or dashes.
+      </mat-label>
+      <mat-form-field class="formField" style="width: 100%;">
+        <input type="text" matInput formControlName="storeDirectory" />
+        <mat-error *ngIf="nameAndDirectoryGroup.get('storeName').errors?.pattern">
+          Please enter a valid directory
+        </mat-error>
+        <mat-hint>Example: https://jupiter.com/my_new_store</mat-hint>
+      </mat-form-field>
+    </div> -->
+    </div>
+</form>

@@ -1,0 +1,128 @@
+.mat-row:nth-child(even) {
+  background-color: white;
+  height: 40px;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: #f1f1f1;
+  height: 40px;
+}
+
+.mat-header-cell {
+  color: white;
+  font-size: large;
+}
+
+tr.mat-header-row {
+  height: 40px;
+  background-color: #eb3a79;
+}
+
+tr.mat-header-row {
+  height: 40px;
+  background-color: #eb3a79;
+}
+
+.mat-form-field {
+  display: inline;
+}
+
+.table td{
+  vertical-align: middle;
+}
+
+.custom-td-padding {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+th{
+    font-size: small;
+}
+
+.cardWrapper {
+  background-color: lightgrey;
+}
+
+.formHeader {
+  height: 40px;
+  margin: auto;
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.formField {
+  width: 100%;
+}
+
+.tableCellWidth {
+  width: 5%;
+}
+
+.artDetailCard {
+  height: 200px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.addArtBtn {
+  float: right;
+  background-color: #1730a3;
+  font-size: small;
+  color:white;
+}
+
+
+.error {
+  font-size: 10px;
+  color: red;
+}
+
+.removeArtCard {
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.removeArtButtonHolder {
+  position: relative;
+  width: 120px;
+  float: left;
+}
+
+.removeArtBtn {
+  right: 0px;
+}
+
+.artImgHolder {
+  height: 100px;
+  width: 100px;
+  margin: 10px;
+  margin-top: 0px !important;
+}
+
+b {
+  font-family: "Copperplate Gothic Bold", Copperplate, sans-serif;
+}
+
+.commonBorder {
+  border-left: 4px solid #eb3a79;
+}
+
+.nextBtn {
+  background-color: #1830a3;
+  width: 100px;
+  font-size: small;
+}
+
+.cardHeader {
+  font-size: small;
+}
+
+.storeCreationBtn{
+    height: 26px;
+    vertical-align: middle
+}
+
+.example-margin{
+  margin-top: 27px;
+}

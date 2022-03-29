@@ -1,0 +1,48 @@
+.mat-card {
+   margin: 10px;
+}
+
+.mat-card-image {
+  height: 200px;
+}
+
+.cardContent {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 5px;
+}
+
+.cardActionBtn {
+  text-align: center;
+}
+
+.card-actions {
+  text-align: center;
+}
+
+.cardWrapper {
+  display: flex;
+}
+
+h5 {
+  margin-left: 10px;
+}
+
+.bottom-bar {
+  text-align: right;
+  bottom: 20px;
+  right: 20px;
+  position: fixed;
+}
+
+.btn-style {
+    color: white;
+    border-radius: 20px;
+    background-color: #004c98;
+    box-shadow: -4px 4px 0px 0px lightgrey; 
+  }
+
+  ::ng-deep .mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+}

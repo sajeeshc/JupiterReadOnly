@@ -1,0 +1,41 @@
+<br><br>
+<div class="row  justify-content-center">
+  <mat-card class="col-md-4" style="text-align: center;">
+    <h2>Add User</h2>
+    <form [formGroup]="addUserForm">
+      <mat-form-field style="width: 100%;">
+        <mat-label>Name</mat-label>
+        <input type="name" matInput formControlName="name">
+        <mat-error *ngIf="addUserForm.get('name').errors?.required">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%;">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email">
+        <mat-error *ngIf="addUserForm.get('email').errors?.required">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="addUserForm.get('email').errors?.pattern">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%;">
+        <mat-label>Role</mat-label>
+        <mat-select matInput formControlName="roleId">
+          <mat-option *ngFor="let item of roleArray" [value]="item.id">{{item.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <div class="form-group">
+        <button type="submit" mat-raised-button color="primary" (click)="addUser()">
+          <span *ngIf="!existingUser">Add</span>
+          <span *ngIf="existingUser">Update</span>
+        </button>
+      </div>
+    </form>
+
+  </mat-card>
+</div>

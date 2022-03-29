@@ -1,0 +1,320 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 customBorder">
+  <ng-container matColumnDef="storeName">
+    <th mat-header-cell *matHeaderCellDef> Store Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.storeName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="storeOwner">
+    <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.storeOwner}} </td>
+  </ng-container>
+  <ng-container matColumnDef="orderNumber">
+    <th mat-header-cell *matHeaderCellDef> Store ID</th>
+    <td mat-cell *matCellDef="let element"> {{element.orderNumber}} </td>
+  </ng-container>
+  <ng-container matColumnDef="accountManager">
+    <th mat-header-cell *matHeaderCellDef> Account Manager </th>
+    <td mat-cell *matCellDef="let element"> {{element.accountManager}} </td>
+  </ng-container>
+  <ng-container matColumnDef="assignedTo">
+    <th mat-header-cell *matHeaderCellDef> Assigned To </th>
+    <td mat-cell *matCellDef="let element"> {{element.assignedTo}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="storeListColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: storeListColumns;"></tr>
+</table>
+<mat-card class="customBorder">
+  <form [formGroup]="storeRequestForm">
+    <div class="row cardWrapper">
+      <div class="col-md-12 header">
+        <b>Store Specification</b>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="formWidth">
+          <mat-label>CustomerE-mail</mat-label>
+          <input type="text" matInput formControlName="emailId" (change)="checkForUserInfo()">
+          <mat-error *ngIf="storeRequestForm.get('emailId').errors?.required">
+            Email Id is required
+          </mat-error>
+          <mat-error *ngIf="storeRequestForm.get('emailId').errors?.pattern">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+        
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formWidth">
+          <mat-label>Store Primary Contact Name </mat-label>
+          <input type="text" matInput formControlName="contactName">
+          <mat-error *ngIf="storeRequestForm.get('contactName').errors?.required">
+            Store Primary Contact Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formWidth">
+          <mat-label>Store Name</mat-label>
+          <input type="text" matInput formControlName="name">
+          <mat-error *ngIf="storeRequestForm.get('name').errors?.required">
+            Store Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formWidth">
+          <mat-label>Phone Number</mat-label>
+          <input type="text" matInput formControlName="phoneNumber"
+          (keydown)="onKeyDownOfPhone($event)" (keyup)="onKeyUpOfPhone($event)">
+          <mat-error *ngIf="storeRequestForm.get('phoneNumber').errors?.required">
+            Phone Number is required
+          </mat-error>
+          <mat-error *ngIf="storeRequestForm.get('phoneNumber').errors?.pattern || storeRequestForm.get('phoneNumber').errors?.minlength || storeRequestForm.get('phoneNumber').errors?.maxlength">
+            Please enter a valid phone number
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formWidth">
+          <mat-label>Organization Name</mat-label>
+           <mat-select (selectionChange)="onOrganizationSelect()"  formControlName="organizationName" class="custom-inputbox">
+            <mat-option [value]="'Add'">Add Organization</mat-option>
+            <mat-option  *ngFor="let item of organizationArray" [value]="item.name">{{item?.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="formWidth">
+          <mat-label>Market Group <span style="color: red;">*</span></mat-label>
+          <mat-select (selectionChange)="onMarketGroupSelected()" formControlName="marketGroupId" class="custom-inputbox">
+            <mat-option *ngFor="let item of marketGroupArray" [value]="item.id">{{item?.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="storeRequestForm.get('marketGroupId').errors?.required">
+            Market Group is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formWidth">
+          <mat-label>Organization Address</mat-label>
+          <textarea class="custom-inputbox" id="organizationAddress"  matInput cdkTextareaAutosize formControlName="organizationAddress" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5"></textarea>
+          <mat-error *ngIf="storeRequestForm.get('organizationAddress').errors?.required">
+            Organization Address is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formWidth">
+          <mat-label>Market <span style="color: red;">*</span></mat-label>
+          <mat-select formControlName="marketId" class="custom-inputbox">
+            <mat-option *ngFor="let item of marketArray" [value]="item.id">{{item?.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="storeRequestForm.get('marketId').errors?.required">
+            Market is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Open Date</mat-label>
+          <input matInput [ngxMatDatetimePicker]="openDate" formControlName="openDate"
+          (dateInput)="onOpenDateChange()" (click)="openDate.open()" [min]="datesAllowed.openDate.minDate" readonly />
+          <mat-error *ngIf="storeRequestForm.get('openDate').errors?.required">
+            Open date is required
+          </mat-error>
+          <mat-error *ngIf="storeRequestForm.get('openDate').errors?.matDatetimePickerMin">
+            Open date is not valid
+          </mat-error>
+          <mat-datepicker-toggle matSuffix [for]="openDate"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #openDate [enableMeridian]="true"></ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Close Date</mat-label>
+          <input matInput [ngxMatDatetimePicker]="closeDate" formControlName="closeDate"
+          (dateInput)="onCloseDateChange();invalidClosingDay()" (click)="closeDate.open();"
+           [min]="datesAllowed.closeDate.minDate" readonly />
+          <mat-error *ngIf="storeRequestForm.get('closeDate').errors?.required">
+            Close Date is required
+          </mat-error>
+          <mat-error *ngIf="storeRequestForm.get('closeDate').errors?.invalidDay">
+            Close Date cannot be Friday or Saturday
+          </mat-error>
+          <mat-datepicker-toggle matSuffix [for]="closeDate"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #closeDate [enableMeridian]="true"></ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Products Shipped By</mat-label>
+          <input matInput [matDatepicker]="productShippedBy" formControlName="productShippedBy"
+          (dateInput)="updateDatesAllowed()" (click)="productShippedBy.open()" [min]="datesAllowed.productShippedBy.minDate" readonly />
+          <mat-error *ngIf="storeRequestForm.get('productShippedBy').errors?.required">
+            Products In Hand is required
+          </mat-error>
+          <mat-datepicker-toggle matSuffix [for]="productShippedBy"></mat-datepicker-toggle>
+          <mat-datepicker #productShippedBy></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6" style="padding-top: 27px;">
+        <mat-checkbox formControlName="contactMe" [disabled]="true">
+          <mat-hint>I need it faster. Please contact me!</mat-hint>
+        </mat-checkbox>
+        
+      </div>
+      <div class="col-md-3">
+        <div class="formWidth">
+          <mat-label>Shipping Preference</mat-label><br><br>
+          <mat-radio-group matInput (change)="shippingPreferenceSelected()"  aria-label="Select an option" formControlName="shippingPreference">
+            <mat-radio-button [value]="1">Individual</mat-radio-button> &nbsp;
+            <mat-radio-button [value]="2">Bulk</mat-radio-button>
+          </mat-radio-group>
+          <hr>
+        </div>
+      </div>
+      <div class="col-3">
+        <mat-form-field *ngIf="storeRequestForm.value.shippingPreference == 1" class="w-100">
+          <mat-label>Individual Shipping Charge</mat-label>
+          <span style="position: absolute;">$</span>
+          <input type="number" matInput placeholder="Individual Shipping Charge" style="padding-left: 1em;"
+          formControlName="proposedIndividualShippingCharge" readonly>
+          <mat-error *ngIf="storeRequestForm.get('proposedIndividualShippingCharge').errors?.required">
+            Shipping charge is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div *ngIf="storeRequestForm.get('shippingPreference').value == '2'" class="col-md-6">
+        <mat-form-field class="formWidth">
+          <mat-label>Ship To Address</mat-label>
+          <input type="text" matInput formControlName="shipToAddress" readonly>
+          <mat-error *ngIf="storeRequestForm.get('shipToAddress').errors?.required">
+            Ship To Address is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6" style="padding-top: 27px;">
+        <mat-checkbox formControlName="availableToCopy">
+          <mat-hint>Allow my store to be used as a template</mat-hint>
+        </mat-checkbox>
+        <hr />
+      </div>
+      <div class="col-md-6">
+        <div class="formWidth">
+          <mat-label>Fund Raising Claim Preference</mat-label><br><br>
+          <mat-radio-group matInput aria-label="Select an option" formControlName="fundRaisingClaimPreference">
+            <mat-radio-button [value]="1">Check</mat-radio-button> &nbsp;
+            <mat-radio-button [value]="2">Credit</mat-radio-button> &nbsp;
+            <mat-radio-button [value]="3">None</mat-radio-button>
+          </mat-radio-group>
+          <hr>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <!-- <div class="formWidth">
+          <mat-label>Store Closure Mode</mat-label><br><br>
+          <mat-radio-group matInput aria-label="Select an option" formControlName="storeClosureMode">
+            <mat-radio-button [value]="1">Manual</mat-radio-button> &nbsp;
+            <mat-radio-button [value]="2">Automatic</mat-radio-button>
+          </mat-radio-group>
+          <hr>
+        </div> -->
+      </div>
+
+      <div *ngIf="storeRequestForm.get('fundRaisingClaimPreference').value == '1'" class="col-md-6">
+        <mat-form-field class="formWidth">
+          <mat-label>Rebate Check Address</mat-label>
+          <input type="text" matInput formControlName="rebateCheckAddress">
+          <mat-error *ngIf="storeRequestForm.get('rebateCheckAddress').errors?.required">
+            Rebate Check Address is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      
+    </div>
+  </form>
+  <div class="row"> <div class="col-md-12" mat-dialog-actions align="end">
+    <div class="form-group">
+      <button [disabled]="loading" class="btn btn-primary commonBtnStyle" (click)="next()">
+
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Next
+      </button>
+    </div>
+  </div></div>
+ 
+</mat-card>
+
+<div class="modal fade" id="addOrgModal" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <mat-label>Add Organization</mat-label>
+        <button type="button" class="close" (click)="closeOrganiztionModal()">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="organizationForm" novalidate class="form-group" id="organizationForm">
+          <select class="form-control m-2" formControlName="institutionTypeId" name="institutionTypeId" required>
+            <option value="" disabled selected hidden>Instituition Type</option>
+            <option *ngFor="let item of instituitionArray" [value]="item.id">{{item.name}}</option>
+          </select>
+          <input type="text" class="form-control m-2" formControlName="name" placeholder="Organization Name" required/>
+          <input type="text" class="form-control m-2" formControlName="address" placeholder="Address 1" required/>
+          <input type="text" class="form-control m-2" formControlName="address1" placeholder="Address 2" />
+          <input type="text" class="form-control m-2" formControlName="city" placeholder="City" required/>
+          <select class="form-control m-2" formControlName="state"  name="State" required>
+            <option value="" disabled selected hidden>State</option>
+            <option *ngFor="let item of stateArray" [value]="item.id">{{item.name}}</option>
+          </select>
+          <input type="text" class="form-control m-2" formControlName="zip" placeholder="Zip Code" required/>
+          <button type="button" class="btn btn-primary m-2 float-right" (click)="createNewOrganization()">
+            Add Organization
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="userInfoModal" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="resetUserData(true)">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <form #form="ngForm">
+            <br>
+            <mat-form-field style="width: 100%;height: 100%;">
+              <mat-label>Name</mat-label>
+              <input type="text" matInput name="name" id="name" disabled />
+            </mat-form-field>
+            <br>
+            <mat-form-field style="width: 100%;height: 100%;">
+              <mat-label>Phone Number</mat-label>
+              <input type="text" matInput name="phone" id="phone" disabled />
+            </mat-form-field>
+            <br>
+            <mat-form-field style="width: 100%;height: 100%;">
+              <mat-label>Email</mat-label>
+              <input type="text" matInput name="email" id="email" disabled />
+            </mat-form-field>
+            <br>
+          </form>
+        </div>
+        <div style="text-align: right;">
+          <button (click)="fillFormWithVerifiedUserData()" type="button" class="btn btn-primary commonBtnStyle">
+            Verify
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+<div *ngIf="!orders" class="w-100 text-center mt-3">
+  <h3>No orders available for this store</h3>
+</div>
+
+<div class="storeDetails row text-center m-3 p-2 border">
+  <div class="col">Store Name: {{storeId}}</div>
+  <div class="col">Store Name: {{storeName}}</div>
+  <div class="col">Total Sales: <strong>{{totalSales}}</strong></div>
+</div>
+
+<div class="filer">
+
+</div>
+
+<div class="orders">
+  <mat-accordion>
+    <ng-container *ngFor="let order of orders;let i=index">
+      <mat-expansion-panel *ngIf="order?.lineItems?.length > 0" class="order-panel mb-2">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="row w-100">
+              <div class="col">Order Id: {{order.id}}</div>
+              <div class="col">Customer Name: {{order.customerName}}</div>
+              <div class="col">Email: {{order.customerEmail}}</div>
+              <div class="col">Order Date: {{order.createdDate | date:'MM-dd-yyyy'}}</div>
+              <div class="col">Total Amount: ${{order.totalAmount}}</div>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="shipping-address mt-2">
+          <h6>Shipping Address:</h6>
+          <p>{{order.shippingAddress}}, {{order.shippingAddress1}}, {{order.shippingCity}},
+            {{order.shippingState}}, {{order.shippingZipCode}}</p>
+        </div>
+        <ng-container *ngFor="let product of order?.lineItems;let j=index">
+          <div class="order-line-items row m-2 p-2 w-100" *ngIf="product.personalizations?.length">
+            <mat-accordion class="w-100">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <div class="row w-100">
+                      <div class="col">Product: {{product.productName}} (#{{product.productId}})</div>
+                      <div class="col">Color: {{product.color}}</div>
+                      <div class="col">Quantity: {{product.quantity}}</div>
+                      <div class="col">Total Amount: ${{product.totalAmount}}</div>
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <table class="table table-sm" style="max-width: 800px;">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Number</th>
+                      <th>Size</th>
+                      <th>Quantity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let personalization of product.personalizations;let k=index">
+                      <td>{{personalization.name || "-"}}</td>
+                      <td>{{personalization.number || "-"}}</td>
+                      <td>{{personalization.size}}</td>
+                      <td>
+                        {{personalization.quantity}}
+                        <button class="btn btn-sm btn-outline-danger float-right ml-2" data-toggle="modal"
+                          data-target="#cancelModal" (click)="cancelPersonalization(personalization,i,j,k)">
+                          Cancel Item
+                        </button>
+                      </td>
+                      <!-- <td class="border-0">
+                        
+                      </td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <!-- <div class="col-10">
+              Product: {{product.productName}} (#{{product.productId}}) {{product.isPersonalize ? "- Personalized" : ""}}
+            </div>
+            <div class="col-2 text-right"><button class="btn btn-sm btn-outline-danger"
+                (click)="cancelProduct(product.lineItemId,i,j)">Cancel Product</button></div>
+            <div class="col-4">Size: {{product.sizes}}</div>
+            <div class="col-4">Quantity: {{product.quantity}}</div>
+            <div class="col-4">Total Amount: ${{product.totalAmount}}</div> -->
+          </div>
+        </ng-container>
+
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-accordion>
+</div>
+
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cancel Item</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="cancelAll" (change)="onRadioButtonChange()">
+          <mat-radio-button [value]="true">Cancel all</mat-radio-button><br>
+          <mat-radio-button [value]="false">Cancel selected quantity </mat-radio-button><br><br>
+        </mat-radio-group>
+        <mat-form-field appearance="fill">
+          <mat-label>Quantity to cancel</mat-label>
+          <input matInput [formControl]="quantityToCancel" type="number">
+          <mat-error *ngIf="quantityToCancel.errors?.required">
+            Quantity to cancel is required
+          </mat-error>
+          <mat-error *ngIf="quantityToCancel.errors?.min">
+            Quantity to cancel should be minimum 1
+          </mat-error>
+          <mat-error *ngIf="quantityToCancel.errors?.max">
+            Quantity to cancel cannot exceed total quantity({{selectedPersonalization.quantity}})
+          </mat-error>
+        </mat-form-field>
+        <p style="color: red;">
+          <ng-container *ngIf="!quantityToCancel.errors">
+            This will cancel
+            {{cancelAll ? "all items" : quantityToCancel.value + " item(s)"}} 
+            and refund the amount to customer
+          </ng-container>
+          &nbsp;
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+        <button type="button" class="btn btn-primary" (click)="submit()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

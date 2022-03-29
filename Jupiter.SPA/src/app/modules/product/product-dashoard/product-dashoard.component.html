@@ -1,0 +1,233 @@
+<div class="row m-2">
+    <div class="col-md-1">
+      <div class="sideTab" [routerLink]="['/productmanager/productmanagement']"(click)="setHeader('Product Management')">
+        <img src="../../../../assets/images/category-icon.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Product Management</p>
+      </div>
+      <div class="sideTab" [routerLink]="['/productmanager/productlist']">
+        <img src="../../../../assets/images/productivity.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Product Data</p>
+      </div>
+      <div class="sideTab" [routerLink]="['/productmanager/addproduct']">
+        <img src="../../../../assets/images/shirt.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Add Product</p>
+      </div>
+      <div class="sideTab" [routerLink]="['/productmanager/updateproductdecogroup']" (click)="setHeader('Promotion List')">
+        <img src="../../../../assets/images/peoples.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Assign Deco Group</p>
+      </div>
+      <div class="sideTab" [routerLink]="['/productmanager/promotion']">
+        <img src="../../../../assets/images/store.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Create Promotions</p>
+      </div>
+      <!-- <div class="sideTab" [routerLink]="['/productmanager/promotionlist']" (click)="setHeader('Promotion List')">
+        <img src="../../../../assets/images/peoples.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Promotion List</p>
+      </div> -->
+      <div class="sideTab" [routerLink]="['/productmanager/bulksizechart']">
+        <img src="../../../../assets/images/peoples.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Assign Size Chart</p>
+      </div>
+      <div class="sideTab" [routerLink]="['/productmanager/settings/productcategory']" (click)="setHeader('Settings')">
+        <img src="../../../../assets/images/Layer_6.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Settings</p>
+      </div>
+    </div>
+    <div class="col-md-11">
+      <mat-grid-list cols="3" rowHeight="100px">
+        <mat-grid-tile [colspan]="1" [rowspan]="4">
+        
+           </mat-grid-tile>
+  
+        <mat-grid-tile [colspan]="1" [rowspan]="5">
+            <div class="summaryWrapper">
+                <div class="height50" id="taskSummaryHeader">
+                  <p style="font-size: large"><b></b></p>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 leftColTab" [routerLink]="['/productmanager/promotionlist']">
+                    <div class="summaryTab">
+                      <h4 class="summaryTabHeader">{{dashBoardDetailCount?.promotionCount}}</h4>
+                      <span class="summaryTabInfo">Promotions</span>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-6 rightColTab">
+                    <div class="summaryTab">
+                      <h4 class="summaryTabHeader">28</h4>
+                      <span class="summaryTabInfo">xxxx</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 leftColTab">
+                    <div class="summaryTab" >
+                      <h4 class="summaryTabHeader">0</h4>
+                      <span class="summaryTabInfo">xxxx</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 rightColTab">
+                    <div class="summaryTab">
+                      <h4 class="summaryTabHeader">0</h4>
+                      <span class="summaryTabInfo">xxxx
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 leftColTab">
+                    <div class="summaryTab">
+                      <h4 class="summaryTabHeader">0</h4>
+                      <span class="summaryTabInfo">xxxx</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 rightColTab">
+                    <div class="summaryTab">
+                      <h4 class="summaryTabHeader">3</h4>
+                      <span class="summaryTabInfo">xxxx</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 leftColTab">
+                    <div class="summaryTab">
+                      <h4 class="summaryTabHeader">8</h4>
+                      <span class="summaryTabInfo">xxxx</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 rightColTab">
+                    <div class="summaryTab">
+                      <h4 class="summaryTabHeader">6</h4>
+                      <span class="summaryTabInfo">xxxx</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 leftColTab">
+                    <div class="summaryTab">
+                      <h4 class="summaryTabHeader">4</h4>
+                      <span class="summaryTabInfo">xxxx</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 rightColTab">
+                    <div class="summaryTab">
+                      <h4 class="summaryTabHeader">0</h4>
+                      <span class="summaryTabInfo">xxxx</span>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="5">
+          <div class="inboxWrapper">
+            <div class="table-scroll">
+              <table class="table table-striped">
+                <thead>
+                  <tr id="inboxTableHeader">
+                    <th>xxxx</th>
+                    <th style="text-align: right">
+                      <span class="material-icons"> info </span>
+                    </th>
+                  </tr>
+                  <tr id="inboxTableHeader">
+                    <th class="inboxHeading" width="60%"></th>
+                    <th class="inboxHeading" width="40%"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+              </table>
+            </div>
+  
+          </div>
+        </mat-grid-tile>
+        <!-- <mat-grid-tile [colspan]="1" [rowspan]="2">
+          <div class="notificationWrapper">
+            <div class="table-scroll">
+              <table class="table table-striped tableLineHeight">
+                <thead>
+                  <tr class="notificationTableHeader">
+                    <th width="90%" >NOTIFICATIONS/ALERTS</th>
+                    <th width="10%"><span class="material-icons"> info </span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td width="90%">Store build alert time</td>
+                    <td width="10%">
+                      <span class="material-icons"> report_problem </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="90%">New request overdue</td>
+                    <td width="10%">
+                      <span class="material-icons"> report_problem </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="90%">Store build ready to publish</td>
+                    <td width="10%">
+                      <span class="material-icons"> report_problem </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="90%">Store expired</td>
+                    <td width="10%">
+                      <span class="material-icons"> report_problem </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+          </div>
+        </mat-grid-tile> -->
+        <mat-grid-tile [colspan]="1" [rowspan]="2">
+            <div class="inboxWrapper" style="    border-left: 3px solid #D32B36;">
+                <div class="table-scroll">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr id="inboxTableHeader" style="background-color: #D32B36;">
+                        <th>xxxx</th>
+                        <th style="text-align: right">
+                          <span class="material-icons"> info </span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td width="70%"></td>
+                        <td width="30%"></td>
+                      </tr>
+                      <tr>
+                        <td width="70%"></td>
+                        <td width="30%"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+      
+              </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <div class="quickLinkWrapper">
+            <div class="height50" id="quickLinkHeader">
+              <p style="font-size: large">
+                <b>RELATED LIST QUICK LINKS</b>
+              </p>
+            </div>
+            <!-- <div class="row">
+              <div class="col-md-2 quickLinkImgTab">
+                <img src="../../../../assets/images/Group 2829.png" class="imgTabSize" />xx
+              </div>
+              <div class="col-md-2 quickLinkImgTab">
+                <img src="../../../../assets/images/contacts.png" class="imgTabSize" />xxxxx
+              </div>
+              <div class="col-md-2 quickLinkImgTab">
+                <img src="../../../../assets/images/people.png" class="imgTabSize" />xxxx
+              </div>
+              <div class="col-md-2 quickLinkImgTab">
+                <img src="../../../../assets/images/pencil.png" class="imgTabSize" />xxxxxx
+              </div>
+              <div class="col-md-2 quickLinkImgTab">
+                <img src="../../../../assets/images/crown.png" class="imgTabSize" />x
+              </div>
+            </div> -->
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+  

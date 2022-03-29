@@ -1,0 +1,124 @@
+.filterTab {
+  margin: 15px;
+  vertical-align: text-bottom;
+  align-items: baseline;
+  text-align: end;
+}
+
+::ng-deep .custom-frame {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-radius: 70% !important;
+  }
+}
+
+::ng-deep .mat-checkbox-checkmark-path {
+  stroke: white !important;
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: black;
+}
+
+.checkboxPadding {
+  padding-top: 21px;
+}
+
+.addBtn {
+  background-color: #0f5384;
+  font-size: small;
+  height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.buttonTopPadding {
+  padding-top: 15px;
+  margin-left: 10px;
+}
+
+.mat-paginator {
+  padding: 10px;
+}
+
+
+.productHeader {
+  width: 100%;
+  border: 1px solid lightgray;
+  height: 40px;
+}
+
+.productHeading {
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.imgTab {
+  height: 160px;
+  width: 140px;
+  margin: 15px;
+  border: 1px solid black;
+}
+
+.productInfoWrapper {
+  display: flex;
+  border: 1px solid lightgray;
+  padding: 10px;
+}
+
+.productImgHeading {
+  padding-left: 15px;
+}
+
+.btn-color-height {
+  height: 15px !important;
+  width: 10px !important;
+  margin: 5px;
+  border-radius: 3px;
+}
+.colorTab{
+    margin-left: 10px;
+}
+
+.btnBlack {
+  background-color: black;
+}
+
+.btnGreen {
+  background-color: darkgreen;
+}
+
+.btnBlue {
+  background-color: darkblue;
+}
+
+.btnRed {
+  background-color: darkred;
+}
+
+.product-detail-label{
+    margin: 0px;
+    margin-bottom: 2px;
+}
+
+.label-grey-font{
+    color: grey;
+    font-size: small;
+}
+
+.expand-tab-wrapper{
+    text-align: right;
+    padding-top: 40px;
+}
+
+.expand-tab{
+    margin-right: 10px;
+}
+
+.mat-paginator-tab{
+    text-align: left;
+}
+a{
+    cursor: pointer;
+}

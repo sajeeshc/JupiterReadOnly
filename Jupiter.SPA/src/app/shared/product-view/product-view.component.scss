@@ -1,0 +1,139 @@
+.label-holder {
+  margin-top: 10px !important;
+}
+
+.img-holder {
+  border: 1px solid;
+  // width: 500px;
+  // height: 500px;
+  max-width: 500px;
+  max-height: 500px;
+  cursor: zoom-in;
+}
+
+.zoom-img-holder{
+  border: 1px solid;
+  position: absolute;
+  background: white;
+  // margin-left: 50%;
+  z-index: 100;
+  // width: 500px;
+  // height: 500px;
+  max-width: 500px;
+  max-height: 500px;
+  display: inline;
+  display: none;
+	background-repeat: no-repeat;
+  background-size: 240%;
+	// margin-left: auto;
+	// margin-right: auto;
+  img{
+    visibility: hidden;
+  }
+}
+
+.img-wrapper {
+  text-align: center;
+}
+
+.mat-icon:hover {
+  cursor: pointer;
+}
+
+.table td,
+.table th {
+  border-top: none;
+  border-bottom: none;
+  padding-bottom: 0;
+  padding-top: 0.25rem;
+}
+
+.imgTab {
+  height: 80px;
+  width: 60px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.personalizeTable {
+  padding: 10px;
+  min-height: 100px;
+  max-height: 275px;
+  overflow: auto;
+
+  min-width: 550px;
+  margin-top: 10px;
+  box-shadow: 2px 1px 12px 5px rgb(0 0 0 / 10%);
+}
+
+.width-75 {
+  width: 75%;
+}
+
+.width-85 {
+  width: 85%;
+}
+
+.detail-table{
+  width: 85%;
+  font-size: 1.2rem;
+  line-height: 1.5rem !important;
+  th{
+    color: #085081;
+    width: 20%;
+    // white-space:nowrap;
+  }
+  th.product-name{
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  th{
+    padding: 1rem;
+  }
+}
+
+.buttons{
+  width: 85%;
+  text-align: right;
+}
+
+.properties-img{
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.properties-table{
+  td, th{
+    vertical-align: middle;
+  }
+}
+
+.mat-form-field-infix{
+  padding-top: 0.6rem !important;
+}
+
+.art{
+  height: 50px;
+  width: 50px;
+  img{
+    max-width: 100%;
+  }
+}
+
+.view-size-chart{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .upload-size-chart-img{
+    width: fit-content;
+    max-width: 100%;
+    margin: auto;
+    cursor: pointer;
+  }
+}
+
+#sizeChartModal .modal-header{
+  justify-content: flex-end;
+}

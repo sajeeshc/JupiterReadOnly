@@ -1,0 +1,53 @@
+.wrapper {
+  margin-top: 12px;
+  min-width: 150px;
+  text-align: center;
+}
+
+.search-icon {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  width: 14px;
+}
+
+.navbar-btn {
+  cursor: pointer;
+}
+
+.search {
+  border: 1px solid grey;
+  border-radius: 5px;
+  height: 30px;
+  width: 100%;
+  padding: 2px 23px 2px 30px;
+  outline: 0;
+  background-color: white;
+}
+
+.utilityButtonColumn {
+  display: flex;
+  position: relative;
+}
+
+h5 {
+  font-family: "Copperplate Gothic Bold", Copperplate, sans-serif;
+  color: #1830a3;
+}
+
+.container-div {
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+
+.fullscreen-spinner {
+  height: 100vh;
+  width: 100vw;
+  background-color: #182fa32d;
+  z-index: 10000;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

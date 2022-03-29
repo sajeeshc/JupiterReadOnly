@@ -1,0 +1,99 @@
+.headerImage {
+  width: 100%;
+}
+
+.display-flex{
+    display: flex;
+}
+
+.font-size-large{
+    font-size: large;
+}
+
+.profile-img-holder{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    margin: 10px;
+}
+
+.details-card-holder {
+    margin: 20px;
+    padding: 20px;
+    
+  }
+
+  .custom-mat-card{
+    background-color: transparent;
+  }
+  
+  .menu-card-holder {
+    width: 25%;
+    margin-top: 20px;
+    margin-left: 40px;
+  }
+
+  .user-info-card{
+      background-color: #FFFFFF;
+      border-radius: 5px;
+      margin-left: 0px;
+      margin-right: 0px;
+  }
+
+  .padding-top-15{
+      padding-top:15px;
+  }
+
+  //todo: common used card header
+
+  .header-label {
+    background-color: #004c98;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: white;
+  }
+  
+  .cart-header {
+    height: 40px;
+    margin: auto;
+    display: inline;
+    padding: 10px;
+  }
+
+  //end
+
+  mat-icon{
+    vertical-align: middle;
+  }
+
+  mat-card{
+      height: 100%;
+  }
+
+  .menu-category{
+      margin:20px
+  }
+
+  .menu-heading{
+      font-size: large;
+      font-weight: bold;
+  }
+
+  ul {
+    list-style-type: none;
+    margin-left: -20px;
+}
+
+
+  li{
+      margin-top: 15px;
+      cursor: pointer;
+  }
+
+  .link{
+    cursor: pointer;
+  }
+
+  .detail-card-holder{
+    margin: 1rem;
+  }

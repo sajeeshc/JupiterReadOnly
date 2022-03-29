@@ -1,0 +1,69 @@
+<form [formGroup]="seoSettingsGroup">
+  <div class="row padding10">
+      <div class="col-md-8 padding10">
+        <p style="font-size: x-large;">SEO Settings</p><br>
+        <mat-hint>Search Engine Optimization (SEO) is a technique used to obtain high-ranking placement in search engines — including Google, Bing, Yahoo and others to increase the amount of visitors to your website.</mat-hint>
+      </div>
+      <div class="col-md-4 padding10 align-right">
+        <button class="btn btn-primary btnClass" (click)="saveTeamStoreChanges()" [disabled]="pageSelected===undefined">
+          SAVE
+        </button>
+      </div>
+    </div>
+    <div class="row padding10">
+      <div class="col-md-12 padding10"></div>
+    <div class="col-md-12 padding10">
+      <mat-label>Store Page</mat-label>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-form-field appearance="fill" style="width: 50%;">
+        <mat-label>--Select Page--</mat-label>
+        <mat-select formControlName="pageType" [(value)]="pageSelected">
+          <mat-option value="1">Home</mat-option>
+          <mat-option value="2">Catalog</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-divider></mat-divider>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-label>Meta Title</mat-label><br>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-hint>Title tags are used to tell search engines and visitors what your website is about in the most concise and accurate way possible. This title will show up as a big blue link in search engine results.
+      </mat-hint>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-form-field class="formField"  style="width: 100%;">
+        <input type="text" matInput formControlName="metaTitle" />
+      </mat-form-field>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-label>Meta Description</mat-label><br>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-hint>The meta description is a short paragraph of text placed in the HTML of a webpage that describes its content. The meta description will appear under your page’s URL in search results. This is also known as a snippet.
+      </mat-hint>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-form-field class="formField"  style="width: 100%;">
+        <textarea matInput formControlName="metaDescription" cdkTextareaAutosize
+        cdkAutosizeMinRows="6"></textarea>
+        <mat-hint>0/160 characters</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-label>Focus Keyword</mat-label><br>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-hint>A focus keyword is the main keyword that you are hoping people will search for to find your website.
+      </mat-hint>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-form-field class="formField"  style="width: 100%;">
+        <input type="text" matInput formControlName="focusKeyword" />
+      </mat-form-field>
+    </div>
+    </div>
+</form>

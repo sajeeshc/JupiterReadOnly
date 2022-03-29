@@ -1,0 +1,106 @@
+.btnClass {
+  background-color: #1830a3;
+  font-size: small;
+}
+
+.padding10 {
+  padding: 10px;
+}
+
+.details-font {
+  font-size: x-small;
+  color: #1f1f1f;
+}
+
+textarea {
+  max-height: 50px;
+  height: 25px;
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.4em 0px !important;
+}
+::ng-deep .mat-form-field-label-wrapper {
+  top: -1.2em;
+  font-size: small;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label {
+  transform: translateY(-1.1em) scale(0.75);
+  width: 133.33333%;
+}
+
+.fixed {
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width{
+  width: 50%;
+}
+
+.align-items-right{
+  text-align: right;
+}
+
+.time-picker{
+  display: flex;
+}
+
+.details-font-content{
+  font-size: small;
+  color: #1f1f1f;
+}
+
+
+.pickup-items{
+  background-color: #EEEEEE;
+  padding-top: 10px;
+  cursor: move;
+}
+
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drag-box:last-child {
+  border: none;
+}
+
+.drag-list.cdk-drop-list-dragging .drag-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.list-btn{
+  background-color: transparent;
+  color:#2296F3;
+}
+
+.btn-trash{
+vertical-align: middle;
+}
+
+.align-right{
+  text-align: right;
+}
+
+.align-items-left{
+  text-align: left;
+}

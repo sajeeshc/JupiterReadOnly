@@ -1,0 +1,15 @@
+<div class="grid-container">
+    <div class="prod-card" *ngFor="let prod of dataSource">
+        <div class="img">
+            <img src="{{prod.mockupImage}}">
+        </div>
+        <div class="info">
+            <p class="font-weight-bold">{{prod.productName}}</p>
+            <p>Sold Quantity: {{prod.quantityOrdered}}</p>
+        </div>
+    </div>
+</div>
+
+<div class="no-data" *ngIf="!dataSource?.length && !loading">
+    <h1>NO DATA FOUND</h1>
+</div>

@@ -1,0 +1,362 @@
+<mat-card [hidden]="showForm1" class="commonBorder">
+  <form [formGroup]="createStoreForm">
+    <div class="row cardWrapper">
+      <div class="col-md-12 formHeader">
+        <b>Store Specification</b>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Store Name</mat-label>
+          <input type="text" matInput formControlName="name" />
+          <mat-error *ngIf="createStoreForm.get('name').errors?.required">
+            Store Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Customer Store Owner</mat-label>
+          <input type="text" matInput formControlName="contactName" />
+          <mat-error *ngIf="createStoreForm.get('contactName').errors?.required">
+            Customer Store Owner is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Email Id</mat-label>
+          <input type="text" matInput formControlName="emailId" />
+          <mat-error *ngIf="createStoreForm.get('emailId').errors?.required">
+            Email Id is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Phone Number</mat-label>
+          <input type="text" matInput formControlName="phoneNumber" />
+          <mat-error *ngIf="createStoreForm.get('phoneNumber').errors?.required">
+            Phone Number is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Organization Name</mat-label>
+          <input type="text" matInput formControlName="organizationName" />
+          <mat-error *ngIf="createStoreForm.get('organizationName').errors?.required">
+            Organization Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Organization Address</mat-label>
+          <input type="text" matInput formControlName="organizationAddress" />
+          <mat-error *ngIf="createStoreForm.get('organizationAddress').errors?.required">
+            Organization Address is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label>Open Date</mat-label>
+          <input matInput [min]="minDate" [matDatepicker]="openDatePicker" formControlName="openDate" (click)="openDatePicker.open()">
+          <mat-datepicker-toggle matSuffix [for]="openDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #openDatePicker></mat-datepicker>
+          <mat-error *ngIf="createStoreForm.get('openDate').errors?.required">
+            Open Date is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label>Products In Hand By</mat-label>
+          <input matInput [min]="minDate" [matDatepicker]="productsInHandByPicker" formControlName="productsInHandBy" (click)="productsInHandByPicker.open()">
+          <mat-datepicker-toggle matSuffix [for]="productsInHandByPicker"></mat-datepicker-toggle>
+          <mat-datepicker #productsInHandByPicker></mat-datepicker>
+          <mat-error *ngIf="createStoreForm.get('productsInHandBy').errors?.required">
+            Products In Hand By is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label>Requested Store Close Date</mat-label>
+          <input matInput [min]="minDate" [matDatepicker]="closeDatePicker" formControlName="closeDate" (click)="closeDatePicker.open()">
+          <mat-datepicker-toggle matSuffix [for]="closeDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #closeDatePicker></mat-datepicker>
+          <mat-error *ngIf="createStoreForm.get('closeDate').errors?.required">
+            Requested Store Close Date is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Sport/ Club</mat-label>
+          <input type="text" matInput formControlName="club" />
+          <mat-error *ngIf="createStoreForm.get('club').errors?.required">
+            Sport/ Club is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Shipping Preference(Address if shipping bulk)</mat-label>
+          <input type="text" matInput formControlName="shippingPreference" />
+          <mat-error *ngIf="createStoreForm.get('shippingPreference').errors?.required">
+            Shipping Preference is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Ship To Address</mat-label>
+          <input type="text" matInput formControlName="shipToAddress" />
+          <mat-error *ngIf="createStoreForm.get('shipToAddress').errors?.required">
+            Ship To Address is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Rebate Check Address</mat-label>
+          <input type="text" matInput formControlName="rebateCheckAddress" />
+          <mat-error *ngIf="createStoreForm.get('rebateCheckAddress').errors?.required">
+            Rebate Address is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-checkbox formControlName="availableToCopy">
+          <mat-hint>Available to copy as store template</mat-hint>
+        </mat-checkbox>
+        <hr />
+      </div>
+      <div class="col-md-6">
+        <div class="formField">
+          <mat-label>Fund Raising Claim Preference</mat-label><br /><br />
+          <mat-radio-group matInput aria-label="Select an option" formControlName="fundRaisingClaimPreference">
+            <mat-radio-button value="1" [checked]="true">Check</mat-radio-button>
+            &nbsp;
+            <mat-radio-button value="2">Credit</mat-radio-button>
+          </mat-radio-group>
+          <hr />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="formField">
+          <mat-label>Store Closure Mode</mat-label><br /><br />
+          <mat-radio-group matInput aria-label="Select an option" formControlName="storeClosureMode">
+            <mat-radio-button value="1" [checked]="true">Manual</mat-radio-button>
+            &nbsp;
+            <mat-radio-button value="2">Automatic</mat-radio-button>
+          </mat-radio-group>
+          <hr />
+        </div>
+      </div>
+      <div class="col-md-12" mat-dialog-actions align="end">
+        <div class="form-group">
+          <button [disabled]="loading" class="btn btn-primary nextBtn" (click)="nextForm()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-card>
+
+<mat-card>
+  <form [formGroup]="createStoreForm" [hidden]="showForm2">
+    <div class="row" class="cardWrapper">
+      <div class="col-md-12 formHeader">
+        <b>Store Specification</b>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card>
+          <table class="table">
+            <thead>
+              <tr>
+                <th width="5%">SL NO</th>
+                <th width="35%">Garments Selected</th>
+                <th width="15%">Product Price</th>
+                <th width="15%">F%</th>
+                <th width="15%">Fundraising Amount</th>
+                <th width="4%">Discount</th>
+                <th width="10%">Total Price</th>
+                <th width="1%"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr formArrayName="garmentsRequested" *ngFor="
+                  let option of createStoreForm.get('garmentsRequested')[
+                    'controls'
+                  ];
+                  let i = index
+                ">
+                <td class="tableCellWidth custom-td-padding">
+                  <div [formGroupName]="i">
+                    {{ i + 1 }}
+                  </div>
+                </td>
+                <td class="tableCellWidth custom-td-padding">
+                  <mat-form-field [formGroupName]="i">
+                    <input matInput formControlName="productName" type="text" id="{{ i }}" readonly />
+                  </mat-form-field>
+                </td>
+                <td class="tableCellWidth custom-td-padding">
+                  <mat-form-field [formGroupName]="i">
+                    <input matInput formControlName="price" type="number" id="{{ i }}" (blur)="getTotal(i)" />
+                  </mat-form-field>
+                </td>
+                <td class="tableCellWidth custom-td-padding">
+                  <!-- <div [formGroupName]="i" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size"> -->
+                  <mat-form-field [formGroupName]="i">
+                    <input matInput formControlName="fundraiserPercentage" type="number" id="{{ i }}" (blur)="getTotal(i)" />
+                  </mat-form-field>
+                  <!-- </div> -->
+                </td>
+                <td class="tableCellWidth">
+                  <mat-form-field [formGroupName]="i">
+                    <input matInput formControlName="fundraiserAmount" type="number" id="{{ i }}" (blur)="getProductfundraisingPercentage(i)" />
+                  </mat-form-field>
+                </td>
+                <td class="tableCellWidth custom-td-padding">
+                  <mat-form-field [formGroupName]="i">
+                    <input matInput formControlName="discount" type="number" id="{{ i }}" (blur)="getTotal(i)" />
+                  </mat-form-field>
+                </td>
+                <td class="tableCellWidth custom-td-padding">
+                  <mat-form-field [formGroupName]="i">
+                    <input matInput formControlName="total" type="number" id="{{ i }}" />
+                  </mat-form-field>
+                </td>
+                <td style="width: 5%" class="custom-td-padding">
+                  <div [formGroupName]="i">
+                    <span class="material-icons" (click)="removeProduct(i)">
+                      clear
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+        </mat-card>
+        <br />
+        <button type="button" class="btn btn-primary addArtBtn" data-toggle="modal" data-target="#addProductModal">
+          Add Products
+        </button>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-6">
+        <mat-card class="artDetailCard">
+          <h6 class="cardHeader">Art Selected</h6>
+          <h6 *ngFor="let art of artArray">{{ art }}</h6>
+        </mat-card>
+        <br />
+        <button type="button" class="btn btn-primary addArtBtn" data-toggle="modal" data-target="#addArtModal">
+          Add Art
+        </button>
+      </div>
+      <div class="col-md-6">
+        <mat-card class="removeArtCard">
+          <h6 class="cardHeader">Art View</h6>
+          <div class="removeArtButtonHolder" *ngFor="let art of artArray; let i = index">
+            <button type="submit" class="close removeArtBtn" (click)="removeArt(i)">
+              <span>&times;</span>
+            </button>
+            <img class="artImgHolder" src="{{ art }}" />
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Customer Notes</mat-label>
+          <textarea matInput formControlName="customerNotes" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="formField">
+          <mat-label>Print Color Requested</mat-label>
+          <input matInput formControlName="printColorsRequested">
+          <i #colorPicker matSuffix class="material-icons" value="color" [cpOKButton]="true" [cpPosition]="'top-left'" [cpCancelButton]="true" [cpOKButtonClass]="'btn btn-primary btn-xs'" [cpCancelButtonClass]="'btn btn-danger btn-xs'" [(colorPicker)]="color"
+            (colorPickerSelect)="onChangeColorCmyk($event)">format_color_fill</i>
+        </mat-form-field>
+        <br />
+        <button [disabled]="loading" class="btn btn-primary addArtBtn" (click)="createStoreRequest()">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Create Store Request<mat-icon class="storeCreationBtn">keyboard_arrow_right</mat-icon>
+        </button>
+        <button [disabled]="loading" class="btn btn-primary addArtBtn" (click)="ShowOrHideForm(false,true)">
+          <mat-icon class="storeCreationBtn">keyboard_arrow_left</mat-icon>Back
+        </button>
+
+      </div>
+    </div>
+  </form>
+</mat-card>
+
+<div class="modal fade" id="addProductModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <mat-form-field class="wrapField" class="formField">
+          <mat-label>Product Category</mat-label>
+          <mat-select [(ngModel)]="selectedCategory">
+            <mat-option *ngFor="let category of categoryList" [value]="category.id">{{ category.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br />
+        <mat-form-field class="wrapField" class="formField">
+          <mat-label>Product</mat-label>
+          <mat-select (selectionChange)="productSelected($event.value)" [(ngModel)]="selectedProduct">
+            <mat-option *ngFor="let product of productList" [value]="product">{{
+              product.name
+              }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addArtModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #form="ngForm">
+          <mat-form-field style="width: 80%">
+            <input type="text" matInput name="name" id="name" [(ngModel)]="imageUrl" />
+            <span class="error" *ngIf="imageUrl == ''"> Link required </span>
+          </mat-form-field>
+          <button type="button" class="btn addArtBtn" (click)="addImageLink(imageUrl)">
+            Add link
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

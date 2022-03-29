@@ -1,0 +1,379 @@
+<div class="row">
+    <div class="col-md-12" style="margin-bottom: 20px;">
+        <button mat-raised-button  color="primary" style="float: right;">
+            Download PDF
+          </button>
+    </div>
+    <div class="col-md-12">
+        <mat-grid-list cols="3" rowHeight="100px">
+            <mat-grid-tile [colspan]="1" [rowspan]="6">
+                <div class="full-width">
+                    <div class="full-width common-header">
+                        <b>CUSTOMER DETAILS</b>
+                   </div>
+                    <div class="full-width common-border common-height" style="padding: 30px;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>
+                                        Order ID:
+                                    </label>
+                                </div>
+                                <div class="col-md-8">
+                                    <label>
+                                        {{orderInfo?.id}}
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        Customer Name:
+                                    </label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{orderInfo?.customer.firstName}} &nbsp; {{orderInfo?.customer.lastName}} 
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        Organisation:
+                                    </label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{orderInfo?.customer.organizationName}}
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        Billing Address:
+                                    </label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{orderInfo?.customer.billingAddress}} &nbsp;
+                                    {{orderInfo?.customer.billingAddress1}}
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        Shipping Address:
+                                    </label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{orderInfo?.customer.shippingAddress}} &nbsp;
+                                    {{orderInfo?.customer.shippingAddress1}}
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        Phone Number:
+                                    </label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{orderInfo?.customer.phoneNumber}}
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        Email ID:
+                                    </label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{orderInfo?.customer.email}}
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row credit-card">
+                                        <div class="col-md-5">
+                                            Payment Method:
+                                        </div>
+                                        <div class="col-md-7">
+                                            <label [ngSwitch]="orderInfo?.paymentType">
+                                                <span *ngSwitchCase="1">Invoice</span>
+                                                <span *ngSwitchCase="2">PO</span>
+                                                <span *ngSwitchCase="3">Credit Card Purchase</span>
+                                            </label>
+                                            
+                                        </div>
+                                        <div class="col-md-5">  
+                                            Card Number:
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            <label *ngIf="orderInfo?.paymentType == 3">xxxx xxxx xxxx {{orderInfo?.cardNumber}}</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            Invoice No:
+                                        </div>
+                                        <div class="col-md-7">
+                                            <label *ngIf="orderInfo?.paymentType == 1">{{orderInfo?.invoiceNumber}}</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            PO Credit:
+                                        </div>
+                                        <div class="col-md-7">
+                                            <label *ngIf="orderInfo?.paymentType == 2">{{orderInfo?.creditApprovalCode}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="6">
+                <div class="full-width">
+                    <div class="full-width common-header">
+                        <b>ITEMS ORDERED</b>
+                   </div>
+                   <div class="full-width common-border common-height" style="padding: 30px;">
+                    <div class="table-scroll">
+                        <table class="full-width">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Personalisation</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <br>
+                            <tbody>
+                                <tr *ngFor="let item of orderInfo?.orderLineItems">
+                                    <td>{{item?.product.name}}</td>
+                                    <td>
+                                        <span *ngIf="item?.isPersonalize" class="material-icons" style="color: green;">
+                                            check_circle
+                                        </span>
+    
+                                        <span *ngIf="!item?.isPersonalize" class="material-icons" style="color: red;">
+                                            highlight_off
+                                        </span>
+                                    </td>
+                                    <td>{{item?.quantity}}</td>
+                                    <td>${{item?.totalPrice}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Total:  
+                                </div>
+                                <div class="col-md-6">
+                                    ${{orderInfo?.totalAmount}}
+                                </div>
+                                <div class="col-md-6">
+                                    Shipping Charge:  
+                                </div>
+                                <div class="col-md-6">
+                                    ${{orderInfo?.shippingAmount}}
+                                </div>
+                                <div class="col-md-6">
+                                    Tax:  
+                                </div>
+                                <div class="col-md-6">
+                                    $0
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Total Paid:  
+                                </div>
+                                <div class="col-md-6">
+                                    ${{orderInfo?.totalPaid}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+               
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="6">
+                <div class="full-width">
+                    <div class="full-width common-header">
+                        <b>ORDER STATUS</b>
+                   </div>
+                   <div class="full-width common-border common-height" style="padding: 30px;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Order Submitted On:</label>
+                        </div>
+                        <div class="col-md-6">
+                            {{orderInfo?.createdDate}}
+                        </div>
+                        <div class="col-md-6">
+                            <label>Order Approved On:</label>
+                        </div>
+                        <div class="col-md-6">
+                            {{orderInfo?.approvedDate}}
+                        </div>
+                        <div class="col-md-6">
+                            <label>Order Shipped On:</label>
+                        </div>
+                        <div class="col-md-6">
+                            {{orderInfo?.confirmedShipDate}}
+                        </div>
+                        <div class="col-md-12 order-status">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Order Approved
+                                </div>
+                                <div class="col-md-6 order-status-icon">
+                                    <mat-icon class="material-icons" style="color: green; ">
+                                        check_circle
+                                    </mat-icon>
+                                    <!--<mat-icon class="material-icons" style="color: red;">
+                                        highlight_off
+                                    </mat-icon> -->
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-md-12 order-status" >
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Art Approved
+                                </div>
+                                <div class="col-md-6 order-status-icon">
+                                    <mat-icon class="material-icons" style="color: green; ">
+                                        check_circle
+                                    </mat-icon>
+                                    <!--<mat-icon class="material-icons" style="color: red;">
+                                        highlight_off
+                                    </mat-icon> -->
+                                </div> 
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-md-12 order-status" >
+                            <div class="row">
+                                <div class="col-md-6">
+                                Released
+                                </div>
+                                <div class="col-md-6 order-status-icon">
+                                    <mat-icon class="material-icons" style="color: green; ">
+                                        check_circle
+                                    </mat-icon>
+                                    <!--<mat-icon class="material-icons" style="color: red;">
+                                        highlight_off
+                                    </mat-icon> -->
+                                </div> 
+                            </div>
+                           
+                            
+                        </div>
+                        <div class="col-md-12 order-status" >
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- Purchased -->
+                                    Packout
+                                </div>
+                                <div class="col-md-6 order-status-icon">
+                                    <mat-icon class="material-icons" style="color: green; ">
+                                        check_circle
+                                    </mat-icon>
+                                    <!--<mat-icon class="material-icons" style="color: red;">
+                                        highlight_off
+                                    </mat-icon> -->
+                                </div> 
+                            </div>
+                            
+                            
+                        </div>
+                        <!-- <div class="col-md-12 order-status" >
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Received
+                                </div>
+                                <div class="col-md-6 order-status-icon">
+                                    <mat-icon class="material-icons" style="color: green; ">
+                                        check_circle
+                                    </mat-icon>
+                                </div> 
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-md-12 order-status" >
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Production
+                                </div>
+                                <div class="col-md-6 order-status-icon">
+                                    <mat-icon class="material-icons" style="color: green; ">
+                                        check_circle
+                                    </mat-icon>
+                                </div> 
+                            </div>
+                        </div> -->
+
+                        <div class="col-md-12 order-status" >
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Shipped
+                                </div>
+                                <div class="col-md-6 order-status-icon">
+                                    <mat-icon class="material-icons" style="color: green; ">
+                                        check_circle
+                                    </mat-icon>
+                                    <!--<mat-icon class="material-icons" style="color: red;">
+                                        highlight_off
+                                    </mat-icon> -->
+                                </div> 
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-md-12 order-status" >
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Invoiced
+                                </div>
+                                <div class="col-md-6 order-status-icon">
+                                    <mat-icon class="material-icons" style="color: green; ">
+                                        check_circle
+                                    </mat-icon>
+                                    <!--<mat-icon class="material-icons" style="color: red;">
+                                        highlight_off
+                                    </mat-icon> -->
+                                </div> 
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-md-12 order-status" >
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Paid
+                                </div>
+                                <div class="col-md-6 order-status-icon">
+                                    <mat-icon class="material-icons" style="color: green; ">
+                                        check_circle
+                                    </mat-icon>
+                                    <!--<mat-icon class="material-icons" style="color: red;">
+                                        highlight_off
+                                    </mat-icon> --> 
+                                </div> 
+                            </div>
+                            
+                            
+                        </div>
+                    </div></div>
+                   
+                </div>
+                
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>

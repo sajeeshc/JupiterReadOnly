@@ -1,0 +1,48 @@
+<div>
+  <h5>Active Art ({{ artList.length }})</h5>
+  <div class="row">
+    <div *ngFor="let art of artList" class="col-md-3">
+      <mat-card class="cardHolder">
+        <img mat-card-image src="{{ art }}" alt="Photo of a Shiba Inu" />
+
+        <mat-card-content>
+          <div class="row">
+            <!-- <div class="col-md-10 cardContent">
+              <span>.... </span>
+            </div> -->
+            <!-- <div class="col-md-2 cardActionBtn">
+              <mat-icon>more_vert</mat-icon>
+            </div> -->
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<!-- <div class="bottom-bar">
+  <button
+    class="btn btn-primary addBtn"
+    data-toggle="modal"
+    data-target="#addArtModal"
+  >
+    Upload Art
+  </button>
+</div> -->
+
+<!-- <div class="modal fade" id="addArtModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <mat-form-field style="width: 80%">
+          <input type="text" matInput id="addArt" />
+        </mat-form-field>
+        <button (click)="addArt()" type="button" class="btn">Add link</button>
+      </div>
+    </div>
+  </div>
+</div> -->

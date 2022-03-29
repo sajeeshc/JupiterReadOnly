@@ -1,0 +1,290 @@
+<div class="row">
+    <div class="col-md-1">
+      <div class="sideTab" >
+        <img src="../../../../assets/images/productivity.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Store Management</p>
+      </div>
+      <div class="sideTab" >
+        <img src="../../../../assets/images/Filled outline.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Store Management</p>
+      </div>
+      <div class="sideTab">
+        <img src="../../../../assets/images/paint-palette.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Art Queue Status</p>
+      </div>
+      <div class="sideTab">
+        <img src="../../../../assets/images/Layer_6.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Store: Order Details</p>
+      </div>
+      <div class="sideTab">
+        <img src="../../../../assets/images/productivity.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">xxxx</p>
+      </div>
+      <div class="sideTab">
+        <img src="../../../../assets/images/productivity.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">xxxxxxxx</p>
+      </div>
+      <div class="sideTab" >
+        <img src="../../../../assets/images/XMLID_3639_.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Customer Chat</p>
+      </div>
+      <div class="sideTab">
+        <img src="../../../../assets/images/chat.png" class="sideBarImgTab" />
+        <p class="sideBarTabText">Inhouse Chat</p>
+      </div>
+    </div>
+    <div class="col-md-11">
+      <mat-grid-list cols="3" rowHeight="100px">
+        <mat-grid-tile [colspan]="1" [rowspan]="3"> 
+          <div class="commonWrapper">
+            <div class="height50 commmonHeader">
+              <p style="font-size: large"><b>TASK SUMMARY</b></p>
+            </div>
+            <div class="row">
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.submittedForApprovalCount}}</h4>
+                  <span class="commonTabInfo">Open Art Tasking </span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.makingAdjustmentsCount}}</h4>
+                  <span class="commonTabInfo">Open Store Build Request</span>
+                </div>
+              </div>
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.storePublishedCount}}</h4>
+                  <span class="commonTabInfo">Store Awaiting AM Action</span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.storeOpenedCount}}</h4>
+                  <span class="commonTabInfo">xxxx
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab">
+                  <h4 class="commonTabHeader">2</h4>
+                  <span class="commonTabInfo">xxxx</span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab">
+                  <h4 class="commonTabHeader">3</h4>
+                  <span class="commonTabInfo">xxxx</span>
+                </div>
+              </div>
+              </div>
+          </div>
+        </mat-grid-tile>
+  
+        <mat-grid-tile [colspan]="1" [rowspan]="3">
+          <div class="quickLinkWrapper">
+            <div class="height50 greenColor commmonHeader">
+              <p style="font-size: large"><b>ACTIVITY</b></p>
+            </div>
+            <div class="row">
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.submittedForApprovalCount}}</h4>
+                  <span class="commonTabInfo">Batch Update</span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.makingAdjustmentsCount}}</h4>
+                  <span class="commonTabInfo">Scheduled Store Closing</span>
+                </div>
+              </div>
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.storePublishedCount}}</h4>
+                  <span class="commonTabInfo">Import Store</span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.storeOpenedCount}}</h4>
+                  <span class="commonTabInfo">xxxx
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">2</h4>
+                  <span class="commonTabInfo">xxxx</span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">3</h4>
+                  <span class="commonTabInfo">xxxx</span>
+                </div>
+              </div>
+              </div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="5">
+          <div class="notificationWrapper">
+            <table class="table table-striped tableLineHeight">
+              <thead>
+                <tr class="notificationTableHeader">
+                  <th width="90%" >NOTIFICATIONS/ALERTS</th>
+                  <th width="10%"><span class="material-icons"> info </span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td width="90%">Store build alert time</td>
+                  <td width="10%">
+                    <span class="material-icons"> report_problem </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="90%">New request overdue</td>
+                  <td width="10%">
+                    <span class="material-icons"> report_problem </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="90%">Store build ready to publish</td>
+                  <td width="10%">
+                    <span class="material-icons"> report_problem </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="90%">Store expired</td>
+                  <td width="10%">
+                    <span class="material-icons"> report_problem </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="3">
+          <div class="commonWrapper reportingBorderColor">
+            <div class="height50 magentaColor commmonHeader">
+              <p style="font-size: large"><b>REPORTING</b></p>
+            </div>
+            <div class="row">
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab violetColor">
+                  <h4 class="commonHeader">{{dashBoardDetailCount?.submittedForApprovalCount}}</h4>
+                  <span class="commonTabInfo">AM Activity</span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab violetColor">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.makingAdjustmentsCount}}</h4>
+                  <span class="commonTabInfo">xxxx</span>
+                </div>
+              </div>
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab violetColor">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.storePublishedCount}}</h4>
+                  <span class="commonTabInfo">xxxx</span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab violetColor">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.storeOpenedCount}}</h4>
+                  <span class="commonTabInfo">xxxx
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab violetColor">
+                  <h4 class="commonTabHeader">2</h4>
+                  <span class="commonTabInfo">xxxx</span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab violetColor">
+                  <h4 class="commonTabHeader">3</h4>
+                  <span class="commonTabInfo">xxxx</span>
+                </div>
+              </div>
+              </div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="3">
+          <div class="commonWrapper portalBorderColor">
+            <div class="height50 orangeColor commmonHeader">
+              <p style="font-size: large"><b>PORTAL</b></p>
+            </div>
+            <div class="row">
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.submittedForApprovalCount}}</h4>
+                  <span class="commonTabInfo">Store Exxpiring This Week</span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.makingAdjustmentsCount}}</h4>
+                  <span class="commonTabInfo">Total Open Stores</span>
+                </div>
+              </div>
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.storePublishedCount}}</h4>
+                  <span class="commonTabInfo">xxxx</span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">{{dashBoardDetailCount?.storeOpenedCount}}</h4>
+                  <span class="commonTabInfo">xxxx
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6 leftColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">2</h4>
+                  <span class="commonTabInfo">xxxx</span>
+                </div>
+              </div>
+              <div class="col-md-6 rightColTab">
+                <div class="commonTab blueColor">
+                  <h4 class="commonTabHeader">3</h4>
+                  <span class="commonTabInfo">xxxx</span>
+                </div>
+              </div>
+              </div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          <div class="commonWrapper">
+            <div class="height50 commmonHeader">
+              <p style="font-size: large">
+                <b>RELATED LIST QUICK LINKS</b>
+              </p>
+            </div>
+            <div style="display: flex;">
+              <div class="quickLinkImgTab" [routerLink]="['/superadmin/userlist']" (click)="setHeader('Create User')">
+                <div style="display: flex;">
+                  <div><img src="../../../../assets/images/peoples.png" class="imgTabSize" /></div>
+                  <div>
+                    <label>Create User</label>
+                  </div>
+                </div>
+              </div>
+              <div class="quickLinkImgTab">
+                <div style="display: flex;">
+                  <div><img src="../../../../assets/images/User Edit.png" class="imgTabSize" /></div>
+                  <div>
+                    <label>Edit User</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>

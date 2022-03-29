@@ -1,0 +1,170 @@
+<div class="page-wrapper">
+    <div class="row top-section">
+      <div class="col">
+        <div class="wrapper">
+          <div class="table-scroll">
+            <div class="heading tableHeader">
+              Products
+              <!-- <div class="data-source-check" style="position: absolute;right: 20px;top: 15px;">
+                <mat-slide-toggle matInput (change)="onDataSourceChange()" [ngModelOptions]="{standalone: true}"
+                  [(ngModel)]="isFeed">
+                  <span *ngIf="isFeed == true"> Vendor Data </span>
+                  <span *ngIf="isFeed == false"> Live Data </span>
+                </mat-slide-toggle>
+              </div> -->
+            </div>
+            <div class="search-wrapper">
+              <input class="search" [(ngModel)]="filterText" placeholder="Search product" type="text" />
+              <button class="btn btn-link filter-btn btn-sm" *ngIf="!productsLoading">
+                Filter
+              </button>
+              <ng-container *ngIf="productsLoading">
+                <button class="btn btn-outline-success btn-sm" style="cursor: default;">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </button>
+              </ng-container>
+              <ng-container *ngIf="!productsLoading">
+                <button (click)="getProductList()" class="btn btn-outline-success btn-sm">
+                  Search
+                </button>
+              </ng-container>
+              <!-- filter popup -->
+              <div class="filter" id="filter" (blur)="hideFilter()">
+                <div class="filter-item-container">
+                  <div class="filter-item">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Categories</mat-label>
+                      <mat-select multiple [(ngModel)]="filterParams.categories">
+                        <mat-option *ngFor="let element of categoryList" [value]="element.id">{{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="filter-item">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Vendor</mat-label>
+                      <mat-select multiple [(ngModel)]="filterParams.vendorName">
+                        <mat-option *ngFor="let element of vendorList" [value]="element.name">{{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="w-100 p-1">
+                    <ngx-slider [(value)]="filterParams.minPrice" [(highValue)]="filterParams.maxPrice"
+                      [options]="options"></ngx-slider>
+                  </div>
+                  <div class="w-50 p-1">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Colors</mat-label>
+                      <mat-select multiple [(ngModel)]="filterParams.colors">
+                        <mat-option *ngFor="let color of colorList" [value]="color.id">{{color.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="w-50 p-1">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Sizes</mat-label>
+                      <mat-select multiple [(ngModel)]="filterParams.sizes">
+                        <mat-option *ngFor="let element of sizeList" [value]="element.id">{{element.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="w-50 p-1">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Brand</mat-label>
+                      <mat-select multiple [(ngModel)]="filterParams.brands">
+                        <mat-option *ngFor="let element of brandList" [value]="element.id">{{element.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="w-50 p-1">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Markets</mat-label>
+                      <mat-select multiple [(ngModel)]="filterParams.markets">
+                        <mat-option *ngFor="let element of productGroupList" [value]="element.id">{{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="w-50 p-1">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Store Status</mat-label>
+                      <mat-select multiple [(ngModel)]="filterParams.storeStatus">
+                        <mat-option *ngFor="let element of storeStatus" [value]="element.id">{{element.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="w-50 p-1">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Style Name</mat-label>
+                      <input type="text" [(ngModel)]="filterParams.styleName" matInput>
+                    </mat-form-field>
+                  </div>
+                  <div class="w-50 p-1">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Vendor Name</mat-label>
+                      <input type="text" [(ngModel)]="filterParams.vendorName" matInput>
+                    </mat-form-field>
+                  </div>
+                  <div class="w-50 p-1">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Description</mat-label>
+                      <textarea matInput [(ngModel)]="filterParams.description" cols="30" rows="2"></textarea>
+                    </mat-form-field>
+                  </div> -->
+                  
+                </div>
+                <div class="w-100 p-2" style="display: flex; align-items: flex-end; justify-content: flex-end;">
+                  <button class="btn btn-sm btn-info mr-2" (click)="hideFilter()">Close</button>
+                  <button class="btn btn-sm btn-danger mr-2" (click)="resetFilter()">Reset</button>
+                  <button class="btn btn-sm btn-success" (click)="getProductList()">Search</button>
+                </div>
+              </div>
+            </div>
+            <div class="product select-all">
+              <mat-checkbox [value]="-1" [(ngModel)]="selectAll_1" (change)="checkAll($event,1)"> Select all
+              </mat-checkbox>
+            </div>
+            <div class="uncategorized-list">
+              <div class="product" *ngFor="let product of filteredProductList">
+                <mat-checkbox [value]="product" (change)="setChecked($event,product,0)" [checked]="checkAllUncategorized">
+                  <!-- {{ (product?.name?.length>70) ?
+                  ((product.name) | slice:0:70)+' ...' :
+                  (product.name) }}
+                  {{" / / " + (product.styleName || "") }} -->
+                  {{ ((product.displayName || product.name)?.length>70) ?
+                    (((product.displayName || product.name)) | slice:0:70)+' ...' :
+                    ((product.displayName || product.name)) }}
+                    {{" / "+ (product.vendorName || "-") +" / " + (product.styleName || "-") }}
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="wrapper">
+          <div class="table-scroll">
+            <div class="heading tableHeader">
+              Size Chart Preview
+            </div>
+            <div class="view-size-chart">
+                <img src="../../../../assets/images/add-image.png" class="upload-size-chart-img"
+                   *ngIf="!sizeCharts.length"
+                   (click)="sizeChartFile.click()" /><img />
+                <input #sizeChartFile type="file" id="size-chart-file" style="display: none;" (change)="uploadSizeChart($event.target.files)">
+                <img src="{{obj.url}}" class="upload-size-chart-img" *ngFor="let obj of sizeCharts">
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row bottom-section">
+      <div class="submit-buttons">
+        <button class="btn btn-danger mr-4" (click)="sizeCharts=[]">RESET</button>
+        <button class="btn btn-success custom-btn-apply header-font" (click)="submit()"> APPLY CHANGES</button>
+      </div>
+    </div>
+  </div>
+  
+  

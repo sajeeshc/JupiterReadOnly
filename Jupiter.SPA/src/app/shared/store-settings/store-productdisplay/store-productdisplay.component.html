@@ -1,0 +1,77 @@
+<form [formGroup]="productDisplaySettingsGroup" (ngSubmit)="updateDisplaySetting()">
+    <div class="row padding10">
+        <div class="col-md-8">
+          <p style="font-size: x-large;">Product Display Settings</p><br>
+        </div>
+        <div class="col-md-4" style="text-align: right;">
+          <button class="btn btn-primary btnClass">SAVE</button>
+        </div>
+      </div><br>
+      <div class="row padding10">
+      <div class="col-md-6">
+        <mat-label>Display Manufacturer</mat-label><br>
+      </div>
+      <div class="col-md-6">
+        <mat-slide-toggle formControlName="displayManufacturer"></mat-slide-toggle>
+      </div>
+      <div class="col-md-12 padding10">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Display Sku</mat-label><br>
+      </div>
+      <div class="col-md-6">
+        <mat-slide-toggle formControlName="displaySku"></mat-slide-toggle>
+      </div>
+      <div class="col-md-12 padding10">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="col-md-12 padding10">
+        <mat-label>Display Sort Order</mat-label><br>
+      </div>
+      <div class="col-md-6">
+        <mat-hint style="font-size: smaller;">Choose the default order of products in this store’s catalog. Featured products on the main page will not be affected.</mat-hint>
+      </div>
+      <div class="col-md-6 padding10">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>--Select Sort Order--</mat-label>
+          <mat-select formControlName="productSortOrderType">
+            <mat-option value="1">Product Name A to Z</mat-option>
+            <mat-option value="2">Product Name Z to A</mat-option>
+            <mat-option value="3">Price (Low to High)</mat-option>
+            <mat-option value="4">Price (High to Low)</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12 padding10">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="col-md-12 padding10">
+        <mat-label>Show Available Inventory</mat-label><br>
+      </div>
+      <div class="col-md-6 padding10">
+        <mat-hint style="font-size: smaller;">When enabled, available inventory will show to the shopper based on the threshold set below for pre-decorated products that have Enforce My Inventory enabled.
+        </mat-hint>
+      </div>
+      <div class="col-md-6">
+        <mat-slide-toggle formControlName="showAvailableInventory" (change)="change()"></mat-slide-toggle>
+      </div>
+      <div class="md-col-6 padding10">
+        <mat-hint style="font-size: smaller;">Note: When Enforce My Inventory is enabled for pre-decorated items.
+          Items with 0 inventory cannot be added to the cart, regardless of this setting.</mat-hint>
+      </div>
+      <div  class="col-md-12 padding10" [hidden]="isInventoryChecked">
+        <mat-label >Show Inventory Threshold</mat-label><br>
+      </div>
+      <div class="md-col-6 padding10 maxwidth"[hidden]="isInventoryChecked" >
+        <mat-hint style="font-size: smaller;">if available inventory for an item is below this threshold, then the inventory count will be displayed to the shopper (ex. Only 5 items left!)
+        </mat-hint>
+      </div>
+      <div class="col-md-6" [hidden]="isInventoryChecked">
+        <!-- <mat-form-field class="formField"  > -->
+        <mat-slide-toggle formControlName="inventoryThreshold"></mat-slide-toggle>
+          <!-- <input type="text" matInput formControlName="inventoryThreshold" /> -->
+        <!-- </mat-form-field> -->
+      </div>
+      </div>
+  </form>

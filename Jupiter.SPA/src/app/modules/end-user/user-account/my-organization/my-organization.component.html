@@ -1,0 +1,159 @@
+<div class="card-holder">
+    <mat-card>
+        <div class="d-flex flex-row align-items-center">
+            <div class="m-3 w-50">
+
+                <mat-form-field class="w-100">
+                    <mat-label>Organization Name</mat-label>
+                    <input type="text" placeholder="Organization Name" matInput [formControl]="orgNameFormControl"
+                        [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete"
+                        (optionSelected)="organizationSelected($event.option.value);orgNameFormControl.reset()">
+                        <mat-option [value]="-1" (click)="openOrganizationModal();">
+                            Add New Organisation
+                        </mat-option>
+                        <mat-option *ngFor="let org of filteredOrganizations | async" [value]="org">
+                            {{org.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+            </div>
+        </div>
+
+        <div class="row my-5">
+            <div class="col">
+                <table class="table table-bordered" [formGroup]="orgDeptForm">
+                    <thead>
+                        <td scope="col">Sl No.</td>
+                        <td scope="col">Organization Name</td>
+                        <td scope="col">Institution Type</td>
+                        <td scope="col">Organization Address</td>
+                        <td scope="col">Market Group</td>
+                        <td scope="col">Market</td>
+                        <td></td>
+                    </thead>
+                    <tbody formArrayName="organizationArray">
+                        <tr *ngFor="let org of orgDeptForm.get('organizationArray').controls;index as i"
+                            [formGroupName]="i">
+                            <td scope="row">{{i+1}}</td>
+                            <td>{{org.value.name}}</td>
+                            <td>{{getInstitutionType(org.value.institutionTypeId)}}</td>
+                            <td>
+                                {{org.value.address}}, {{org.value.address1}} <br><br>
+                                {{org.value.city}}, {{getState(org.value.state)?.name}}, {{org.value.zip}}
+                            </td>
+                            <td>
+                                <select formControlName="marketGroupId" (change)="marketGroupSelected(org)"
+                                    class="form-control" required>
+                                    <option value="" disabled hidden>Select Market Group</option>
+                                    <option [value]="marketGroup.id" *ngFor="let marketGroup of marketGroupArray">
+                                        {{marketGroup.name}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <select formControlName="departmentId" class="form-control" required>
+                                    <option value="" disabled hidden>Select Market</option>
+                                    <option [value]="market?.id"
+                                        *ngFor="let market of getMarkets(org.value.marketGroupId)">
+                                        {{market.name}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <span class="material-icons" (click)="removeOrg(i)" style="cursor: pointer;">
+                                    clear
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="m-5 font-weight-bold">
+            <button class="btn btn-primary float-right" (click)="submit()">Submit</button>
+        </div>
+        <div class="m-5 font-weight-bold">
+            Note: Contact Ares Customer Service for Updating Organization Name and Address
+        </div>
+    </mat-card>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="addDepartmentModal" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Departments</h5>
+                <button type="button" (click)="closeDepartmentModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="departmentForm" id="addDepartmentModal">
+                    <input type="text" class="form-control" formControlName="name" placeholder="Department Name">
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="addDepartment()">Add Department</button>
+                <button type="button" class="btn btn-secondary" (click)="closeDepartmentModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog" id="addOrganizationModal" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Organization</h5>
+                <button type="button" class="close" (click)="closeOrganizationModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="organizationForm" novalidate id="organizationForm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select class="form-control mt-2" formControlName="institutionTypeId" name="institutionType"
+                                required>
+                                <option value="" disabled selected hidden>Institution Type</option>
+                                <option *ngFor="let type of institutionTypeArray" [value]="type.id">{{type.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <input placeholder="Organization Name" formControlName="name" class="form-control mt-2" required>
+                        </div>
+                        <div class="col-md-12">
+                            <input placeholder="Address 1" formControlName="address" class="form-control mt-2" required>
+                        </div>
+                        <div class="col-md-12">
+                            <input placeholder="Address 2" formControlName="address1" class="form-control mt-2">
+                        </div>
+                        <div class="col-md-12">
+                            <input placeholder="City" formControlName="city" class="form-control mt-2" required>
+                        </div>
+                        <div class="col-md-12">
+                            <select class="form-control mt-2" formControlName="state" name="State" required>
+                                <option value="" disabled selected hidden>State</option>
+                                <option *ngFor="let item of stateArray" [value]="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <input placeholder="Zip Code" formControlName="zip" class="form-control mt-2" required>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="createOrganization()">Create
+                    Organization</button>
+                <button type="button" class="btn btn-secondary" (click)="closeOrganizationModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

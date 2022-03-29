@@ -1,0 +1,320 @@
+<div class="card-holder">
+  <div class="checkout-card-holder">
+    <mat-card class="checkout-card">
+      <div class="header-label row">
+        <div class="col-md-12 cart-header">
+          <b>CHECKOUT</b>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 padding-20">
+          <div class="row">
+            <div class="col-md-3" [class.grey]="!billingAddress?.isEditable">
+              <div *ngIf="billingAddress?.address != ''">
+                <label class="info-label">Billing Address</label>
+                <a class="edit-btn">
+                  <mat-icon aria-hidden="false" [inline]="true" aria-label="Edit icon" data-toggle="modal"
+                    data-target="#billingAddressModal">edit</mat-icon>
+                </a>
+                <br />
+                <label class="detail-label">{{user?.firstName}} {{user?.lastName}}</label>
+                <br />
+                <label class="detail-label">{{billingAddress?.address}}</label>
+                <br>
+                <label class="detail-label">{{billingAddress?.address1}}</label>
+                <br />
+                <label class="detail-label">{{billingAddress?.city}}</label>
+                <br />
+                <label class="detail-label">{{billingAddress?.state}}</label>
+                <br />
+                <label class="detail-label">{{billingAddress?.zipCode}}</label>
+              </div>
+              <ng-template #addBillingAddress *ngIf="billingAddress?.address == ''">
+                <label class="info-label">Billing Address</label>
+                <br>
+                <label class="detail-label">{{user?.firstName}} {{user?.lastName}}</label>
+                <br><br>
+                <a class="link" data-toggle="modal"
+                data-target="#billingAddressModal">Enter billing address</a>
+              </ng-template>
+            </div>
+            <div class="col-md-3" [class.grey]="!shippingAddress?.isEditable">
+              <div *ngIf="shippingAddress?.address != ''">
+                <label class="info-label">Shipping Address</label>
+                <a class="edit-btn" *ngIf="shippingAddress?.isEditable">
+                  <mat-icon aria-hidden="false" [inline]="true" aria-label="Edit icon" data-toggle="modal"
+                    data-target="#shippingAddressModal">edit</mat-icon>
+                </a>
+                <br />
+                <label class="detail-label">{{user?.firstName}} {{user?.lastName}}</label>
+                <br />
+                <label class="detail-label">{{shippingAddress?.address}}</label>
+                <br>
+                <label class="detail-label">{{shippingAddress?.address1}}</label>
+                <br />
+                <label class="detail-label">{{shippingAddress?.city}}</label>
+                <br />
+                <label class="detail-label">{{shippingAddress?.state}}</label>
+                <br />
+                <label class="detail-label">{{shippingAddress?.zipCode}}</label>
+              </div>
+              <ng-template #addShippingAddress  *ngIf="shippingAddress?.address == ''">
+                <label class="info-label">Shipping Address</label>
+                <br>
+                <label class="detail-label">{{user?.firstName}} {{user?.lastName}}</label>
+                <br><br>
+                <a class="link" data-toggle="modal"
+                data-target="#shippingAddressModal">Enter shipping address</a>
+              </ng-template>
+            </div>
+            <div class="col-md-3">
+              <ng-template [ngIf]="teamStore?.shippingPreference === 0 && paymentMethod === 0">
+                <mat-checkbox (change)="updateShippingAddressAsBillingAddress($event.checked)">
+                  <mat-hint>Same as billing address</mat-hint>
+                </mat-checkbox>
+              </ng-template>
+            </div>
+            <div class="col-md-3 align-right">
+              <label class="info-label">Invoice Total</label>
+              <br />
+              <br />
+              <label class="total-amount-label">${{checkoutObj?.totalPrice}}</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-12 padding-20 margin-top-20">
+          <table class="table">
+            <thead class="table-header">
+              <tr>
+                <th class="align-left">Description</th>
+                <th class="align-right">Unit Cost</th>
+                <th class="align-right">Qty</th>
+                <th class="align-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of checkoutObj?.cartItemsInfo" class="bottom-border">
+                <td class="align-left">
+                  <label>{{item.productName}}</label>
+                  <br />
+                  <label class="info-label"></label>
+                </td>
+                <td class="align-right">${{item.productPrice}}</td>
+                <td class="align-right">{{item.quantity}}</td>
+                <td class="align-right">${{item.totalPrice}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="w-100 px-3">
+          <div class="row form-inline mb-5">
+            <div class="col-md-3">Shipping Method</div>
+            <div class="col-md-5">
+              <select class="form-control w-100" (change)="selectShippingMethod($event.target.value)">
+                <option hidden disabled selected> -- Select Shipping Method -- </option>
+                <option *ngFor="let method of shippingMethods" [value]="method.id">{{method.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row w-50 float-right">
+            <div class="row col-md-12 my-2">
+              <div class="col-md-8">Sub Total</div>
+              <div class="col text-right">${{checkoutObj?.totalPrice}}</div>
+            </div>
+            <div class="row col-md-12 my-2">
+              <div class="col-md-8">Shipping Charges</div>
+              <div class="col text-right">${{selectedShippingMethod?.rate + 0 | number:'1.2-2'}}</div>
+            </div>
+            <div class="row col-md-12 my-2">
+              <div class="col-md-8 total-amount-label">Invoice Total</div>
+              <div class="col text-right total-amount-label">${{checkoutObj?.totalPrice}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div class="payment-card-holder">
+    <mat-card class="payment-card">
+      <div class="header-label row">
+        <div class="col-md-12 cart-header">
+          <b>SELECT PREFERRED PAYMENT OPTION:</b>
+        </div>
+      </div>
+      <div class="payment-option-wrapper margin-20">
+        <mat-radio-group [(ngModel)]="paymentMethod" matInput aria-label="Select an option" (change)="setAddress()">
+          <mat-radio-button [value]="0">Pay by Credit Card</mat-radio-button>
+          <!-- <br>
+          <mat-radio-button [value]="1">Pay by Invoicing</mat-radio-button>
+          <br> -->
+          <!-- <mat-radio-button [value]="2">Pay by PO</mat-radio-button> -->
+        </mat-radio-group>
+      </div>
+
+      <div id="creditPayment" class="payment-option-wrapper margin-20" [hidden]="paymentMethod!==0">
+        <div class="row">
+          <div class="col-md-12 row my-3">
+            <div class="col-md-3">
+              <img style="width: 100%;object-fit: contain;height: 100%;" src="../../../../../assets/images/visa.svg"
+                alt="American Express">
+            </div>
+            <div class="col-md-3">
+              <img style="width: 100%;object-fit: contain;height: 100%;"
+                src="../../../../../assets/images/mastercard.jpg" alt="American Express">
+            </div>
+            <div class="col-md-3">
+              <img style="width: 100%;object-fit: contain;height: 100%;"
+                src="../../../../../assets/images/american_express.png" alt="American Express">
+            </div>
+            <div class="col-md-3">
+              <img style="width: 100%;object-fit: contain;height: 100%;" src="../../../../../assets/images/discover.jpg"
+                alt="American Express">
+            </div>
+          </div>
+          <div class="col-md-12 row my-3">
+            <div class="col-md-5 form-inline">
+              Credit Card No. *
+            </div>
+            <div class="col-md-7 float-right">
+              <input type="text" class="w-100 form-control">
+            </div>
+          </div>
+          <div class="col-md-12 row my-3">
+            <div class="col-md-5 form-inline">
+              Card Verification No. *
+            </div>
+            <div class="col-md-3 float-right">
+              <input type="text" class="w-100 form-control">
+            </div>
+            <div class="col-md-3 float-right form-inline">
+              <a href="" style="color: black; text-decoration: underline;"> What's this?</a>
+            </div>
+          </div>
+          <div class="col-md-12 row my-3">
+            <div class="col-md-5 form-inline">
+              Expiration Date *
+            </div>
+            <div class="col-md-7 float-right">
+              <input type="text" class="w-100 form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="payByInvoice" class="payment-option-wrapper margin-20" [hidden]="paymentMethod!==1">
+        <div class="row form-inline  my-3">
+          <div class="col-sm-4">Organization Name</div>
+          <div class="col">
+            <select class="form-control w-100" (change)="selectOrganization($event.target.value)">
+              <option hidden disabled selected> -- Select Organization -- </option>
+              <option *ngFor="let org of organizationArray" [value]="org.id">{{org.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row form-inline">
+          <div class="col-sm-4">Invoice Code</div>
+          <div class="col">
+            <input type="text" class="form-control w-100" placeholder="Enter Invoice Code">
+          </div>
+        </div>
+
+        <div class="my-5 font-weight-bold">
+          <p>Note: Invoice purchase related customer information to be filled here</p>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-style align-bottom-right position-absolute"
+        (click)="checkout()">SUBMIT</button>
+    </mat-card>
+  </div>
+</div>
+
+<!-- Billing Address Modal -->
+<div class="modal fade" id="billingAddressModal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Billing Address</h4>
+        <button type="button" class="close" (click)="closeModal()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form [formGroup]="updatedBillingAddress" id="updatedBillingAddressForm" class="needs-validation" novalidate>
+          <input type="text" class="form-control my-2" placeholder="Address" formControlName="billingAddress" required>
+          <input type="text" class="form-control my-2" placeholder="Address 2" formControlName="billingAddress1">
+          <input type="text" class="form-control my-2" placeholder="City" formControlName="billingCity" required>
+          <select class="form-control w-100 my-2" placeholder="State" formControlName="billingState" required>
+            <option hidden disabled selected [value]="-1"> State </option>
+            <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
+          </select>
+          <input type="text" class="form-control my-2" placeholder="Zip Code" formControlName="billingZipCode" required>
+          <br><br>
+          <mat-checkbox class="my-3" formControlName="updateProfile">
+            <mat-hint>Update billing address in profile</mat-hint>
+          </mat-checkbox>
+        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <!-- <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" value=""> Update billing address in profile
+        </label>
+        <br> -->
+        <button type="button" class="btn btn-primary" (click)="updateBillingAddress()">Update</button>
+        <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Shipping Address Modal -->
+<div class="modal fade" id="shippingAddressModal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Shipping Address</h4>
+        <button type="button" class="close" (click)="closeModal()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form [formGroup]="updatedShippingAddress" id="updatedShippingAddressForm" class="needs-validation" novalidate>
+          <input type="text" class="form-control my-2" placeholder="Address 1" formControlName="shippingAddress"
+            required>
+          <input type="text" class="form-control my-2" placeholder="Address 2" formControlName="shippingAddress1">
+          <input type="text" class="form-control my-2" placeholder="City" formControlName="shippingCity" required>
+          <select class="form-control w-100 my-2" placeholder="State" formControlName="shippingState" required>
+            <option hidden disabled selected [value]="-1"> State </option>
+            <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
+          </select>
+          <input type="text" class="form-control my-2" placeholder="Zip Code" formControlName="shippingZipCode"
+            required>
+          <br><br>
+          <mat-checkbox class="my-3" formControlName="updateProfile">
+            <mat-hint>Update shipping address in profile</mat-hint>
+          </mat-checkbox>
+        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <!-- <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" value=""> Update billing address in profile
+        </label>
+        <br> -->
+        <button type="button" class="btn btn-primary" (click)="updateShippingAddress()">Update</button>
+        <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

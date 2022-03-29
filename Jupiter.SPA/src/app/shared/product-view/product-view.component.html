@@ -1,0 +1,418 @@
+<div class="row">
+  <div class="col-md-6" *ngIf="product?.productInfo?.images">
+    <div class="img-wrapper">
+      <img src="{{ product?.productInfo?.images[0] || noImagePlaceholder }}" class="img-holder" *ngIf="!loading"
+        (mousemove)="zoomIn($event)" (mouseout)="zoomOut()" />
+      <div class="img-holder zoom-img-holder" id="zoom-preview">
+        <img src="{{ product?.productInfo?.images[0] }}" class="img-holder" *ngIf="product?.productInfo?.images[0]" />
+      </div>
+    </div>
+    <div class="img-wrapper">
+      <span *ngFor="let image of product?.productInfo?.images" (click)="onImgClick(image)">
+        <img id="img1" src="{{ image}}" alt="no image" class="imgTab" />
+      </span>
+    </div>
+  </div>
+  <div class="col-md-6" *ngIf="!product?.productInfo?.images">
+    <div class="img-wrapper">
+      <img src="{{ product?.productInfo?.variants[0]?.images[0]?.src || noImagePlaceholder }}" class="img-holder"
+        *ngIf="!loading" (mousemove)="zoomIn($event)" (mouseout)="zoomOut()" />
+      <div class="img-holder zoom-img-holder" id="zoom-preview">
+        <img src="{{ product?.productInfo?.variants[0]?.images[0]?.src}}" class="img-holder"
+          *ngIf="product?.productInfo?.variants[0]?.images[0]?.src" />
+      </div>
+    </div>
+    <div class="img-wrapper">
+      <span *ngFor="let image of product?.productInfo?.variants[0]?.images" (click)="onImgClick(image?.src)">
+        <img id="img1" src="{{ image?.src }}" alt="no image" class="imgTab" />
+      </span>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <table class="detail-table">
+      <tr>
+        <th class="product-name" colspan="3">
+          {{product?.productInfo?.displayName || product?.productInfo?.name}}
+          {{product?.productInfo?.styleName ? "("+product?.productInfo?.styleName.split(',')[0]+")" : ""}}
+        </th>
+      </tr>
+      <tr>
+        <th>Categories</th>
+        <td>:</td>
+        <td>
+          <ng-container *ngFor="let category of product?.productInfo?.categoryInfo;let i=index">
+            {{i!=0 ? ", ":""}}{{category?.name}}
+          </ng-container>
+        </td>
+      </tr>
+      <tr>
+        <th>Color</th>
+        <td>:</td>
+        <td>{{product?.productInfo?.variants[0]?.name}}</td>
+      </tr>
+      <tr>
+        <th>Sizes</th>
+        <td>:</td>
+        <td>
+          <ng-container *ngFor="let size of product?.productInfo?.variants[0]?.sizeVariants;let i=index">
+            {{i!=0 ? ", ":""}}{{ size?.size }}
+          </ng-container>
+        </td>
+      </tr>
+      <tr>
+        <th>Product Price</th>
+        <td>:</td>
+        <td>
+          ${{
+          purchaseType == 3 ?
+          product?.productInfo?.totalPrice :
+          product?.productInfo?.variants[0].sizeVariants[0].sellingPrice
+          }}
+        </td>
+      </tr>
+      <tr>
+        <th>Total Quantity</th>
+        <td>:</td>
+        <td>{{quantityGroup?.get('quantity').value}}</td>
+      </tr>
+      <tr>
+        <th>Total Price</th>
+        <td>:</td>
+        <td *ngIf="!decoPriceLoading">
+          {{
+          purchaseType == 3 ?
+          "$" + calculateTotalPrice() :
+          isDecorated() && decoPrice ?
+          "$" + calculateTotalPrice() :
+          isDecorated() == false ?
+          "$" + quantityGroup?.get('price').value :
+          "Please complete personalization/decoration settings to view price"
+          }}
+        </td>
+        <td *ngIf="decoPriceLoading">
+          <div class="spinner-border spinner-border-sm" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </td>
+        <!-- <td>{{calculateTotalPrice()}}</td> -->
+      </tr>
+    </table> <br> <br>
+
+    <div>
+      <div class="width-85">
+        <mat-label class="label-holder">Add Personalization Details and Quantity below</mat-label>
+        <a href="#" data-toggle="modal" data-target="#sizeChartModal" class="float-right">View Size Chart</a>
+      </div>
+      <br>
+      <div class="personalizeTable width-85">
+        <form [formGroup]="quantityGroup">
+          <table class="table custom-table">
+            <thead style="padding: 5px;">
+              <tr>
+                <td width="13%">Size <span style="color: red;">*</span></td>
+                <td width="13%">Qty <span style="color: red;">*</span></td>
+                <ng-container *ngIf="personalizeValue">
+                  <td width="5%">Personalize <br> &nbsp;</td>
+                  <td>
+                    <ng-container *ngIf="isPersonalized().isPersonalized">
+                      Name
+                      <!-- <br> <mat-hint style="color: #09e309; font-size: 12px;">[ Adds $7 ]</mat-hint> -->
+                    </ng-container>
+                  </td>
+                  <td width="16%">
+                    <ng-container *ngIf="isPersonalized().isPersonalized">
+                      Number
+                      <!-- <br> <mat-hint style="color: #09e309; font-size: 12px;">[ Adds $6 ]</mat-hint> -->
+                    </ng-container>
+                  </td>
+                </ng-container>
+                <td width="16%"></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr formArrayName="cartItemGrids"
+                *ngFor="let cartItemGrids of quantityGroup?.get('cartItemGrids')['controls'];let i = index">
+                <td>
+                  <span [formGroupName]="i">
+                    <select style="width:100%;height: 25px;" formControlName="size" (change)="getTotalQuantity()">
+                      <option *ngFor="let size of product?.productInfo?.variants[0]?.sizeVariants"
+                        value="{{ size.sizeId }}">
+                        {{ size.size }}
+                        {{
+                        (purchaseType == 3 && product?.productInfo?.variants[0].sizeVariants[0].storePrice !=
+                        size.storePrice) ?
+                        "(+$"+(size.storePrice - product?.productInfo?.variants[0].sizeVariants[0].storePrice |
+                        number:'1.0-2')+")" :
+                        (purchaseType != 3 && product?.productInfo?.variants[0].sizeVariants[0].sellingPrice !=
+                        size.sellingPrice) ?
+                        "(+$"+(size.sellingPrice - product?.productInfo?.variants[0].sizeVariants[0].sellingPrice |
+                        number:'1.0-2')+")" : ""
+                        }}
+                      </option>
+                    </select>
+                  </span>
+                </td>
+                <td>
+                  <span [formGroupName]="i">
+                    <input style="width: 100%;" formControlName="quantity" type="number" min="1"
+                      (input)="getTotalQuantity()">
+                  </span>
+                </td>
+                <ng-container *ngIf="personalizeValue">
+                  <td style="text-align: center; vertical-align: bottom;">
+                    <span [formGroupName]="i">
+                      <mat-checkbox class="label-holder" color="primary" formControlName="personalize"
+                        (change)="onPersonalizeCheck(i);getTotalQuantity()">
+                      </mat-checkbox>
+                    </span>
+                  </td>
+                  <td>
+                    <span [formGroupName]="i" [hidden]="quantityGroup.value.cartItemGrids[i].personalize == false">
+                      <input style="width: 100%;" formControlName="name" type="text" (input)="getTotalQuantity()" />
+                    </span>
+                  </td>
+                  <td>
+                    <span [formGroupName]="i" [hidden]="quantityGroup.value.cartItemGrids[i].personalize == false">
+                      <input style="width: 100%;" formControlName="number" type="number" min="0"
+                        (input)="getTotalQuantity()" />
+                    </span>
+                  </td>
+                </ng-container>
+                <td>
+                  <mat-icon mat-button (click)="deleteRow(i)" style="cursor: pointer">close</mat-icon>
+                  &nbsp;
+                  <mat-icon *ngIf="i ===quantityGroup?.get('cartItemGrids')['controls'].length - 1" mat-button
+                    (click)="addRow()" style="cursor: pointer">add</mat-icon>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div><br>
+    <div class="buttons">
+      <button mat-raised-button color="primary" *ngIf="isPersonalized().isPersonalized && purchaseType != 3"
+        class="mr-3" data-toggle="modal" data-target="#personalizationProperties">
+        Personalization Settings
+      </button>
+      <button mat-raised-button color="primary" *ngIf="purchaseType == 2" class="mr-3" data-toggle="modal"
+        data-target="#decorationProperties">
+        Decoration Settings
+      </button>
+      <button mat-raised-button color="primary" (click)="backToStore()" *ngIf="!isEdit" class="mr-3">
+        <!-- {{ purchaseType === 1 || purchaseType == 2 ? "Back to product list" : "Back to store" }} -->
+        Continue Shopping
+      </button>
+      <button mat-raised-button color="primary" (click)="addToCart()" *ngIf="!isEdit" class="mr-3"> Add To Cart</button>
+      <button mat-raised-button color="primary" (click)="addToCart()" *ngIf="isEdit" class="mr-3"> Update</button>
+    </div>
+  </div>
+
+  <!-- Personalization Settings Modal -->
+  <div class="modal fade" id="personalizationProperties" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="max-width: fit-content;" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Personalization Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="getDecoPrice(true)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table properties-table">
+            <tbody>
+              <tr *ngFor="let type of personalizationPropertiesForm.controls;let i=index" [formGroup]="type">
+                <th>{{type.value.name}}</th>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Position</mat-label>
+                    <mat-select formControlName="positionId"
+                      (selectionChange)="onDecoLocationChange(i, 'personalization')">
+                      <ng-container *ngFor="let position of decoGroup?.locations">
+                        <mat-option [value]="position.id" [disabled]="isDecoLocationSelected(position.id)">
+                          {{position.name}}
+                        </mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Service</mat-label>
+                    <mat-select formControlName="serviceId"
+                      (selectionChange)="onDecoServiceChange(i, 'personalization')">
+                      <ng-container *ngFor="let service of getDecoServices(i,'personalization')">
+                        <!-- <ng-container *ngFor="let service of personalizationServices"> -->
+                        <!-- hide tackle twill service if personalization name -->
+                        <ng-container *ngIf="!(service.id == 12 && type.value.personalizationTypeId == 1)">
+                          <mat-option [value]="service.id">
+                            <!-- *ngIf="service.personalizationTypes.length" -->
+                            {{service.name}}
+                          </mat-option>
+                        </ng-container>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Color</mat-label>
+                    <mat-select formControlName="colorId">
+                      <mat-option *ngFor="let color of getInkColorsByService(i)" [value]="color.id">
+                        <!-- {{color.name}} -->
+                        <div style="display:flex; align-items: center; justify-content: space-between;">
+                          <span>{{color.name}}</span>
+                          <div style="height:20px; width:20px; border: 1px solid black;"
+                            [style.background-color]="color.hexValue"></div>
+                          <!-- <img src="https://picsum.photos/200/300" style="height:20px; width:20px;"> -->
+                        </div>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Size</mat-label>
+                    <mat-select formControlName="sizeId">
+                      <mat-option *ngFor="let size of getSizesByService(i)" [value]="size.id">
+                        {{size.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Font</mat-label>
+                    <mat-select formControlName="fontId">
+                      <mat-option *ngFor="let font of getFontByService(i)" [value]="font.id">
+                        {{font.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"
+            (click)="getDecoPrice(true)">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- decoration settings Modal -->
+  <div class="modal fade" id="decorationProperties" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="max-width: fit-content;" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Decoration Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="getDecoPrice(true)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table properties-table">
+            <tbody>
+              <tr *ngFor="let decoration of decorationPropertiesForm.controls;let i=index" [formGroup]="decoration">
+                <td>
+                  <div class="art">
+                    <img src="{{decoration.value.art}}" alt="Art">
+                  </div>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Position</mat-label>
+                    <mat-select formControlName="positionId" (selectionChange)="onDecoLocationChange(i, 'deco')">
+                      <ng-container *ngFor="let position of decoGroup?.locations">
+                        <mat-option [value]="position.id" [disabled]="isDecoLocationSelected(position.id)">
+                          {{position.name}}
+                        </mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Service</mat-label>
+                    <mat-select formControlName="serviceId" (selectionChange)="onDecoServiceChange(i, 'deco')">
+                      <ng-container *ngFor="let service of getDecoServices(i)">
+                        <ng-container *ngIf="service.id !=11">
+                          <mat-option [value]="service.id">
+                            {{service.name}}
+                          </mat-option>
+                        </ng-container>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <!-- <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Size</mat-label>
+                        <mat-select formControlName="sizeId">
+                          <mat-option *ngFor="let size of getSizesByService(i)" [value]="size.id">
+                            {{size.name}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td> -->
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Color</mat-label>
+                    <mat-select formControlName="colorId" multiple (selectionChange)="updateColorCount(i)">
+                      <mat-option *ngFor="let color of getDecoInkColors(i)" [value]="color.id">
+                        <!-- {{color.name}} -->
+                        <div style="display:flex; align-items: center; justify-content: space-between;">
+                          <span>{{color.name}}</span>
+                          <div style="height:20px; width:20px; border: 1px solid black;"
+                            [style.background-color]="color.hexValue"></div>
+                          <!-- <img src="https://picsum.photos/200/300" style="height:20px; width:20px;"> -->
+                        </div>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Color Count</mat-label>
+                    <input type="number" readonly matInput formControlName="colorCount">
+                  </mat-form-field>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"
+            (click)="getDecoPrice(true)">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="sizeChartModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 80vw;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="view-size-chart">
+            <img src="{{obj.url}}" class="upload-size-chart-img" *ngFor="let obj of product?.productInfo?.sizeCharts">
+            <h4 class="w-100 text-center m-3" *ngIf="!product?.productInfo?.sizeCharts?.length">
+              Size Chart Not Available
+            </h4>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

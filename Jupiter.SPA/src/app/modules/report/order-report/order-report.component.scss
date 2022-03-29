@@ -1,0 +1,94 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 1700px;
+    gap: 1em;
+    margin: auto;
+    .order-info {
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+        table {
+            width: 100%;
+            margin: 1rem;
+            tr {
+                td {
+                    padding: 0.3rem;
+                }
+                td:nth-child(1) {
+                    padding-right: 4rem;
+                }
+            }
+        }
+        .billing-info,
+        .shipping-info,
+        .revenue-info {
+            flex-grow: 1;
+            -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
+            -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
+            .header-div,
+            footer-div {
+                background-color: #cacaca;
+                font-weight: 500;
+                padding: 0.5rem;
+            }
+        }
+        .revenue-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            .table-container{
+                flex-grow: 1;
+                .sub-heading{
+                    padding: 1em 1em .7em 0;
+                }
+            }
+            .footer-div {
+                display: flex;
+                padding: 1em;
+                gap: 1em;
+                justify-content: space-between;
+                background-color: #cacaca;
+                font-weight: 500;
+                p {
+                    margin: 0;
+                }
+            }
+        }
+    }
+    .product-info {
+        .prod-cell {
+            display: flex;
+            gap: 1em;
+            .prod-img {
+                width: 100px;
+                height: 100px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
+            .prod-detail {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                p {
+                    margin: 0;
+                }
+            }
+        }
+        .table td {
+            vertical-align: middle !important;
+        }
+    }
+}
+
+.no-data {
+    width: 100%;
+    text-align: center;
+    margin-top: 10rem;
+}

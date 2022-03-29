@@ -1,0 +1,196 @@
+<div class="grid-container" *ngIf="dataSource">
+    <div class="store-info w-100">
+        <h4 class="store-name"> {{ dataSource?.teamStoreName }} </h4>
+    </div>
+    <div class="order-info">
+        <div class="billing-info">
+            <div class="header-div"> Billing Information </div>
+            <table>
+                <tr>
+                    <td> Email Address </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.billingInfo?.emailAddress }} </td>
+                </tr>
+                <tr>
+                    <td> Phone </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.billingInfo?.phoneNumber }} </td>
+                </tr>
+                <tr>
+                    <td> First Name </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.billingInfo?.firstName }} </td>
+                </tr>
+                <tr>
+                    <td> Last Name </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.billingInfo?.lastName }} </td>
+                </tr>
+                <tr>
+                    <td> Street 1 </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.billingInfo?.street1 }} </td>
+                </tr>
+                <tr>
+                    <td> Street 2 </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.billingInfo?.street2 }} </td>
+                </tr>
+                <tr>
+                    <td> City </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.billingInfo?.city }} </td>
+                </tr>
+                <tr>
+                    <td> State/Province </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.billingInfo?.state }} </td>
+                </tr>
+                <tr>
+                    <td> Postal Code </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.billingInfo?.zipCode }} </td>
+                </tr>
+                <tr>
+                    <td> Country </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.billingInfo?.country }} </td>
+                </tr>
+                <tr>
+                    <td> Card </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.billingInfo?.cardName }} ({{ dataSource?.billingInfo?.cardExpiry }}) </td>
+                </tr>
+            </table>
+        </div>
+        <div class="shipping-info">
+            <div class="header-div"> Shipping Information </div>
+            <table>
+                <tr>
+                    <td> First Name </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.shippingInfo?.firstName }} </td>
+                </tr>
+                <tr>
+                    <td> Last Name </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.shippingInfo?.lastName }} </td>
+                </tr>
+                <tr>
+                    <td> Street 1 </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.shippingInfo?.street1 }} </td>
+                </tr>
+                <tr>
+                    <td> Street 2 </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.shippingInfo?.street2 }} </td>
+                </tr>
+                <tr>
+                    <td> City </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.shippingInfo?.city }} </td>
+                </tr>
+                <tr>
+                    <td> State/Province </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.shippingInfo?.state }} </td>
+                </tr>
+                <tr>
+                    <td> Postal Code </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.shippingInfo?.zipCode }} </td>
+                </tr>
+                <tr>
+                    <td> Country </td>
+                    <td> : </td>
+                    <td> {{ dataSource?.shippingInfo?.country }} </td>
+                </tr>
+            </table>
+        </div>
+        <div class="revenue-info">
+            <div class="header-div"> Revenue Information </div>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <td> Subtotal </td>
+                        <td> : </td>
+                        <td> ${{dataSource?.subTotalWithoutDeduction | number:'1.2-2'}} </td>
+                    </tr>
+                    <tr>
+                        <td> Sales Tax </td>
+                        <td> : </td>
+                        <td> ${{dataSource?.totalTaxWithoutDeduction | number:'1.2-2'}} </td>
+                    </tr>
+                    <tr>
+                        <td> Shipping Charge </td>
+                        <td> : </td>
+                        <td> ${{dataSource?.totalShippingAmountWithoutDeduction | number:'1.2-2'}} </td>
+                    </tr>
+                    <tr>
+                        <th colspan="3" class="sub-heading"> Cancelled Information </th>
+                    </tr>
+                    <tr>
+                        <td> Subtotal </td>
+                        <td> : </td>
+                        <td> -${{dataSource?.subTotalWithDeduction | number:'1.2-2'}} </td>
+                    </tr>
+                    <tr>
+                        <td> Sales Tax </td>
+                        <td> : </td>
+                        <td> -${{dataSource?.totalTaxWithDeduction | number:'1.2-2'}} </td>
+                    </tr>
+                    <tr>
+                        <td> Shipping Charge </td>
+                        <td> : </td>
+                        <td> -${{dataSource?.totalShippingAmountWithDeduction | number:'1.2-2'}} </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="footer-div">
+                <p> Grand Total </p>
+                <p> ${{dataSource?.grandTotal | number:'1.2-2'}} </p>
+            </div>
+        </div>
+    </div>
+    <div class="product-info">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th> Product </th>
+                    <th> Quantity Ordered </th>
+                    <th> Status </th>
+                    <th> Price </th>
+                    <th> Total </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let prod of dataSource?.products">
+                    <td>
+                        <div class="prod-cell">
+                            <div class="prod-img">
+                                <img src="{{prod.url}}">
+                            </div>
+                            <div class="prod-detail">
+                                <p class="prod-name font-weight-bold"> {{ prod.name }} </p>
+                                <p> Color: {{ prod.color }} </p>
+                                <p> Size: {{ prod.size }} </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td> {{ prod.quantity }} </td>
+                    <td> {{ prod.status }} </td>
+                    <td> ${{ prod.price | number:'1.2-2'}} </td>
+                    <td>
+                        {{prod.status == 'Cancelled, Refunded' ? '-' : ''}}
+                        ${{ prod.total | number:'1.2-2'}} 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="no-data" *ngIf="!dataSource && !loading">
+    <h1>NO DATA FOUND</h1>
+</div>

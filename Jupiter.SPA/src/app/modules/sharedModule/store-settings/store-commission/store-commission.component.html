@@ -1,0 +1,35 @@
+<form [formGroup]="storeCommissionGroup">
+  <div class="row padding10">
+      <div class="col-md-8">
+        <p style="font-size: x-large;">Store Commission</p>
+        <mat-hint>This setting allows you to track the total amount of store sales going to a third party.</mat-hint>
+      </div>
+      <div class="col-md-4" style="text-align: right;">
+        <button class="btn btn-primary btnClass" (click)="saveTeamStoreChanges()" style="text-align: right;">SAVE</button>
+      </div>
+    </div><br><br>
+    <div class="row padding10">
+    <div class="col-md-12 padding10">
+        <mat-radio-group aria-label="Select an option">
+          <mat-radio-button value="1" (change)="changeStoreCommissionOnBoxHidden(true)" [checked]="storeCommissionType===1">Off</mat-radio-button><br>
+          <div class="col-md-12"><br><mat-divider></mat-divider></div>
+          <div style="padding: 10px;"></div>
+          <mat-radio-button value="2" (change)="changeStoreCommissionOnBoxHidden(false)" [checked]="storeCommissionType==2">On</mat-radio-button>
+        </mat-radio-group>
+    </div>
+  </div>
+  <div class="row padding10" style="margin-left: 10px;" [hidden]="isStoreCommissionBoxVisible">
+    <div class="col-md-12">
+      <mat-label>
+        Enter the percentage of total sales going to a third party</mat-label>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-form-field class="formField" style="text-align: right">
+        <input type="text" matInput formControlName="percentageOfTotalSales" placeholder="%" style="text-align: left" />
+      </mat-form-field>
+    </div>
+    <div class="col-md-12 smaller">
+      <mat-hint>NOTE: Once a commission is set and you have orders in the Completed stage of production, you can view this data in the Store Commission Report.</mat-hint>
+    </div>
+  </div>
+</form>

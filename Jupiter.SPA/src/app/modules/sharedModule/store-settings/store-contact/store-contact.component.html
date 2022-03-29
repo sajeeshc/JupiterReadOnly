@@ -1,0 +1,140 @@
+<form [formGroup]="contactInfoGroup" (ngSubmit)="updateContactInfo()">
+    <div class="row">
+        <div class="col-md-8">
+          <p style="font-size: x-large;">Contact Info</p>
+          <mat-hint>Who will customers contact if they need help? The information below should be the main point of contact for answering customer questions.</mat-hint>
+        </div>
+        <div class="col-md-4" style="text-align: right;">
+          <button class="btn btn-primary btnClass">SAVE</button>
+        </div>
+      </div><br>
+      <div class="row">
+      <div class="col-md-12">
+        <mat-label>Company/ Organization</mat-label>
+        <mat-form-field class="formField"  style="width: 100%;">
+          <input type="text" matInput formControlName="company" />
+          <mat-error *ngIf="contactInfoGroup.get('company').errors?.required">
+            Company name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>First Name</mat-label>
+        <mat-form-field class="formField"  style="width: 100%;">
+          <input type="text" matInput formControlName="firstName" />
+          <mat-error *ngIf="contactInfoGroup.get('firstName').errors?.required">
+            First name is required
+          </mat-error>
+          <mat-hint>Note: The first name and last name will not appear on the store front</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Last Name</mat-label>
+        <mat-form-field class="formField" style="width: 100%;">
+          <input type="text" matInput formControlName="lastName" />
+          <mat-error *ngIf="contactInfoGroup.get('lastName').errors?.required">
+            Last name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12"><br>
+        <mat-label>Email Address</mat-label>
+        <mat-form-field class="formField" style="width: 100%;">
+          <input type="text" matInput formControlName="email" />
+          <mat-error *ngIf="contactInfoGroup.get('email').errors?.required">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="contactInfoGroup.get('email').errors?.pattern">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Phone</mat-label>
+        <mat-form-field class="formField"  style="width: 100%;">
+          <input type="text" matInput formControlName="phone" />
+          <mat-error *ngIf="contactInfoGroup.get('phone').errors?.required">
+            Phone number is required
+          </mat-error>
+          <mat-error *ngIf="contactInfoGroup.get('phone').errors?.pattern || 
+          contactInfoGroup.get('phone').errors?.minlength || contactInfoGroup.get('phone').errors?.maxlength">
+            Please enter a valid phone number
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Fax</mat-label>
+        <mat-form-field class="formField" style="width: 100%;">
+          <input type="text" matInput formControlName="fax" />
+          <mat-error *ngIf="contactInfoGroup.get('fax').errors?.required">
+            Fax is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-label>Address</mat-label>
+        <mat-form-field class="formField" style="width: 100%;">
+          <input type="text" matInput formControlName="address" />
+          <mat-error *ngIf="contactInfoGroup.get('address').errors?.required">
+            Address is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-label>Apartment, suite etc.</mat-label>
+        <mat-form-field class="formField" style="width: 100%;">
+          <input type="text" matInput formControlName="appartment" />
+          <mat-error *ngIf="contactInfoGroup.get('appartment').errors?.required">
+            Appartment is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Country</mat-label><br><br>
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>--Select Country--</mat-label>
+          <mat-select formControlName="country">
+            <mat-option value="United States"> United States</mat-option>
+            <mat-option value="Canada">Canada</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-label>City</mat-label>
+        <mat-form-field class="formField full-width">
+          <input type="text" matInput formControlName="city" />
+          <mat-error *ngIf="contactInfoGroup.get('city').errors?.required">
+            City is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>State</mat-label><br><br>
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>--Select State--</mat-label>
+          <mat-select formControlName="state">
+            <mat-option value="Alaska">Alaska</mat-option>
+            <mat-option value="Alabama">Alabama</mat-option>
+            <mat-option value="Arkanas">Arkanas</mat-option>
+            <mat-option value="Arizona">Arizona</mat-option>
+            <mat-option value="California">California</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label>ZIP Code</mat-label>
+        <mat-form-field class="formField full-width">
+          <input type="text" matInput formControlName="zip" />
+          <mat-error *ngIf="contactInfoGroup.get('zip').errors?.required">
+            Zip code is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12" style="padding: 10px;">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="col-md-12" style="padding: 10px;">
+        <mat-checkbox formControlName="showGoogleMapOnContactUs">Show this location as a Google Map on the Contact Us component</mat-checkbox>
+      </div>
+      </div>
+  </form>

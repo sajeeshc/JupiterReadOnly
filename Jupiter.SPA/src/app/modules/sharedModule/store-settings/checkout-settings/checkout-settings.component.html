@@ -1,0 +1,93 @@
+<form [formGroup]="checkoutSettingsGroup">
+  <div class="row padding10">
+      <div class="col-md-8 padding10">
+        <p style="font-size: x-large;">Checkout Settings</p><br>
+        <mat-hint>Configure your customer checkout experience.</mat-hint>
+      </div>
+      <div class="col-md-4" style="text-align: right;">
+        <button class="btn btn-primary btnClass" (click)="saveTeamStoreChanges()">SAVE</button>{{customerPaymentSelected|json}}
+      </div>
+    </div><br>
+    <div class="row padding10">
+      <div class="col-md-6 padding10">
+        <mat-label>Customer Payment</mat-label><br>
+      </div>
+      <div class="col-md-6 padding10">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>--Select Option--</mat-label>
+          <mat-select formControlName="customerPaymentType" [(value)]="customerPaymentSelected">
+            <mat-option value="1">Required (Invalid Delivery Options)</mat-option>
+            <mat-option value="2">Optional (Invalid Delivery Options)</mat-option>
+            <mat-option value="3">Disabled</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="col-md-6 padding10">
+        <mat-label>Accept Purchase Orders</mat-label><br>
+      </div>
+      <div class="col-md-6 padding10">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>--Select Option--</mat-label>
+          <mat-select formControlName="acceptPurchaseOrderType" [(value)]="purchaseOrderSelected">
+            <mat-option value="1">Only from customers I allow</mat-option>
+            <mat-option value="2">From ANY customer</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="col-md-6 padding10">
+        <mat-label>Purchase Order (PO) Attachments</mat-label><br>
+      </div>
+      <div class="col-md-6 padding10">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>--Select Option--</mat-label>
+          <mat-select formControlName="poAttachmentType" [(value)]="poAttchmentSelected">
+            <mat-option value="1">Disabled</mat-option>
+            <mat-option value="2">Required</mat-option>
+            <mat-option value="3">Optional</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12 padding10">
+        <mat-divider></mat-divider>
+      </div>
+    <div class="col-md-6 padding10">
+      <mat-label>Allow customers to add gift message to their order</mat-label><br>
+    </div>
+    <div class="col-md-6" style="text-align: right;">
+      <mat-slide-toggle formControlName="allowGiftToOrder"></mat-slide-toggle>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-divider></mat-divider>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-label>Accept Coupon Codes / Gift Certificates</mat-label><br>
+    </div>
+    <div class="col-md-6 padding10">
+      <mat-hint style="font-size: smaller;">This allows customers to enter gift certificates or coupon codes for discounts. Turning this off will still allow for any automatic discounts being applied to the Store.
+      </mat-hint>
+    </div>
+    <div class="col-md-6" style="text-align: right;">
+      <mat-slide-toggle formControlName="acceptCouponsOrGift"></mat-slide-toggle>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-divider></mat-divider>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-label>Display Estimated Delivery Date</mat-label><br>
+    </div>
+    <div class="col-md-6 padding10">
+      <mat-hint style="font-size: smaller;">By disabling this feature, your shoppers will no longer see an estimated delivery date when selecting a shipping method during checkout.
+      </mat-hint>
+    </div>
+    <div class="col-md-6" style="text-align: right;">
+      <mat-slide-toggle formControlName="displayEstimatedDeliveryDate"></mat-slide-toggle>
+    </div>
+    <div class="md-col-6 padding10"></div>
+    </div>
+</form>

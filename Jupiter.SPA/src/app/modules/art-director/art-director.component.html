@@ -1,0 +1,27 @@
+<div class="primaryToolbar row">
+  <div class="col-md-3">
+    <img src="../../../assets/images/Logo.png" style="height:50px;margin: 5px;">
+  </div>
+  <div class="col-md-6">
+    <div class="wrapper">
+      <h4>{{header}}</h4>
+    </div>
+  </div>
+
+  <div class="col-md-3 navbar-btn" style="text-align: right;">
+    <a href=""><img class="toolbarHeaderIcon" src='../../../../assets/images/notification.png'></a>
+    <a href=""><img class="toolbarHeaderIcon" src='../../../../assets/images/profile.png'></a>
+    <a (click)="logout()"><img class="toolbarHeaderIcon" src='../../../../assets/images/logout icon_4233257.png'></a>
+  </div>
+</div>
+<div class="secondaryToolbar">
+  <span routerLink="/artdirector/orderArtList" routerLinkActive="active" style="cursor: pointer;">
+    <span class="material-icons" style="font-size: 1rem;">
+      home
+    </span>
+    HOME
+  </span>&nbsp;
+</div>
+<div class="container-div">
+  <router-outlet></router-outlet>
+</div>

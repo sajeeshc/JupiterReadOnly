@@ -1,0 +1,121 @@
+<div class="parent-container" [formGroup]="decoGroupForm">
+    <mat-form-field class="w-100">
+        <mat-label>Deco Group name</mat-label>
+        <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <mat-label>Add Location</mat-label>
+        <input type="text" [formControl]="autoCompleteText" matInput [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+            (optionActivated)="addLocation($event.option.value)" (optionSelected)="addLocation($event)">
+            <mat-option *ngFor="let location of filteredLocations | async" [value]="location">
+                {{location.name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <div class="table-container">
+        <table class="table table-sm w-100 table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Location</th>
+                    <th style="width: 25%;">Services</th>
+                    <th style="width: 10%;">Recommended Constraint Height</th>
+                    <th style="width: 10%;">Recommended Constraint Width</th>
+                    <th style="width: 10%;">Actual Constraint Height</th>
+                    <th style="width: 10%;">Actual Constraint Width</th>
+                    <th style="width: 10%;">Seps Placement</th>
+                    <th style="width: 5%;"></th>
+                </tr>
+            </thead>
+            <tbody formArrayName="locations">
+                <tr *ngFor="let location of decoGroupForm.get('locations').controls;let i = index">
+                    <ng-container [formGroup]="location">
+                        <td class="loc-name">{{location.value.name}}</td>
+                        <td>
+                            <mat-form-field appearance="legacy" class="w-100">
+                                <mat-select formControlName="services" multiple [compareWith]="attributeDisplay">
+                                    <mat-option *ngFor="let service of servicesArray" [value]="service">{{service.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="legacy" class="mw-100">
+                                <input matInput type="number" formControlName="recommendedConstraintHeight">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="legacy" floatLabel='never' class="mw-100">
+                                <input matInput type="number" formControlName="recommendedConstraintWidth">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="legacy" class="mw-100">
+                                <input matInput type="number" formControlName="actualConstraintHeight">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="legacy" class="mw-100">
+                                <input matInput type="number" formControlName="actualConstraintWidth">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="legacy" class="mw-100">
+                                <input matInput type="text" formControlName="sepsPlacement">
+                            </mat-form-field>
+                        </td>
+                        <td class="actions">
+                            <img src="../../../../../assets/images/close.png" alt="Remove Icon" title="Remove Location"
+                                (click)="removeLocation(i)">
+                        </td>
+                    </ng-container>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="buttons text-right mb-5">
+        <button class="btn btn-danger" (click)="goBack()"> GO BACK </button>
+        <button class="btn btn-info ml-2" data-toggle="modal" data-target="#sizeConstraintsModal"> SIZE CONSTRAINTS
+        </button>
+        <button class="btn btn-primary ml-2" (click)="submit()"> SAVE DECO GROUP </button>
+    </div>
+</div>
+
+<!-- Size Constraints Modal -->
+<div class="modal fade" tabindex="-1" id="sizeConstraintsModal" data-backdrop="false" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Size Constraints</h5>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Size</th>
+                            <th>Height Constraint</th>
+                            <th>Width Constraint</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let size of decoGroupForm.get('sizeConstraints').controls">
+                            <tr [formGroup]="size">
+                                <td>{{size.value.name}}</td>
+                                <td>
+                                    <input type="number" formControlName="heightConstraint">
+                                </td>
+                                <td>
+                                    <input type="number" formControlName="widthConstraint">
+                                </td>
+                            </tr>
+                        </ng-container>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

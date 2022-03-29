@@ -1,0 +1,66 @@
+.full-width{
+    width: 100%;
+    padding: 10px;
+}
+
+.common-header{
+    padding:25px;
+    height: 70px;
+    text-align: center;
+    color: #FFFF;
+    background-color: #33C1F1;
+}
+
+::ng-deep .mat-grid-tile .mat-figure {
+    justify-content: flex-start !important ;
+    align-items: flex-start !important;
+ }
+
+ .row .col-md-8 , .col-md-4, .col-md-6{
+    padding: 5px;
+ }
+
+ .credit-card{
+    color: white;
+    border-radius: 10px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    background-color: #085197;
+    padding: 15px 10px 10px 10px;
+ }
+
+ table{
+    line-height: 20px !important;
+ }
+
+ .table-scroll {
+    height: 300px;
+    overflow:auto;  
+  }
+
+.order-status{
+    margin: 3px;
+
+    .row{
+        text-align: center;
+    }
+    mat-icon{
+        vertical-align: middle;
+    }
+}
+
+.order-status-icon{
+    text-align: left;
+}
+
+.common-border{
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+}
+
+.common-height{
+    height: 525px;
+}

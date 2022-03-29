@@ -1,0 +1,89 @@
+<div class="parent-container">
+    <div class="action-container">
+        <label for="categoryName" class="font-weight-bold">Add Product Category</label>
+        <div class="form-inline input-group" [formGroup]="categoryForm">
+            <input type="text" class="form-control" id="categoryName" formControlName="name"
+                placeholder="Enter product category name">
+            <button class="btn btn-primary ml-3" (click)="updateProductCategory()">{{ updateCategory ? 'UPDATE' : 'ADD'
+                }}</button>
+            <button class="btn btn-outline-danger ml-3" (click)="initializeCategoryForm()">RESET</button>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Product Category</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of productCategoryArray">
+                    <td>{{category.id}}</td>
+                    <td>{{category.name}}</td>
+                    <td class="actions">
+                        <button class="btn btn-outline-info btn-sm mr-3" (click)="viewProducts(category)">View
+                            Products</button>
+                        <img src="../../../../../assets/images/edit.png" alt="Edit Icon"
+                            (click)="editCategory(category)">
+                        <img src="../../../../../assets/images/close.png" alt="Remove Icon"
+                            (click)="removeCategory(category.id)">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-container">
+        <mat-paginator [length]="paginatorLength" [pageSize]="paginatorPageSize"
+            [pageSizeOptions]="paginatorPageSizeOptions" (page)="pageEvent($event)">
+        </mat-paginator>
+        <br><br>
+    </div>
+</div>
+
+<div class="modal fade products-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">{{selectedCategory}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Style Name</th>
+                            <th>Product Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of productList">
+                            <td>{{product.styleName}}</td>
+                            <td>{{product.name}}</td>
+                            <!-- <td>
+                                <img src="../../../../../assets/images/close.png" alt="Remove Icon"
+                                    (click)="removeProduct(product.id)">
+                            </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="loading text-center" *ngIf="loading">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div class="no-data" *ngIf="!loading && !productList.length">
+                    No products available
+                </div>
+                <mat-paginator [length]="productParams.totalItems" [pageSize]="productParams.per_page"
+                    [pageSizeOptions]="paginatorPageSizeOptions" (page)="onProductPageEvent($event)">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

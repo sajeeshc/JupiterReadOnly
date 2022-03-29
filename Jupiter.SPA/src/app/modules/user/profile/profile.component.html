@@ -1,0 +1,116 @@
+<div class="container" style="margin-top: 2%;margin-bottom: 2%;">
+  <mat-card>
+    <br>
+    <h2>My Account</h2>
+    <br>
+    <form  [formGroup]="userProfileForm" (ngSubmit)="updateUserProfile()">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input type="text" matInput formControlName="firstName">
+            <!-- <mat-error *ngIf="loginForm.get('firstName').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input type="text" matInput formControlName="lastName">
+            <!-- <mat-error *ngIf="loginForm.get('lastName').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Billing Address</mat-label>
+            <textarea matInput formControlName="billingAddress"></textarea>
+            <!-- <mat-error *ngIf="loginForm.get('billingZipCode').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Billing ZipCode</mat-label>
+            <input type="text" matInput formControlName="billingZipCode">
+            <!-- <mat-error *ngIf="loginForm.get('billingZipCode').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Billing City</mat-label>
+            <input type="text" matInput formControlName="billingCity">
+            <!-- <mat-error *ngIf="loginForm.get('billingCity').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Billing Country</mat-label>
+            <input type="text" matInput formControlName="billingCountry">
+            <!-- <mat-error *ngIf="loginForm.get('billingCountry').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="email" readonly>
+            <!-- <mat-error *ngIf="loginForm.get('email').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Phone no.</mat-label>
+            <input type="text" matInput formControlName="phoneNumber">
+            <!-- <mat-error *ngIf="loginForm.get('phoneNumber').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Shipping Address</mat-label>
+            <textarea matInput formControlName="shippingAddress"></textarea>
+            <!-- <mat-error *ngIf="loginForm.get('shippingAddress').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Shipping ZipCode</mat-label>
+            <input type="text" matInput formControlName="shippingZipCode">
+            <!-- <mat-error *ngIf="loginForm.get('billingZipCode').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Shipping City</mat-label>
+            <input type="text" matInput formControlName="shippingCity">
+            <!-- <mat-error *ngIf="loginForm.get('billingCity').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Shipping Country</mat-label>
+            <input type="text" matInput formControlName="shippingCountry">
+            <!-- <mat-error *ngIf="loginForm.get('billingCountry').errors.required">
+          Email is required
+        </mat-error> -->
+          </mat-form-field>
+        </div>
+        <div class="col-md-12" style="text-align: center;">         
+          <span [hidden]="!ShowUpdateSuccessMessage" style="color:#28a745">Updated Successfully</span>
+          <span [hidden]="!ShowUpdateFailMessage" style="color:red">Updation failed</span>
+          <br><br>
+          <div >
+            <button class="btn btn-success" type="submit">
+              Update
+            </button>&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-danger" type="button" (click)="back()">
+              Back
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>

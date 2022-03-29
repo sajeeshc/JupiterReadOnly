@@ -1,0 +1,103 @@
+<br />
+<div class="table-wrapper">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" width="100%">
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <ng-container matColumnDef="userName">
+      <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+      <td mat-cell *matCellDef="let element">{{ (element.user.firstName || "") + " "+ (element.user.lastName || "") }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.user.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Phone</th>
+      <td mat-cell *matCellDef="let element">{{ element.user.phoneNumber }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="organization">
+      <th mat-header-cell *matHeaderCellDef>Organization</th>
+      <td mat-cell *matCellDef="let element">{{ element.user.organizationName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let element">{{ element.cartType == 3 ? "Draft" : element.cartType == 2 ? "Quote" :
+        element.cartType == 1 ? "Bulk Order" : ""}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">{{ element.cartType == 3 ? "Draft Saved" : element.cartType == 2 ? "Quote
+        Submitted" : element.cartType == 1 ? "Order Placed" : ""}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdDate">
+      <th mat-header-cell *matHeaderCellDef>Created Date</th>
+      <td mat-cell *matCellDef="let element">{{ element.createdDate | date:"MM-dd-yyyy" }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ref">
+      <th mat-header-cell *matHeaderCellDef>Reference/Order Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.orderId ? element.orderId : element.referenceId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <a *ngIf="!element.orderId" href="#" [routerLink]="['/storemanager/bulkorderentry']"
+          [queryParams]="{ref:element.referenceId}">
+          Go to order entry
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onCellClick(row.id)"></tr>
+    <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+      <input type="text" [(ngModel)]="filterParams.storeId" placeholder="Customer Name" (change)="getEntries()" />
+    </th>
+    <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+      <input type="text" [(ngModel)]="filterParams.storeId" placeholder="Email" (change)="getEntries()" />
+    </th>
+    <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+      <input type="text" [(ngModel)]="filterParams.storeId" placeholder="Phone" (change)="getEntries()" />
+    </th>
+    <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+      <input type="text" [(ngModel)]="filterParams.storeId" placeholder="Organization" (change)="getEntries()" />
+    </th>
+    <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+      <mat-form-field style="width: 100%">
+        <mat-label></mat-label>
+        <mat-select [(ngModel)]="filterParams.type" (selectionChange)="getStoreRequestList()">
+          <mat-option [value]="0">All</mat-option>
+          <mat-option [value]="1">Order</mat-option>
+          <mat-option [value]="2">Quote</mat-option>
+          <mat-option [value]="3">Draft</mat-option>
+        </mat-select>
+      </mat-form-field>    
+    </th>
+    <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+      <mat-form-field style="width: 100%">
+        <mat-label></mat-label>
+        <mat-select [(ngModel)]="filterParams.status" (selectionChange)="getStoreRequestList()">
+          <mat-option [value]="0">All</mat-option>
+          <mat-option [value]="1">Order Placed</mat-option>
+          <mat-option [value]="2">Quote Submitted</mat-option>
+          <mat-option [value]="3">Draft Saved</mat-option>
+        </mat-select>
+      </mat-form-field>    
+    </th>
+    <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+      <input type="text" [(ngModel)]="filterParams.referenceId" placeholder="Reference Id" (change)="getEntries()" />
+    </th>
+  </table>
+  <mat-paginator (page)="onPageOrders($event)" [length]="filterParams.totalLength" [pageSize]="filterParams.per_page"
+    [pageSizeOptions]="filterParams.pageSizeOptions" aria-label="Select page">
+  </mat-paginator>
+</div>

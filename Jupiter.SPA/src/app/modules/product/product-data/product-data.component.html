@@ -1,0 +1,358 @@
+<ng-container [formGroup]="productForm">
+   <div class="row page-wrapper">
+      <div class="product-data">
+         <div class="row m-2">
+            <div class="col-4">
+               <h6>Select Product</h6>
+            </div>
+            <div class="col-8 data-source-check text-right">
+            </div>
+         </div>
+         <div class="input-group mb-1">
+            <input type="text" class="form-control custom-input" placeholder="Select Product" list="products"
+               formControlName="product" (change)="setProduct($event)">
+            <div class="input-group-append">
+               <span class="input-group-text clear" (click)="setProduct()">
+                  &times;
+                  <!-- <img src="../../../../assets/images/search-white.png" alt="Search Icon"> -->
+               </span>
+            </div>
+            <div class="input-group-append">
+               <span class="input-group-text">
+                  <img src="../../../../assets/images/search-white.png" alt="Search Icon">
+               </span>
+            </div>
+         </div>
+         <br>
+         <div class="product-details-wrapper">
+            <div style="display: flex;">
+               <div class="flex-child">
+                  <h5>
+                     {{productForm.value.name != null ? productForm.value.name : "Select a product"}}
+                  </h5>
+               </div>
+               <div class="flex-child" style="text-align: right;">
+                  <mat-slide-toggle matInput formControlName="active">
+                     <span *ngIf="productForm.controls['active'].value == true">Active</span>
+                     <span *ngIf="productForm.controls['active'].value == false">Inactive</span>
+                  </mat-slide-toggle>
+               </div>
+            </div>
+            <mat-form-field appearance="none" style="width: 100%;">
+               <label><b>Display Name</b></label>
+               <br>
+               <input matInput formControlName="displayName"
+                  style="border-radius: 10px; background-color: white;height: 40px; color: black; padding:10px;">
+            </mat-form-field>
+
+            <mat-form-field appearance="none" style="width: 100%;">
+               <label><b>Description</b></label>
+               <br>
+               <textarea matInput formControlName="description" class="custom-textarea" cdkTextareaAutosize
+                  cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" style="width: 100%;">
+               <label><b>Ad Copy</b></label> <br>
+               <textarea matInput formControlName="adCopy" class="custom-textarea" cdkTextareaAutosize
+                  cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5"></textarea>
+               <!-- <label><b>Product Group</b></label>
+               <br>
+               <mat-select matInput formControlName="groups" [compareWith]="attributeDisplay"
+                  style="border-radius: 10px; background-color: white;height: 40px;" multiple>
+                  <mat-option *ngFor="let group of productGroupList" [value]="group">{{group?.name}}
+                  </mat-option>
+               </mat-select> -->
+            </mat-form-field>
+
+            <mat-form-field appearance="none" style="width: 100%;">
+               <label><b>Product Category</b></label>
+               <br>
+               <mat-select matInput formControlName="categories" [compareWith]="attributeDisplay"
+                  style="border-radius: 10px; background-color: white;height: 40px;" multiple>
+                  <mat-option *ngFor="let category of categoryList" [value]="category">{{category.name}}
+                  </mat-option>
+               </mat-select>
+            </mat-form-field>
+         </div>
+      </div>
+      <div class="product-image">
+         <div class="img-wrapper" *ngIf="productForm.value.images?.length">
+            <img id="productImg" [src]="productForm.value.images[0]?.src" alt="no image" class="img-holder" />
+         </div>
+         <div *ngIf="!productForm.value.id" class="error-msg">
+            <p>Please select a product</p>
+         </div>
+         <div *ngIf="productForm.value.id && productForm.value.images?.length == 0" class="error-msg">
+            <p>Please add images</p>
+         </div>
+         <div class="thumbnail-wrapper">
+            <div class="img-wraps" *ngFor="let img of productForm?.value?.images" (click)="onImgClick(img.src)">
+               <span class="closes" title="Delete" (click)="deleteImg(img)">×</span>
+               // give image path
+               <img class="img-responsive imgTab" [src]="img.src == null ? img : img.src">
+            </div>
+            <div class="img-wraps" *ngIf="productForm.value.id">
+               <span>
+                  <img id="img1" src="../../../../assets/images/add-image.png" alt="no image" class="imgTab"
+                     (click)="imgFile.click()" /><img />
+                  <input #imgFile type="file" style="display:none;" (change)="selectImageFile($event)" />
+               </span>
+            </div>
+         </div>
+         <div class="buttons">
+            <button class="btn btn-primary btn-size" data-toggle="modal" data-target="#productAttributeModal">
+               PRODUCT ATTRIBUTES
+            </button>&nbsp;
+            <button class="btn btn-primary btn-size" data-toggle="modal" data-target="#priceModal">
+               VIEW SIZES AND PRICING
+            </button>&nbsp;
+            <button class="btn btn-primary btn-update" (click)="updateProduct()"> UPDATE</button>&nbsp;
+         </div>
+      </div>
+   </div>
+   <datalist id="products">
+      <option [value]="product.id + ' - ' + product.name" *ngFor="let product of productList">
+   </datalist>
+
+
+   <!-- price modal -->
+   <div class="modal fade" id="priceModal" tabindex="-1" role="dialog" aria-labelledby="priceModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <!-- <h5 class="modal-title" id="priceModalLabel">Modal title</h5> -->
+               <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div style="margin-bottom: 15px;">
+                  <label><b>Garment Colors</b></label>
+                  <br>
+                  <mat-select matInput (selectionChange)="setPricingData($event)"
+                     style="border-radius: 10px;border: black solid 1px;height: 40px;">
+                     <mat-option *ngFor="let color of productForm?.value?.colors;let i = index" [value]="color">
+                        {{color?.name}}
+                     </mat-option>
+                  </mat-select>
+               </div>
+               <table class="table pricing-table">
+                  <thead>
+                     <tr>
+                        <th>Pricing</th>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>L</th>
+                        <th>XL</th>
+                     </tr>
+                  </thead>
+                  <tbody *ngIf="priceList">
+                     <tr>
+                        <td>Original Price: $</td>
+                        <td>{{priceList.S?.originalPrice}}</td>
+                        <td>{{priceList.M?.originalPrice}}</td>
+                        <td>{{priceList.L?.originalPrice}}</td>
+                        <td>{{priceList.XL?.originalPrice}}</td>
+                     </tr>
+                     <tr>
+                        <td>Sale Price: $</td>
+                        <td>{{priceList.S?.salePrice}}</td>
+                        <td>{{priceList.M?.salePrice}}</td>
+                        <td>{{priceList.L?.salePrice}}</td>
+                        <td>{{priceList.XL?.salePrice}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+
+               <!-- <table class="table warehouse-table">
+                  <thead>
+                     <tr>
+                        <th>Warehouse</th>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>L</th>
+                        <th>XL</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>Seattle WA</td>
+                        <td>500+</td>
+                        <td>414</td>
+                        <td>320</td>
+                        <td>588</td>
+                     </tr>
+                  </tbody>
+               </table> -->
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+   <!--product attribute modal-->
+   <div class="modal fade" id="productAttributeModal" tabindex="-1" role="dialog"
+      aria-labelledby="productAttributeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="attribute">
+                  <!-- <label><b>Ad Copy</b></label>
+                  <textarea matInput formControlName="adCopy" class="custom-textarea" cdkTextareaAutosize
+                     style="border:1px solid black;min-height: 80px;max-height: 80px;"></textarea> -->
+                  <!-- <mat-form-field appearance="none" style="width: 100%;"> -->
+                  <label><b>Markets</b></label>
+                  <mat-select matInput formControlName="groups" [compareWith]="attributeDisplay"
+                  style="border-radius: 10px;border: black solid 1px;height: 40px;" multiple>
+                     <mat-option *ngFor="let group of productGroupList" [value]="group">{{group?.name}}
+                     </mat-option>
+                  </mat-select>
+                  <!-- </mat-form-field> -->
+               </div>
+               <div class="attribute">
+                  <label><b>Metadata</b></label>
+                  <textarea matInput formControlName="metaData" class="custom-textarea" cdkTextareaAutosize
+                     style="border:1px solid black;min-height: 80px;max-height: 80px;"></textarea>
+               </div>
+               <div class="attribute">
+                  <label><b>Dimension and Weight Group</b></label>
+                  <mat-select matInput formControlName="itemTypeId"
+                     style="border-radius: 10px;border: black solid 1px;height: 40px;">
+                     <mat-option *ngFor="let type of itemTypeList" [value]="type.id">
+                        {{type?.name}}</mat-option>
+                  </mat-select>
+                  <div class="row p-3">
+                     <div class="col-6 p-2 border-bottom" *ngIf="itemType?.weight">Weight: {{itemType?.weight}} lbs
+                     </div>
+                     <div class="col-6 p-2 border-bottom" *ngIf="itemType?.volume">Volume: {{itemType?.volume}} l</div>
+                  </div>
+               </div>
+               <div class="attribute deco-location">
+                  <label><b>Deco Group</b></label>
+                  <mat-select matInput formControlName="decoGroupId"
+                     style="border-radius: 10px;border: black solid 1px;height: 40px;">
+                     <mat-option *ngFor="let grp of decoGroupList" [value]="grp.id">
+                        {{grp?.name}}</mat-option>
+                  </mat-select>
+                  <div class="row p-3 mb-0">
+                     <table class="table">
+                        <thead>
+                           <tr>
+                              <th>Location</th>
+                              <th>Services</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let loc of decoGroup?.locations">
+                              <td>{{ loc.name }}</td>
+                              <td>
+                                 <ng-container *ngFor="let service of loc.services;let i = index">
+                                    {{ service.name }}{{ loc.services.length - 1 != i ? ", " : ""}}
+                                 </ng-container>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <div class="attribute">
+                  <mat-form-field appearance="none" style="width: 100%;">
+                     <label><b>Store Status</b></label>
+                     <br>
+                     <mat-select matInput formControlName="storeStatus" [compareWith]="attributeDisplay"
+                        style="border-radius: 10px;border:1px solid black; background-color: white;">
+                        <mat-option *ngFor="let status of statusList" [value]="status">
+                           {{status?.name}}</mat-option>
+                     </mat-select>
+                  </mat-form-field>
+               </div>
+               <div class="attribute">
+                  <label><b>Related Products</b></label>
+                  <input type="search" placeholder="Search products" matInput [formControl]="relatedAutoText"
+                     style="border-radius: 10px;border:1px solid black; background-color: white;padding:10px"
+                     [matAutocomplete]="relProd">
+                  <mat-autocomplete #relProd="matAutocomplete" (optionSelected)="relatedProductSelected($event)">
+                     <mat-option *ngFor="let element of filteredRelProd | async" [value]="element">
+                        {{element.name}}
+                     </mat-option>
+                  </mat-autocomplete>
+                  <!-- <mat-select matInput formControlName="relatedProducts" [compareWith]="attributeDisplay"
+                     style="border-radius: 10px;border:1px solid black; background-color: white;" multiple>
+                     <mat-option *ngFor="let element of productList" [value]="element">{{element.name}}
+                     </mat-option>
+                  </mat-select> -->
+                  <div class="custom-btn-holder">
+                     <button class="btn btn-primaty custom-attribute-btn"
+                        *ngFor="let element of productForm.value.relatedProducts;let i=index">
+                        {{element.name}}
+                        <span class="material-icons custom-icons" (click)="removeRelatedProducts(i)">
+                           highlight_off
+                        </span>
+                     </button>
+                  </div>
+               </div>
+               <div class="attribute">
+                  <label><b>Alternate Products</b></label>
+                  <!-- <mat-select matInput formControlName="alternateProducts" [compareWith]="attributeDisplay"
+                     style="border-radius: 10px;border:1px solid black; background-color: white;" multiple>
+                     <mat-option *ngFor="let element of productList" [value]="element">{{element.name}}
+                     </mat-option>
+                  </mat-select> -->
+                  <input type="search" placeholder="Search products" matInput [formControl]="alternateAutoText"
+                     style="border-radius: 10px;border:1px solid black; background-color: white;padding:10px"
+                     [matAutocomplete]="altProd">
+                  <mat-autocomplete #altProd="matAutocomplete" (optionSelected)="alternateProductSelected($event)">
+                     <mat-option *ngFor="let element of filteredAltProd | async" [value]="element">
+                        {{element.name}}
+                     </mat-option>
+                  </mat-autocomplete>
+                  <div class="custom-btn-holder">
+                     <button class="btn btn-primaty custom-attribute-btn"
+                        *ngFor="let element of productForm.value.alternateProducts;let i=index">
+                        {{element.name}}
+                        <span class="material-icons custom-icons" (click)="removeAlternateProducts(i)">
+                           highlight_off
+                        </span>
+                     </button>
+                  </div>
+               </div>
+               <div class="attribute">
+                  <label><b>Companion Products</b></label>
+                  <!-- <mat-select matInput formControlName="requiredComponents" [compareWith]="attributeDisplay"
+                     style="border-radius: 10px;border:1px solid black; background-color: white;" multiple>
+                     <mat-option *ngFor="let element of productList" [value]="element">{{element.name}}
+                     </mat-option>
+                  </mat-select> -->
+                  <input type="search" placeholder="Search products" matInput [formControl]="companionAutoText"
+                     style="border-radius: 10px;border:1px solid black; background-color: white;padding:10px"
+                     [matAutocomplete]="compProd">
+                  <mat-autocomplete #compProd="matAutocomplete" (optionSelected)="companionProductSelected($event)">
+                     <mat-option *ngFor="let element of filteredCompProd | async" [value]="element">
+                        {{element.name}}
+                     </mat-option>
+                  </mat-autocomplete>
+                  <div class="custom-btn-holder">
+                     <button class="btn btn-primaty custom-attribute-btn"
+                        *ngFor="let element of productForm.value.requiredComponents;let i=index">
+                        {{element.name}}
+                        <span class="material-icons custom-icons" (click)="removeCompanionProducts(i)">
+                           highlight_off
+                        </span>
+                     </button>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</ng-container>

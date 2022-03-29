@@ -1,0 +1,61 @@
+<form [formGroup]="developerSettingsGroup">
+  <div class="row padding10">
+      <div class="col-md-8 padding10">
+        <p style="font-size: x-large;">Developer Settings</p><br>
+        <mat-hint>Customize your store with our advanced developer settings. Any changes made here may impact how your store functions, so we recommend reviewing your storefront shopper experience after any updates are made.</mat-hint>
+      </div>
+      <div class="col-md-4 padding10 align-right">
+        <button class="btn btn-primary btnClass" (click)="saveTeamStoreChanges()">SAVE</button>
+      </div>
+    </div>
+    <div class="row padding10">
+      <div class="col-md-12 padding10"></div>
+    <div class="col-md-12 padding10">
+      <mat-label>Custom CSS</mat-label><br>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-hint>Upload a CSS file below to customize the look of your store. Once uploaded successfully, the file will be active on your storefront.</mat-hint>
+    </div>
+    <div class="col-md-12 padding10">
+      <button class="btn btn-primary btnClass" (click)="fileInputs.click()">
+      <input #fileInputs style="display:none;" type="file" name="profile"
+         (change)="onFileSelect($event)" accept=".css"/>
+         <span>CHOOSE FILE</span>
+      </button>
+    </div>
+    <div class="col-md-12 padding10">
+      <div id="url" [innerHTML]="customCssUrl"></div>
+    </div>
+    <div class="col-md-12 padding10">
+    <button class="btn btn-primary btnClass" (click)="RemoveFile()" [disabled]="customCssUrl=='' || customCssUrl== null">Remove</button>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-divider></mat-divider>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-label>Embedded Scripts</mat-label><br>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-hint>Paste your external embed codes below. You can use this to add live chat, Facebook tracking pixels, Google Tag Manager, etc.
+      </mat-hint>
+    </div>
+    <div class="col-md-3 padding10">
+      <mat-label>Activate Scripts</mat-label><br>
+    </div>
+    <div class="col-md-9 padding10">
+      <mat-slide-toggle formControlName="activateEmbeddedScript"></mat-slide-toggle>
+    </div>
+    <div class="col-md-6 padding10">
+      <mat-hint style="font-size:smaller;">Custom scripts will not be applied to your storefront unless marked active.
+      </mat-hint>
+    </div>
+    <div class="col-md-12 padding10">
+      <mat-label>Enter Code</mat-label><br>
+    </div>
+    <div class="col-md-12 padding10">
+        <mat-form-field class="formField"  style="width: 100%;">
+          <input type="text" multiple matInput formControlName="embeddedScriptCode" />
+        </mat-form-field>
+    </div>
+    </div>
+</form>

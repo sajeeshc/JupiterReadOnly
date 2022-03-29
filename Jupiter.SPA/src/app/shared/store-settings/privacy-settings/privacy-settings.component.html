@@ -1,0 +1,39 @@
+<form [formGroup]="storePrivacyGroup">
+    <div class="row padding10">
+        <div class="col-md-8 padding10">
+            <p style="font-size: x-large;">Store Privacy</p>
+            <mat-hint>Select who can see this store</mat-hint>
+        </div>
+        <div class="col-md-4" style="text-align: right;">
+            <button class="btn btn-primary btnClass" (click)="submit()">SAVE</button>
+        </div>
+    </div><br><br>
+    <div class="row padding10">
+        <div class="col-md-12 padding10">
+            <mat-radio-group aria-label="Select an option" formControlName="storePrivacy">
+                <mat-radio-button value="0" (change)="changePasswordBoxHidden(true)" [checked]="storePrivacy==0">Public
+                </mat-radio-button><br>
+                <div class="col-md-12"><br>
+                    <mat-divider></mat-divider>
+                </div>
+                <div class="padding10"></div>
+                <mat-radio-button value="1" (change)="changePasswordBoxHidden(false)" [checked]="storePrivacy!=0">Private
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col-md-12 padding10" [hidden]="isPrivateBoxVisible">
+            <mat-hint>This password will be required for your customers to view the store.
+            </mat-hint>
+            <mat-form-field class="formField" style="width: 100%;">
+                <input type="text" matInput formControlName="password" />
+                <mat-error *ngIf="storePrivacyGroup.get('password').errors?.required">
+                    Please enter a password
+                  </mat-error>
+                  <mat-error *ngIf="storePrivacyGroup.get('password').errors?.minlength">
+                    Please enter a valid password
+                  </mat-error>
+                <mat-hint>At least 6 characters required</mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,144 @@
+.card-holder {
+  display: flex;
+  padding: 10px;
+}
+
+.header-label {
+  background-color: #004c98;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white;
+}
+
+.cart-header {
+  height: 40px;
+  margin: auto;
+  display: inline;
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.checkout-card-holder {
+  width: 60%;
+  margin: 20px;
+  height: 100%;
+}
+
+.payment-card-holder {
+  width: 40%;
+  margin: 20px;
+  height: 672px;
+}
+
+.checkout-card {
+  height: 100%;
+}
+.payment-card {
+  height: 100%;
+}
+
+.info-label {
+  font-size: small;
+  color: #cfcece;
+}
+
+.detail-label {
+  margin: 0px;
+  margin-bottom: 2px;
+}
+
+.padding-20 {
+  padding: 20px;
+}
+
+.total-amount-label {
+  color: #097fdc;
+  font-size: x-large;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.margin-20 {
+  margin: 20px;
+}
+
+.table {
+  border-collapse: separate;
+  border-top: solid #097fdc 2px;
+  -moz-border-radius: 6px;
+}
+
+.table td,
+.table th {
+  border: none;
+}
+
+th {
+  border: none;
+  color: #097fdc;
+}
+
+.table tr {
+  border-bottom: solid #ececec 1px;
+}
+
+.blue-color-font {
+  color: #097fdc;
+}
+
+
+
+mat-radio-button {
+  margin-top: 10px;
+}
+
+.btn-style {
+  color: white;
+  border-radius: 10px;
+  background-color: #004c98;
+  box-shadow: -4px 4px 0px 0px lightgrey;
+  width: 50%;
+}
+
+.align-bottom-right {
+  bottom: 10px;
+  right: 10px;
+}
+
+.position-absolute{
+    position: absolute;
+}
+
+.formWidth{
+  width:100%
+}
+
+.mat-icon{
+  margin-left: 10px;
+  // font-size:5px;
+  cursor: pointer;
+}
+
+.grey .detail-label{
+  color: #8f8f8f;
+}
+
+a.link{
+  cursor: pointer;
+  text-decoration: underline;
+  color: #097fdc;
+}

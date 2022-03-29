@@ -1,0 +1,152 @@
+<div>
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" width="100%">
+
+      <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.customer.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="customerEmail">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.customer.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="organization">
+        <th mat-header-cell *matHeaderCellDef>Organization</th>
+        <td mat-cell *matCellDef="let element">{{ element.organization.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="creditAmount">
+        <th mat-header-cell *matHeaderCellDef>Credit Amount</th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="element.creditStatus == 0 || element.creditStatus == 3">
+            <span class="dollar">$</span>
+            <input type="number" class="credit" [id]="'credit_'+element.id">
+          </ng-container>
+          <ng-container *ngIf="element.creditStatus == 1">
+            $ {{ element.credit }}
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="creditStatus">
+        <th mat-header-cell *matHeaderCellDef>Credit Status</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.creditStatus == 0 ? "Requested" : element.creditStatus == 1 ? "Approved" : element.creditStatus ==
+          2 ? "Rejected" : element.creditStatus == 3 ? "Re-applied" : ""}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="appliedDate">
+        <th mat-header-cell *matHeaderCellDef>Applied Date</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdDate | date:'MM-dd-yyyy'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedDate">
+        <th mat-header-cell *matHeaderCellDef>Updated Date</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.modifiedDate | date:'MM-dd-yyyy'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedBy">
+        <th mat-header-cell *matHeaderCellDef>Updated By</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element?.approvedBy?.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="notes">
+        <th mat-header-cell *matHeaderCellDef>Notes</th>
+        <td mat-cell *matCellDef="let element">
+          <textarea *ngIf="element.creditStatus == 0 || element.creditStatus == 3" [id]="'notes_'+element.id" cols="20"
+            rows="2"></textarea>
+          <ng-container *ngIf="element.creditStatus != 0 && element.creditStatus != 3">
+            {{ element?.notes }}
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef=" let element;let i = index">
+          <ng-container *ngIf="element.creditStatus == 0 || element.creditStatus == 3">
+            <button mat-button color="primary" (click)="approveCreditApplication(element.id,i)">Approve</button>
+            <button mat-button color="warn" (click)="rejectCreditApplication(element.id,i)">Reject</button>
+            <button mat-button *ngIf="element.creditStatus == 3" data-toggle="modal" (click)="showLogs(element.id)"
+              data-target="#logsModal">
+              Logs
+            </button>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+        <input type="text" [(ngModel)]="filterParams.customerName" placeholder="Customer Name" (change)="getCreditApplications()" />
+      </th>
+      <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+        <input type="text" [(ngModel)]="filterParams.customerEmail" placeholder="Customer Email" (change)="getCreditApplications()" />
+      </th>
+      <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+        <input type="text" [(ngModel)]="filterParams.organization" placeholder="Organization" (change)="getCreditApplications()" />
+      </th>
+      <!-- <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+        <input type="text" [(ngModel)]="filterParams.creditStatus" placeholder="Status" (change)="getCreditApplications()" />
+      </th> -->
+      <th mat-header-row *matHeaderRowDef style="padding: 10px 10px 10px 0;">
+        <button class="btn btn btn-primary btn-sm" (click)="getCreditApplications()">Filter</button>
+      </th>
+    </table>
+
+    <mat-paginator (page)="onPage($event)" [length]="filterParams.totalLength" [pageSize]="filterParams.per_page"
+      [pageSizeOptions]="filterParams.pageSizeOptions" aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>
+
+<!-- logs modal -->
+<div class="modal fade" id="logsModal" tabindex="-1" role="dialog" aria-labelledby="logsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logsModalLabel">Logs</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <table class="table" *ngIf="applicationHistory">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Modified Date</th>
+              <th>Modified By</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of applicationHistory">
+              <td>{{ row.creditStatus == 0 ? "Requested" : row.creditStatus == 1 ? "Approved" : row.creditStatus ==
+                2 ? "Rejected" : row.creditStatus == 3 ? "Re-applied" : ""}}</td>
+              <td>{{ row.modifiedDate | date:'MM-dd-yyyy' }}</td>
+              <td>{{ row.modifiedBy.name }}</td>
+              <td>{{ row.notes }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <img src="../../../../assets/images/spinner.svg" alt="Loading Image" *ngIf="!applicationHistory"
+          class="spinner">
+        <p *ngIf="applicationHistory && !applicationHistory.length">No logs available</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>

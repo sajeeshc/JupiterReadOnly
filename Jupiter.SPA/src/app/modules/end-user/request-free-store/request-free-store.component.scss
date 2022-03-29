@@ -1,0 +1,111 @@
+.headerImage {
+  width: 100%;
+}
+
+.custom-padding-top {
+  padding-top: 10px;
+}
+
+.commonBtnStyle {
+  font-size: x-large;
+  font-weight: bold;
+  border-radius: 25px;
+  background-color: #004c98;
+  width: 18%;
+  height: 120%;
+}
+
+.form-wrapper {
+  border: thin solid black;
+  padding: 20px;
+}
+
+.font-color-darkblue{
+  color:#004E96;
+}
+
+.font-color-cyan{
+  color:#35C4F0;
+}
+
+.font-size-small{
+  font-size: small;
+}
+
+.font-size-large{
+  font-size: large;
+  font-weight: bold;
+}
+
+.common-padding{
+  padding:10px;
+}
+
+.btn-style-grey{
+  background-color: #A9AEB6;
+  border-radius: 20px;
+  border:thin solid #A9AEB6;
+  transition: transform .2s; /* Animation */
+}
+
+//mat-formfield input box custom style and border
+
+::ng-deep .mat-form-field-infix {
+  padding: 0em 0 !important;
+  border-top: 0em solid transparent !important;
+}
+
+//mat-radio-button custom color
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #35C4F0 !important; /*ripple effect colorß*/
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #35C4F0 !important; /*inner circle color change*/
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: #004c98 !important; /*outer ring color change*/
+}
+
+.mat-checkbox{
+  vertical-align: sub;
+  color: #35C4F0;
+  font-weight: bold;
+  font-size: large;
+  margin-left: 10px;
+}
+
+//checkbox color
+
+::ng-deep .mat-checkbox-checkmark-path {
+  stroke: #35C4F0 !important;
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: white;
+  border: thin solid black;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  opacity: 0.03 !important;
+  background-color: #35C4F0 !important;
+}
+
+//button-zoom-effect
+
+.btn-style-grey:hover {
+  transform: scale(1.1); /* (110% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.invalid-field{
+  border: 2px solid red;
+}
+
+::placeholder { 
+  color: rgb(73, 80, 87);
+}

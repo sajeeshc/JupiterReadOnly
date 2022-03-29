@@ -1,0 +1,47 @@
+<br><br>
+<div class="row  justify-content-center">
+  <mat-card class="col-md-4">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" style="text-align: center;">
+      <img width="60%" height="25%" src="../../../../assets/images/ares-userlogo.png">
+      <br><br>
+      <h2>Log In</h2>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Username</mat-label>
+        <input type="email" matInput formControlName="email" onkeypress="return event.charCode != 32">
+        <mat-error *ngIf="loginForm.get('email').errors?.required">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email').errors?.pattern">
+          Please enter a valid email address
+        </mat-error>
+        <!-- <mat-error *ngIf="loginForm.get('email').errors.required">
+          Email is required
+        </mat-error> -->
+        <!-- <mat-error *ngIf="loginForm.get('email').errors.pattern">
+          Please enter a valid email address
+        </mat-error> -->
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%;">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password">
+        <mat-error *ngIf="loginForm.get('password').errors?.required">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+      <span [hidden]="!showResponseMessage" style="color:red">{{errorText}}</span>
+      <br>
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Login
+        </button>
+        <br>
+        <button mat-button color="primary" (click)="signUp()">Signup</button>
+        <button mat-button color="primary" (click)="forgotPassword()">Forgot Password</button>
+      </div>
+      <br><br>
+    </form>
+    <!-- <button mat-button color="primary" (click)="forgotPassword()">Forgot Password</button> -->
+  </mat-card>
+</div>

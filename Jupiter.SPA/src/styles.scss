@@ -1,0 +1,124 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$Jupiter-primary: mat-palette($mat-indigo);
+$Jupiter-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$Jupiter-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$Jupiter-theme: mat-light-theme(
+  $Jupiter-primary,
+  $Jupiter-accent,
+  $Jupiter-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($Jupiter-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+
+//Include theme styles for editor
+@import '~quill/dist/quill.snow.css';
+//
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.primaryToolbar {
+  height: 60px;
+  width: 100%;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.secondaryToolbar {
+  height: 40px;
+  width: 100%;
+  background-color: #1830a3;
+  color: ghostwhite;
+  padding: 10px 10px;
+}
+
+.toolbarHeaderIcon {
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+}
+
+.toolbarSubheaderIcon {
+  margin-top: 10px;
+}
+
+.wrapper {
+  margin-top: 12px;
+  min-width: 150px;
+  text-align: center;
+}
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+  z-index: 99999 !important;
+}
+
+table {
+  line-height: 15px !important;
+}
+
+.table thead th {
+  vertical-align: middle;
+}
+
+body{
+  line-height: 1rem;
+}
+
+.modal-backdrop {
+  z-index: -1;
+}
+
+.mat-snack-bar-container {
+  color: #FFFFFF !important;
+}
+
+.mat-simple-snackbar {
+  font-size: initial !important;
+}
+
+.snackbarWarning {
+  //background-color: #ffa500 !important;
+  background-color: #F7931A !important;
+}
+
+.snackbarError {
+  // background-color: #f44336 !important;
+  background-color: #D32A36 !important;
+}
+
+.snackbarSuccess {
+  background-color: #00d45a !important;
+}
+
+.full-width {
+  width: 100%;
+}
+

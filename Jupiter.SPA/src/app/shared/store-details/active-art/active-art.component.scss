@@ -1,0 +1,45 @@
+.mat-card {
+  max-height: 250px;
+  max-width: 300px;
+  margin: 10px;
+  min-height: 250px;
+  min-width: 300px;
+}
+
+.mat-card-image {
+  height: 200px;
+}
+
+.cardContent {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 5px;
+}
+
+.cardActionBtn {
+  text-align: center;
+}
+
+.cardWrapper {
+  display: flex;
+}
+
+h5 {
+  margin-left: 10px;
+}
+
+.addBtn {
+  background-color: #0f5384;
+  font-size: small;
+  height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  margin-left: 5px;
+}
+.bottom-bar {
+  text-align: right;
+  bottom: 20px;
+  right: 20px;
+  position: fixed;
+}

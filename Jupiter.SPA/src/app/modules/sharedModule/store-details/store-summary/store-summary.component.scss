@@ -1,0 +1,22 @@
+.row{
+    margin-top: 10px;
+}
+mat-form-field{
+    width: 100%;
+}
+
+textarea{
+    max-height: 30px;
+    height: 15px;
+}
+.btnClass {
+    background-color: #1830a3;
+    font-size: small;
+    // width: 100%;
+  }
+
+  .bottom-right {
+    position: fixed;
+    bottom: 50px;
+    right: 50px; 
+  }

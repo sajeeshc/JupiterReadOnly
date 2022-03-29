@@ -1,0 +1,35 @@
+.parent-container {
+    font-size: 14px;
+    margin: 20px;
+    font-family: Inter, sans-serif;
+    .action-container {
+        max-width: 50%;
+        margin: 20px auto;
+        label {
+            font-size: 1.2em;
+        }
+    }
+    .table-container {
+        .table {
+            td{
+                padding-top: 8px;
+                padding-bottom: 8px;
+            }
+            thead tr {
+                background-color: #eb475d;
+                color: #ffffff;
+            }
+            td.actions {
+                text-align: right;
+                img {
+                    width: 15px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                }
+            }
+            th:nth-child(1){
+                width: 150px;
+            }
+        }
+    }
+}

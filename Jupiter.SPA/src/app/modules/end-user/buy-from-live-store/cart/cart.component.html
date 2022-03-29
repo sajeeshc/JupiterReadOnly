@@ -1,0 +1,105 @@
+<div class="card-holder">
+  <div class="card-item-holder">
+    <mat-card>
+      <div class="header-label row">
+        <div class="col-md-12 cart-header">
+          <b>YOUR CART</b>
+        </div>
+      </div>
+      <div>
+        <div>
+          <br>
+          <!-- <label class="custom-padding-label font-color-turqouise">De-select all items</label> -->
+        </div>
+        <div class="cartitem-list-wrapper">
+          <div class="cart-item">
+            <div style="width: 100%;" class="align-right">
+              <label class="padding-left-15">Price</label>
+
+            </div>
+            <mat-divider></mat-divider>
+            <br>
+            <div class="item-details" *ngFor="let product of cartItems?.cartItemsInfo let i = index">
+              <div style="width: 3%;">
+                <mat-checkbox class="padding-10" [(ngModel)]="product.selected" [name]="isSelected"></mat-checkbox>
+                <!-- <mat-checkbox class="padding-10" formControlName="selected" (change)="updatePersonalize($event,i,garment)"></mat-checkbox> -->
+              </div>
+              <div class="padding-10">
+                <img src={{product.designedProductImages[0]}} class="cartitem-img-holder" />
+              </div>
+              <div style="width: 77%;" class="padding-10">
+                <label class="bold-font">{{product.productName}}</label>
+                <br>
+                <label>{{product.productCategoryInfo.name}}</label>
+                <br>
+                <label *ngIf="product.quantity>0" class="font-color-green">in stock</label>
+                <label *ngIf="product.quantity<0" class="font-color-green">out of stock</label>
+                <br>
+                <br>
+                <div class="cartitem-actions">
+                  <span>
+                    <label>Qty:{{product.quantity}}</label>
+                    |
+                    <button mat-button color="primary" (click)="deleteItem(product,i)">Remove</button>
+                    <!-- |
+                    <button mat-button color="primary" (click)="saveItem(product)">Save for later</button> -->
+
+                  </span>
+                </div>
+                <div>
+                  <a routerLinkActive="true" [routerLink]="'/enduser/buyfromlivestore/productview/'+product.id">add more
+                    items</a>
+
+                </div>
+              </div>
+              <div style="width: 5%;" class="padding-10">
+                <label>${{product.totalPrice}}</label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </mat-card>
+  </div>
+  <div class="card-price-holder">
+    <mat-card>
+      <div class="header-label row">
+        <div class="col-md-12 cart-header">
+          <b>SUBTOTAL</b>
+        </div>
+      </div>
+      <div class="center-align price-card-margin ">
+        <label class="cart-price-label bold-font">({{cartItems?.cartItemsInfo?.length}})Items: ${{totalAmount}}</label>
+      </div>
+      <div class="cart-actions price-card-margin center-align ">
+        <div><button class="btn btn-primary btn-style" (click)="goBackToProductSelection()">Continue Shopping</button>
+        </div>
+        <br>
+        <div><button class="btn btn-primary btn-style" (click)="checkout()">Check Out</button></div>
+      </div>
+      <br>
+      <!-- <mat-divider style="margin-top: 10px;"></mat-divider> -->
+      <!-- <div class="suggested-items-wrapper price-card-margin ">
+        <label class="bold-font">SUGGESTED ITEMS:</label>
+        <div class="suggested-items-holder center-align">
+          <div class="suggested-item">
+            <img src="http://imprint.eastus2.cloudapp.azure.com/designer/assets/design_previews/carts/202103170741104996_1.png" class="cartitem-img-holder">
+            <br>
+            <label>
+              Aries Humble Hoodie
+            </label>
+            <br>
+            <button class="btn btn-primary btn-style">ADD TO CART</button>
+          </div>
+        </div>
+      </div> -->
+    </mat-card>
+    <div class="remove-all-btn">
+      <div (click)="removeSelected()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon> Remove Selected
+      </div>
+    </div>
+  </div>
+</div>

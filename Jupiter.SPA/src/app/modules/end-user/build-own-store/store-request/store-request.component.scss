@@ -1,0 +1,38 @@
+.custom-padding-top{
+    padding-top: 10px;
+}
+
+.commonBtnStyle {
+  font-size: large;
+  border-radius: 20px;
+  background-color: #004C98;
+  width: 120px;
+  height: 33px;
+  padding: unset;
+  box-shadow: -4px 4px 0px 0px lightgrey;
+  }
+
+//mat-formfield input box custom style and border 
+ 
+  ::ng-deep .mat-form-field-infix {
+    padding: 0em 0 !important; 
+    border-top: 0em solid transparent !important; 
+}
+
+//mat-radio-button custom color
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #004C98 !important; /*ripple effect colorß*/
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color:#004C98 !important;   /*inner circle color change*/
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+ border-color:#004C98 !important; /*outer ring color change*/
+}
+  
+::placeholder { 
+  color: rgb(73, 80, 87);
+}

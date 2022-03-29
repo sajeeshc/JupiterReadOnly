@@ -1,0 +1,235 @@
+.outer-container {
+  font-size: 16px;
+  font-family: Roboto, Open Sans, sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+  -webkit-box-direction: normal;
+  box-sizing: inherit;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 16px 0;
+}
+
+.header {
+  padding: 0;
+  max-width: 80vw;
+  // max-width: 75rem;
+  margin: 0 auto;
+  padding-right: 0.9375rem;
+  padding-left: 0.9375rem;
+}
+
+.nav-link {
+  background-color: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  align-items: center;
+  display: flex;
+  padding: 0.75rem;
+  text-transform: capitalize;
+  transition: all 0.2s linear;
+  white-space: nowrap;
+}
+
+.side-nav {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.align-right {
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+}
+.title-wrapper {
+  margin: 0;
+  padding: 0;
+  -webkit-box-flex: 0;
+  flex: 0 0 auto;
+  min-height: 0;
+  min-width: 0;
+  -webkit-box-pack: center;
+  justify-content: center;
+  flex-basis: auto;
+  width: 33.3333333333%;
+  display: flex;
+}
+
+.title-link {
+  background-color: transparent;
+  line-height: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  align-items: center;
+  display: flex;
+}
+
+.title {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  color: inherit;
+  text-rendering: optimizeLegibility;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  font-size: 1.5rem;
+  text-align: center;
+  word-break: break-word;
+  font-weight: 500;
+}
+
+.mat-button,
+.mat-raised-button {
+  background-color: rgb(240, 80, 35);
+}
+
+.reach-out {
+  text-align: center;
+  min-height: 255px;
+}
+
+.footer-nav {
+  padding-bottom: 2rem;
+  padding-top: 3rem;
+  padding-right: 0.9375rem;
+  padding-left: 0.9375rem;
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+.contact-ul {
+  list-style-type: none;
+  padding: 0;
+  li {
+    align-items: center;
+    display: flex;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+  }
+  a {
+    padding-left: 1rem;
+  }
+}
+
+.footer-nav ul {
+  list-style-type: none;
+  padding: 0;
+  li {
+    cursor: pointer;
+  }
+}
+
+.product-card-wrapper {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  font-family: Roboto;
+  -webkit-box-direction: normal;
+  box-sizing: inherit;
+  -webkit-box-flex: 0;
+  flex: 0 0 auto;
+  min-height: 0;
+  min-width: 0;
+  margin-bottom: 24px !important;
+  margin-left: 0.9375rem;
+  margin-right: 0.9375rem;
+  width: calc(33.3333333333% - 1.875rem);
+}
+
+.product-card {
+  margin: 0;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  flex-flow: row wrap;
+  padding: 8px !important;
+  padding-bottom: 16px !important;
+  -webkit-tap-highlight-color: transparent;
+  align-content: flex-start;
+  cursor: pointer;
+  height: 100%;
+  position: relative;
+  flex-direction: column;
+}
+
+.product {
+  margin: 0;
+  padding: 0;
+  -webkit-box-flex: 0;
+  flex: 0 0 auto;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  // height: 300px;
+  flex-grow: 1;
+  img{
+    max-height: 300px;
+    max-width: 200px;
+  }
+}
+
+.product-info {
+  margin: 0;
+  padding: 0;
+  -webkit-box-flex: 0;
+  flex: 0 0 auto;
+  min-height: 0;
+  min-width: 0;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  width: 100%;
+  p {
+    margin-bottom: 5px;
+  }
+}
+
+.product-section {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  flex-flow: row wrap;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.product-card-wrapper:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.color-preview {
+  height: 15px;
+  width: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 10px 5px 0 auto;
+  display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.image-thumbnail {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+}
+
+.banner-top{
+  position: sticky;
+  background: black;
+  color: white;
+  padding: 1rem 6rem;
+  text-align: center;
+  line-height: 2rem;
+  font-size: 1.3rem;
+  z-index: 100;
+  top: 0;
+}

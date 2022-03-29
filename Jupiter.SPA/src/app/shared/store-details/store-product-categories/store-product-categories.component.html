@@ -1,0 +1,128 @@
+<div>
+  <h5 class="padding-10">Product Categories</h5>
+  <div class="row">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary addBtn" data-toggle="modal" data-target="#addCategoryModal">
+        Add Category
+      </button>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="col-md-12">
+      <div class="category-list-wrapper">
+        <div class="category-item" *ngFor="let item of categoryArray let i = index">
+          <div class="row category-header">
+            <div class="col-md-10">
+              <h5> {{ item.categoryName }} </h5>
+            </div>
+            <div class="col-md-2 category-item-btn">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button data-toggle="modal" (click)="openProductModal(item,i)" class="btn">
+                  <mat-icon class="align-vertical">edit</mat-icon>
+                </button>
+                <button (click)="deleteCategory(item,i)" class="btn">
+                  <mat-icon class="align-vertical">delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row category-products-wrapper ">
+            <div class="col-md-3 cardHolder" *ngFor="let product of item?.products ">
+              <img class="cardImgHolder" [src]="product?.images[0]" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addCategoryModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Category List</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <mat-form-field class="full-width">
+          <mat-label>Category Name</mat-label>
+          <input type="text" matInput name="categoryname" id="categoryname" [(ngModel)]="categoryName" />
+        </mat-form-field>
+        <span class="error" *ngIf="categoryName === ''"> Category name required </span>
+        <button type="button" class="btn addBtn" (click)="saveCategory(categoryName)" style="float: right">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addProductModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Edit</h5>
+        <button type="button" (click)="close()" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="categoryCard">
+          <mat-form-field class="full-width">
+            <mat-label>Category Name</mat-label>
+            <input type="text" matInput [(ngModel)]="categoryName" name="name" id="name" />
+          </mat-form-field>
+          <!-- <div *ngFor="let item of productList">
+            <mat-checkbox [value]="item" [checked]="productMapCodes?.indexOf(item.mapCode) !== -1" 
+            (input)="productSelected($event,item)" *ngIf="item.isActive">
+              <mat-hint>
+                {{ item.product.name }} 
+                {{ item.color ? " (" + item.color + ")" : "" }}</mat-hint>
+            </mat-checkbox>
+          </div> -->
+          <div cdkDropList class="product-drop-list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of productList" cdkDrag class="drag-list-item">
+              <div class="custom-drag-placeholder" *cdkDragPlaceholder></div>
+              <mat-checkbox [value]="item" [checked]="productMapCodes?.indexOf(item.mapCode) !== -1"
+                (input)="productSelected($event,item)" *ngIf="item.isActive">
+                  <div class="checkbox-content">
+                    <div class="prod-name">
+                      {{ item.product.displayName ? item.product.displayName : item.product.name }}
+                      {{ item.color ? " (" + item.color + ")" : "" }}
+                    </div>
+                    <div class="prod-img">
+                      <img src="{{item.product.images[0].src}}" alt="{{item.product.displayName ? item.product.displayName : item.product.name}}">
+                    </div>
+                  </div>
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+        <button type="button" (click)="updateCategory()" class="btn btn-primary modalBtn">
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteConfirmationModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Are you sure you want to delete Category - {{selectedCategory?.categoryName}}?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn addBtn" (click)="confirmDelete()" style="float: right">
+          Delete
+        </button>
+        <button type="button" class="btn addBtn" (click)="close()" data-dismiss="modal" style="float: right">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

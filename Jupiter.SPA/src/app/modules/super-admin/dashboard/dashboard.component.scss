@@ -1,0 +1,209 @@
+.menu {
+    border: grey solid thin;
+    border-radius: 10px;
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+  }
+  
+  .notificationWrapper {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0px 1px 1px lightgrey;
+    border-left: 3px solid #d32a36;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .notificationTableHeader {
+    background-color: #d32a36;
+  }
+  
+  th {
+    color: white;
+    font-family: "Copperplate Gothic Bold", Copperplate, sans-serif;
+  }
+  
+  .inboxWrapper {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0px 1px 1px lightgrey;
+    border-left: 3px solid #f7931a;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .quickLinkWrapper {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0px 1px 1px lightgrey;
+    border-left: 3px solid #10ca93;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  #inboxTableHeader {
+    background-color: #f7931a;
+    height: 40px;
+  }
+  
+  .inboxHeading {
+    color: black;
+    font-family: sans-serif;
+    background-color: #ffe8e8;
+    height: 40px;
+  }
+  
+  #quickLinkHeader {
+    background-color: #10ca93;
+    font-family: "Copperplate Gothic Bold", Copperplate, sans-serif;
+    color: white;
+    padding-top: 10px;
+    padding-left: 10px;
+  }
+  
+  .commmonHeader {
+    font-family: "Copperplate Gothic Bold", Copperplate, sans-serif;
+    background-color: #834eff;
+    color: white;
+    padding-left: 10px;
+    padding-top: 15px;
+  }
+  
+  .height40 {
+    height: 40px;
+  }
+  
+  .height50 {
+    height: 50px;
+    text-align: left;
+  }
+  
+  .row {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  
+  .commonWrapper {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0px 1px 1px lightgrey;
+    border-left: 3px solid #834eff;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .commonTab {
+    background-color: #23b7e5;
+    text-align: center;
+    height: 75px;
+    border-radius: 10px;
+    margin: 2px;
+    padding-top: 2px;
+    color: white;
+    cursor: pointer;
+    padding-right: 1px;
+    padding-left: 1px;
+  }
+  
+  .commonTabHeader {
+    padding-bottom: 0rem !important;
+  }
+  
+  .commonTabInfo {
+    font-size: x-small;
+  }
+  
+  .leftColTab {
+    padding-left: 10px;
+    padding-right: 2px;
+    padding-top: 0px;
+  }
+  
+  .rightColTab {
+    padding-left: 2px;
+    padding-right: 10px;
+    padding-top: 0px;
+  }
+  
+  .quickLinkImgTab {
+    height: 80px;
+    border-radius: 10px;
+    margin: 10px;
+  }
+  
+  .sideTab {
+    height: 70px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px lightgrey;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .sideBarImgTab {
+    height: 35px;
+    width: 35px;
+    align-items: center;
+  }
+  
+  .sideBarTabText {
+    font-size: 12px;
+  }
+  
+  .imgTabSize {
+    height: 30px;
+    width: 30px;
+    margin-right: 5px;
+  }
+  
+  .quickLinkImgTabWrapper {
+    padding-left: 10px;
+  }
+  
+  .table-scroll {
+    height: 100%;
+    overflow:auto;  
+  }
+
+  .cyanColor{
+    background-color: #00D7FF;
+  }
+
+  .greenColor{
+    background-color: #10CA93;
+  }
+
+  .orangeColor{
+    background-color: #F7931A;
+  }
+
+  .magentaColor{
+    background-color: #EB3A79;
+  }
+
+  .violetColor{
+    background-color: #8169BD;
+  }
+
+  .blueColor{
+    background-color: #2C95FF;
+  }
+
+  .reportingBorderColor{
+    border-left-color: #EB3A79;
+  }
+
+  .portalBorderColor{
+    border-left-color: #F7931A;
+  }
+  

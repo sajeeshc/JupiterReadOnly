@@ -1,0 +1,109 @@
+<!-- <form> -->
+    <div class="row padding10">
+        <div class="col-md-8 padding10">
+            <p style="font-size: x-large;">Shipping Methods</p>
+            <mat-hint>Select the shipping options customers can choose from when they check out from this store.
+            </mat-hint>
+        </div>
+        <div class="col-md-4" style="text-align: right;">
+            <button class="btn btn-primary btnClass" (click)="submit()">SAVE</button>
+        </div>
+    </div><br>
+    <div class="row padding10">
+        <div *ngIf="selectedShippingmethods.length>0">
+            <div class="col-md-11 padding10">
+                <p style="font-size: medium;">Active Shipping Methods</p>
+                <mat-hint>Drag and drop the shipping methods to set the order that they appear to customers when they checkout.
+                </mat-hint>
+            </div>
+        </div>
+        <div class="col-md-12 padding10">
+            <mat-divider></mat-divider>
+        </div>
+        <div *ngIf="selectedShippingmethods.length==0" style="width: 100%;">
+            <div class="col-md-12 padding10" style="text-align: center;">
+                <img src="../../../../assets/images/parcel van.png" style="width: 100px;">
+            </div>
+            <div class="col-md-12 padding10" style="text-align: center;">
+                <mat-hint>No shipping methods applied</mat-hint>
+            </div>
+        </div>
+
+        <div class="col-md-12 padding10" *ngIf="selectedShippingmethods.length>0">
+
+            <div cdkDropList class="drag-list" (cdkDropListDropped)="drop($event)">
+                <div class="drag-box" *ngFor="let method of selectedShippingmethods" cdkDrag>
+                    <div class="col-md-1" style="border: 1 solid black;">
+                        <mat-icon aria-hidden="false" aria-label="drag icon">open_with</mat-icon>
+                    </div>
+                    <div class="col-md-10">
+                            <mat-label>{{method.shippingMethod.name}}</mat-label><br>
+                            <mat-hint>Process Days: {{method.shippingMethod.processDays}} Transit Time
+                                {{method.shippingMethod.transistTimeMin}}-{{method.shippingMethod.transistTimeMax}} Days Rush Markup
+                                {{method.shippingMethod.rushMarkup}}%</mat-hint>
+                    </div>
+                    <div class="col-md-1" style="border: 1 solid black;cursor: pointer;">
+                        <mat-icon aria-hidden="false" aria-label="clear icon" (click)="clear(method.shippingMethod)">clear</mat-icon>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-12 padding10">
+            <mat-divider></mat-divider>
+        </div>
+        <div class="col-md-12 padding10">
+            <button type="button" class="btn btn-primary btnClass" data-toggle="modal"
+                data-target="#shippingMethodsModal" (click)="checkSelected()">
+                ADD SHIPPING METHODS
+            </button>
+        </div>
+    </div>
+<!-- </form> -->
+
+<!-- <form> -->
+    <div class="modal fade" id="shippingMethodsModal" role="dialog">
+        <div class="modal-dialog" style="max-height: 600px; overflow-y: scroll;">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 padding10">
+                            <mat-label style="font-size: large;">Select Shipping Methods</mat-label>
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+                        </div>
+                        <div class="md-col-12 padding10 smaller">
+                            <mat-hint>These are the global shipping methods you have set up, available for any store.
+                                Select which methods shoppers can choose from when they check out from this particular
+                                store.</mat-hint>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="full-width" *ngFor="let method of shippingMethods">
+                            <div class="col-md-12 padding10 ">
+                                <mat-checkbox [value]="method.id" [checked]="selectedMethodIds.indexOf(method.id)>-1" (input)="check($event)">
+                                    <mat-label>{{method.name}}</mat-label><br>
+                                    <mat-hint>Process Days: {{method.processDays}} Transit Time
+                                        {{method.transistTimeMin}}-{{method.transistTimeMax}} Days Rush Markup
+                                        {{method.rushMarkup}}%</mat-hint>
+                                </mat-checkbox>
+                            </div>
+                            <div class="col-md-12">
+                                <mat-divider></mat-divider>
+                            </div>
+                        </div>
+                        <!-- <br><br><br> -->
+                        <div class="col-md-12 padding15">
+                            <button class="btn btn-primary btnClass" style="float: right;" (click)="addShippingMethods()"  data-dismiss="modal">APPLY</button>
+                            <button class="btn" style="float: right;" data-dismiss="modal">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </form> -->

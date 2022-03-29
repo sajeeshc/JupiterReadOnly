@@ -1,0 +1,36 @@
+<div class="grid-container">
+    <div class="header">
+        <div class="search-container">
+            <div class="search">
+                <input type="text" class="search-input" placeholder="Search for a template">
+            </div>
+        </div>
+        <div class="heading">
+            <h3>Pick a Template to Follow</h3>
+            <div class="sub-heading">
+                <label>
+                    The teams below were gracious enough to share their recipe for success with you for inspiration. <br>
+                    You can use any store below to help start building your team's store!
+                </label>
+                <!-- <a href="#">A</a><a href="#">B</a><a href="#">C</a><a href="#">D</a><a href="#">E</a><a href="#">F</a><a
+                    href="#">G</a><a href="#">H</a><a href="#">I</a><a href="#">J</a><a href="#">K</a><a
+                    href="#">L</a><a href="#">M</a><a href="#">N</a><a href="#">O</a><a href="#">P</a><a
+                    href="#">Q</a><a href="#">R</a><a href="#">S</a><a href="#">T</a><a href="#">U</a><a
+                    href="#">V</a><a href="#">W</a><a href="#">X</a><a href="#">Y</a><a href="#">Z</a> -->
+            </div>
+            <!-- <p class="view-all" (click)="itemsToShow = templateList.length" *ngIf="itemsToShow != templateList.length">
+                View All
+            </p> -->
+        </div>
+    </div>
+    <div class="store-list">
+        <ng-container *ngFor="let store of templateList;let i = index">
+            <div class="store-card" *ngIf="store.previewImage">
+                <div class="store-img">
+                    <img src="{{store.previewImage}}">
+                </div>
+                <p class="store-name">{{store.teamStoreName}}</p>
+            </div>
+        </ng-container>
+    </div>
+</div>

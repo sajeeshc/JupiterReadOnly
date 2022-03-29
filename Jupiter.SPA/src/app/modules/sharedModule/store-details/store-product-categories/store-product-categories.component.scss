@@ -1,0 +1,70 @@
+.addBtn {
+  float: right;
+  background-color: #1730a3;
+  font-size: small;
+  color:white;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.modalBtn {
+  background-color: #1730a3;
+  float: right;
+  font-size: small;
+}
+
+.category-item-btn{
+  text-align: right;
+}
+
+.error {
+  font-size: 10px;
+  color: red;
+}
+
+.align-vertical {
+  vertical-align: middle;
+}
+
+.font-small {
+  font-size: small;
+}
+
+.padding-10 {
+  padding: 10px;
+}
+
+li {
+  padding: 5px;
+}
+
+h6 {
+  font-size: x-large;
+}
+
+.category-products-wrapper {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 5px;
+}
+
+.cardImgHolder {
+  height: 200px;
+  width: 200px;
+  margin: 5px;
+  text-align: center;
+}
+
+
+.category-header{
+  text-align: center;
+}
+
+.category-item{
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0px 1px 2px 1px lightgrey;
+}

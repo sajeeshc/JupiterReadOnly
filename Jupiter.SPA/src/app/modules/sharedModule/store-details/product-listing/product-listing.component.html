@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="col-md-6">
+    <h5>Product Listing</h5>
+  </div>
+<div class="col-md-12">
+  <form [formGroup]="filterFormGroup" (ngSubmit)="filter()">
+
+  <div class="row "style="margin-top:15px;width:100%">
+    <div class="col-md-6">
+      <span class="filterBar">
+        <mat-form-field >
+          <mat-label>Product Name</mat-label>
+          <input type="submit" formControlName="name" type="text" matInput />
+        </mat-form-field>
+      </span>
+      <span class="filterBar">
+        <button type="submit" class="btn btn-primary addArtBtn">
+          <mat-icon class="storeCreationBtn">search</mat-icon>
+          SEARCH
+        </button>
+      </span>
+      <span>
+        <button type="button" class="btn btn-primary addArtBtn" (click)="clearFilters()">
+          <mat-icon class="storeCreationBtn">clear</mat-icon>
+          CLEAR
+        </button>
+      </span>
+    </div>
+    <div class="col-md-6" style="text-align: right;">
+      
+      <span>
+        <button (click)="goBackToProductSelection('/productselection')" class="btn btn-primary addArtBtn topButtonMargin">
+          <mat-icon class="storeCreationBtn">keyboard_arrow_left</mat-icon>
+          BACK TO PRODUCT SELECTION
+        </button>
+      </span>
+      <span>
+        <button class="btn btn-primary addArtBtn topButtonMargin">
+          <mat-icon class="storeCreationBtn">download</mat-icon>
+          EXPORT
+        </button>
+      </span>
+      <span>
+        <button class="btn btn-primary addArtBtn topButtonMargin" (click)="updateProductListing()">
+          <mat-icon class="storeCreationBtn">save</mat-icon>
+          Update
+        </button>
+      </span>
+      
+  </div>
+</div>
+</form>
+</div>
+  
+
+
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="1%">Sl No.</th>
+          <th width="5%"></th>
+          <th width="2%">Active</th>
+          <th width="15%">Product Name</th>
+          <th width="5%">Vendor/Style</th>
+          <th width="5%">Is Designed</th>
+          <th width="5%">Sizes&Colors</th>
+          <th width="16%">Product Price</th>
+          <th width="16%">Fundraising Amount</th>
+          <th width="16%">F%</th>
+          <th width="17%">Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of productList.data; let i = index">
+          <td class="tableCellWidth">{{ i + 1 }}</td>
+          <td class="tableCellWidth">
+            <span><img class="imgTab" src="{{ product.product.images[0].src }}" /><img /></span>
+          </td>
+          <td class="tableCellWidth">
+            <!-- <mat-checkbox
+              *ngIf="product.isActive == true"
+              color="primary"
+              class="example-margin"
+              checked="true"
+              disabled
+            ></mat-checkbox>
+            <mat-checkbox
+              *ngIf="product.isActive == false"
+              color="primary"
+              class="example-margin"
+              disabled
+            ></mat-checkbox> -->
+
+            <mat-checkbox color="primary" [(ngModel)]="product.isActive"></mat-checkbox>
+          </td>
+
+          <td class="tableCellWidth">{{ product.product.name }}</td>
+          <td class="tableCellWidth">{{ product.product.sku }}</td>
+          <!-- <td *ngIf="product.isDesigned" class="tableCellWidth">Yes</td>
+          <td *ngIf="!product.isDesigned" class="tableCellWidth">No</td> -->
+          <td class="tableCellWidth">
+            <img style="height: 15px;width:15px;" *ngIf="product.isDesigned" src="../../../../../assets/images/checked.png">
+            <img style="height: 15px;width:15px;" *ngIf="!product.isDesigned" src="../../../../../assets/images/close.png">
+          </td>
+          <td>
+            <div class="example-button-container">
+              <button class="tableEditBtn" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.fundraiserAmount }}</td>
+          <td>{{ product.fundraiserPercentage }}</td>
+          <td>{{ product.total }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

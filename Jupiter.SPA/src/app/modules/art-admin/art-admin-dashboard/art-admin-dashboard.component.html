@@ -1,0 +1,229 @@
+<div class="row">
+  <div class="col-md-1">
+    <div class="sideTab" [routerLink]="['/artadmin/artqueuelist']"(click)="setHeader('Art Process Queue')">
+      <img src="../../../../assets/images/store.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Art Process Queue</p>
+    </div>
+    <div class="sideTab" [routerLink]="['/artadmin/artpendingapproval']"(click)="setHeader('Art Pending Approval')">
+      <img src="../../../../assets/images/store.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Art Pending Approval</p>
+    </div>
+    <div class="sideTab" [routerLink]="['/artadmin/artapprovalhistory']" (click)="setHeader('Art Management')">
+      <img src="../../../../assets/images/productivity.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Art Management</p>
+    </div>
+    <div class="sideTab" [routerLink]="['/artadmin/rejectedart']" (click)="setHeader('Rejected By Print Room Admin')">
+
+      <img src="../../../../assets/images/paint-palette.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Rejected By Print Room Admin</p>
+    </div>
+    <div class="sideTab">
+      <img src="../../../../assets/images/Layer_6.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">xxxxxxxx</p>
+    </div>
+    <div class="sideTab">
+      <img src="../../../../assets/images/productivity.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">xxxx</p>
+    </div>
+    <div class="sideTab">
+      <img src="../../../../assets/images/productivity.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">xxxxxxxx</p>
+    </div>
+    <div class="sideTab">
+      <img src="../../../../assets/images/XMLID_3639_.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Customer Chat</p>
+    </div>
+    <div class="sideTab">
+      <img src="../../../../assets/images/chat.png" class="sideBarImgTab" />
+      <p class="sideBarTabText">Inhouse Chat</p>
+    </div>
+  </div>
+  <div class="col-md-11">
+    <mat-grid-list cols="3" rowHeight="100px">
+      <mat-grid-tile [colspan]="1" [rowspan]="5">
+        <div class="summaryWrapper">
+          <div class="height50" id="taskSummaryHeader">
+            <p style="font-size: large"><b>SUMMARY</b></p>
+          </div>
+          <div class="row">
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab" [routerLink]="['/artadmin/artqueuelist']"(click)="setHeader('Art Process Queue')">
+                <h4 class="summaryTabHeader">25</h4>
+                <span class="summaryTabInfo">Art in Queue</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab" [routerLink]="['/artadmin/artpendingapproval']"(click)="setHeader('Art Pending Approval')">
+                <h4 class="summaryTabHeader">28</h4>
+                <span class="summaryTabInfo">Art Pending Approval</span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab" [routerLink]="['/artadmin/artapprovalhistory']" [queryParams]="{ status: '11'}" (click)="setHeader('Art Task Rejected By Customer')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.customerRejectedArtCount}}</h4>
+                <span class="summaryTabInfo">Art Task Rejected By Customer</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab" [routerLink]="['/artadmin/rejectedart']" (click)="setHeader('Rejected By Print Room Admin')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.artDirectorRejectedCount}}</h4>
+                <span class="summaryTabInfo">Art Task Rejected By Print Room Admin
+                </span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab" [routerLink]="['/artadmin/artapprovalhistory']" [queryParams]="{ status: '10'}"  (click)="setHeader('Art Tasks Pending Customer Approval')">
+                <h4 class="summaryTabHeader">{{dashBoardDetailCount?.artTaskPendingCustomerApprovalCount}}</h4>
+                <span class="summaryTabInfo">Art Tasks Pending Customer Approval</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">3</h4>
+                <span class="summaryTabInfo">xxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">8</h4>
+                <span class="summaryTabInfo">xxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">6</h4>
+                <span class="summaryTabInfo">xxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 leftColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">4</h4>
+                <span class="summaryTabInfo">xxxx</span>
+              </div>
+            </div>
+            <div class="col-md-6 rightColTab">
+              <div class="summaryTab">
+                <h4 class="summaryTabHeader">0</h4>
+                <span class="summaryTabInfo">xxxx</span>
+              </div>
+            </div>
+          </div>
+        </div>
+         </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="5">
+        
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="5">
+        <div class="inboxWrapper">
+          <div class="table-scroll">
+            <table class="table table-striped">
+              <thead>
+                <tr id="inboxTableHeader">
+                  <th>ART PROCESS INBOX</th>
+                  <th style="text-align: right">
+                    <span class="material-icons"> info </span>
+                  </th>
+                </tr>
+                <tr id="inboxTableHeader">
+                  <th class="inboxHeading" width="60%">Store Name</th>
+                  <th class="inboxHeading" width="40%">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td width="70%">Dublin Jerome HS-Girls Lacrose-store 2021</td>
+                  <td width="30%">12/12/2012</td>
+                </tr>
+                <tr>
+                  <td width="70%">Dublin Jerome HS-Girls Lacrose-store 2021</td>
+                  <td width="30%">12/12/2012</td>
+                </tr>
+                <tr>
+                  <td width="70%">Dublin Jerome HS-Girls Lacrose-store 2021</td>
+                  <td width="30%">12/12/2012</td>
+                </tr>
+                <tr>
+                  <td width="70%">Dublin Jerome HS-Girls Lacrose-store 2021</td>
+                  <td width="30%">12/12/2012</td>
+                </tr>
+                <tr>
+                  <td width="70%">Dublin Jerome HS-Girls Lacrose-store 2021</td>
+                  <td width="30%">12/12/2012</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </mat-grid-tile>
+      <!-- <mat-grid-tile [colspan]="1" [rowspan]="2">
+        <div class="notificationWrapper">
+          <div class="table-scroll">
+            <table class="table table-striped tableLineHeight">
+              <thead>
+                <tr class="notificationTableHeader">
+                  <th width="90%" >NOTIFICATIONS/ALERTS</th>
+                  <th width="10%"><span class="material-icons"> info </span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td width="90%">Store build alert time</td>
+                  <td width="10%">
+                    <span class="material-icons"> report_problem </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="90%">New request overdue</td>
+                  <td width="10%">
+                    <span class="material-icons"> report_problem </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="90%">Store build ready to publish</td>
+                  <td width="10%">
+                    <span class="material-icons"> report_problem </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="90%">Store expired</td>
+                  <td width="10%">
+                    <span class="material-icons"> report_problem </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+      </mat-grid-tile> -->
+      <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <div class="quickLinkWrapper">
+          <div class="height50" id="quickLinkHeader">
+            <p style="font-size: large">
+              <b>RELATED LIST QUICK LINKS</b>
+            </p>
+          </div>
+          <div class="row">
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/Group 2829.png" class="imgTabSize" />xx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/contacts.png" class="imgTabSize" />xxxxx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/people.png" class="imgTabSize" />xxxx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/pencil.png" class="imgTabSize" />xxxxxx
+            </div>
+            <div class="col-md-2 quickLinkImgTab">
+              <img src="../../../../assets/images/crown.png" class="imgTabSize" />x
+            </div>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

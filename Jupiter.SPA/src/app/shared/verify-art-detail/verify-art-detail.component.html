@@ -1,0 +1,265 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xl-8">
+      <div>
+        <h1>Order #:{{product?.orderId}} (Rush Order)</h1>
+        <mat-form-field appearance="outline">
+          <mat-label>Run With Job </mat-label>
+          <input type="text" value="n/a" matInput readonly />
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field appearance="outline">
+          <mat-label>Re-Order </mat-label>
+          <input type="text" value="98567/G" matInput readonly />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-xl-4">
+      <img
+        style="width: 260px; height: 100px"
+        src="https://jupiterwp.eastus2.cloudapp.azure.com/wp-content/uploads/2020/11/ares-sports-logo-e1605637014862.png"
+        alt=""
+      />
+    </div>
+    <div class="col-xl-12" style="padding: 20px;">
+      <div class="row">
+        <div class="col-xl-3 common-padding" style="text-align: center;">
+          <div>
+            <label class="grey-font"><u>Product:</u></label>
+            <br />
+            <label><b>{{product?.productInfo?.name}}</b></label>
+            <br />
+            <label class="grey-font">100% pre-shrunk cotton</label>
+            <br />
+            <label class="grey-font">{{product?.productInfo?.categoryInfo?.name}}</label>
+            <br />
+            <label class="grey-font">Color: </label>
+            <label><b>&nbsp;{{product?.productColor}}</b></label>
+            <br>
+            <label class="grey-font">Art: </label>
+            <label><b>&nbsp;{{product?.relativeArtUrl}}</b></label>
+          </div>
+          <br />
+          <div>
+            <label class="grey-font"><u>Print Size/Location:</u></label>
+            <br />
+            <label><b>Front / Center</b></label>
+            <br />
+            <label><b>11"w x 6.5"h</b></label>
+            <br />
+            <label class="grey-font">Print Style:</label>
+            <br />
+            <label><b>Standard</b></label>
+          </div>
+          <br />
+          <div>
+            <label class="grey-font"><u>Ink Colors:</u></label>
+            <br />
+            <label><b>Navy</b></label>
+            <br />
+            <label><b>NO&nbsp;</b></label><label class="grey-font">underbase</label>
+          </div>
+          <br />
+          <div>
+            <label class="grey-font">Total Pieces: </label
+            ><label><b>{{product?.totalPieces}}</b></label>
+          </div>
+        </div>
+        <div class="col-xl-6 common-padding" style="text-align: center;">
+          <!-- slide -->
+          <div class="slideshow-container">
+
+            <div *ngFor="let url of product?.productFiles" class="mySlides fade">
+              <div class="numbertext">1 / 3</div>
+              <img [src]="url" style=" height: 300px;">
+              <!-- <div class="text">Caption Text</div> -->
+            </div>
+            
+            <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+            <a class="next" (click)="plusSlides(1)">&#10095;</a>
+            
+            </div>
+            <br>
+            
+            <!-- <div style="text-align:center">
+              <span class="dot" (click)="currentSlide(1)"></span> 
+              <span class="dot" (click)="currentSlide(2)"></span> 
+              <span class="dot" (click)="currentSlide(3)"></span> 
+            </div> -->
+        </div>
+        <div class="col-xl-3 common-padding">
+          <div>
+            <label
+              ><b><u>Team Members</u></b></label
+            >
+            <br /><br />
+            <label class="grey-font">AM:&nbsp;{{product?.teamInfo?.amName}}</label>
+            <br /><br />
+            <label class="grey-font">Art:&nbsp;{{product?.teamInfo?.artist}}</label>
+            <br /><br />
+            <label class="grey-font">Staged:</label>
+            <br /><br />
+            <label class="grey-font">Printed:</label>
+            <br /><br />
+            <label class="grey-font">Sorted:</label>
+            <br /><br />
+            <label class="grey-font">Shipped:</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12" style="margin-bottom: 10px; text-align: center;">
+      <label class="size-label"> YXS : </label>
+      <label class="size-label"> YS : </label>
+      <label class="size-label"> YM : </label>
+      <label class="size-label"> YL : </label>
+      <label class="size-label"> YXL : </label>
+      <br />
+      <label class="size-label"> XS : </label>
+      <label class="size-label"> SM : </label>
+      <label class="size-label"> M : </label>
+      <label class="size-label"> LG : </label>
+      <label class="size-label"> XL : </label>
+      <label class="size-label"> 2X : </label>
+      <label class="size-label"> 3X : </label>
+    </div>
+    <br />
+    <div class="col-xl-6">
+      <div
+        style="
+          height: 165px;
+          width: 350px;
+          padding: 10px;
+          border: black solid 1px;
+        "
+      >
+        <h6>Ship To:</h6>
+        <label class="grey-font">{{product?.shippingAddress?.address}}</label>
+        <br />
+        <label class="grey-font">{{product?.shippingAddress?.address1}}</label>
+        <br />
+        <label class="grey-font">{{product?.shippingAddress?.city}}, {{product?.shippingAddress?.state}}, {{product?.shippingAddress?.zipCode}}</label>
+        <br />
+        <label class="grey-font">{{product?.customerInfo?.phoneNumber}} | </label
+        ><label class="grey-font">{{product?.customerInfo?.email}}</label>
+      </div>
+    </div>
+    <div class="col-xl-6" style="text-align: center; padding: 30px;">
+      <div>
+        <span>
+          <label class="grey-font" style="font-size: xx-large"
+            >Due Date:
+          </label>
+        </span>
+        <span>
+          <label style="font-size: xx-large"><b>
+              {{product?.dueDate}}
+          </b></label>
+        </span>
+      </div>
+
+      <br />
+      <div>
+        <span
+          ><label style="font-size: x-large" class="grey-font"
+            >Method:
+          </label></span>
+        &nbsp;
+        <span
+          ><label style="font-size: x-large"><b>UPS Ground</b> </label></span>
+      </div>
+    </div>
+    <div class="col-xl-12" style="margin-top: 20px;">
+        <mat-checkbox (input)="onUserAgreementChecked($event)" [value]="userAgreed"></mat-checkbox>
+        <label>
+          By signing below, I acknowledge I have received the details of this order and understand that I am authorizing this order to be produced as stated on this form. I further acknowledge that I have. received, read, and understand Ares' policies for returns, refunds, and exchanges.
+        </label>
+    </div>
+    <div class="col-md-5">
+        <div>
+            <mat-form-field appearance="fill" style="width: 100%">
+            <input matInput id="signature">
+            </mat-form-field>
+            <br>
+            <label>Signature</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            <mat-form-field appearance="fill" style="width: 100%">
+                <input matInput id="name">
+                </mat-form-field>
+                <br>
+            <label>Printed Name</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <input matInput [matDatepicker]="fromPicker" [min]="todaysDate" />
+                <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                <mat-datepicker #fromPicker></mat-datepicker>
+              </mat-form-field>
+              <br>
+            <label>Date</label>
+        </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<div style="width: 100%;text-align: center;" >
+  <button mat-raised-button color="warn" (click)="updateStatus(11)">Reject</button>&nbsp;&nbsp;
+  <button mat-raised-button color="primary" (click)="submit(6)">Approve</button>
+</div>
+<div class="modal fade" id="rejectionModal" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"></h4>
+          <button type="button" class="close" (click)="toggleModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form #form="ngForm">
+            <div *ngIf="isRejected">
+              <div *ngFor="let reason of reasonList"> 
+                <!-- [checked]="productIds?.indexOf(item.product.id) !== -1"  -->
+                <mat-checkbox [value]="reason.id" (input)="reasonSelected($event,reason)">
+                  <mat-hint>{{ reason.description}}</mat-hint>
+                </mat-checkbox>
+              </div>
+              <mat-form-field style="width: 100%">
+                <mat-label>Comment</mat-label>
+                <textarea matInput [(ngModel)]="rejectionReason" cdkTextareaAutosize cdkAutosizeMinRows="5" name="rejectionReason"></textarea>
+              </mat-form-field>
+              <div class="button-container">
+                <button mat-raised-button color="primary" (click)="confirmRejection(rejectionReason,rejectionCode)">Confirm</button>
+                &nbsp;&nbsp;
+                <button mat-raised-button color="warn" (click)="cancelRejection()">Cancel</button>
+              </div>
+            </div>
+            <!-- <div *ngIf="!isRejected">
+              <div class="row">
+                <div class="col-md-1">
+                  <mat-checkbox (input)="onUserAgreementChecked($event)" [value]="userAgreed">
+                </mat-checkbox></div>
+                <div class="col-md-11"> 
+                  <p style="word-wrap: break-word;">
+                   I approve and take responsibility for all aspects of the design to include spelling, colors, location, and size.
+                   I understand my order will move forward to print production and no changes can be made to the design after approval.
+                   I understand that color settings on my monitor can differ from actual ink color and there could be a variation.
+                   I understand that size of the design is an approximation. </p>
+              </div>
+              </div>
+              <div class="button-container">
+                <button mat-raised-button color="primary" (click)="checkUserAgreement()">Confirm</button>
+              </div>
+            </div> -->
+          </form>
+        </div>
+      </div>
+    </div>  
+    </div>
+
+    
+    

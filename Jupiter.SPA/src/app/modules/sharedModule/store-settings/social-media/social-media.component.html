@@ -1,0 +1,89 @@
+<form [formGroup]="socialMediaGroup">
+    <div class="row">
+        <div class="col-md-8">
+            <p style="font-size: x-large;">Social Media</p>
+        </div>
+        <div class="col-md-4" style="text-align: right;">
+            <button class="btn btn-primary btnClass" (click)="submit()">SAVE</button>
+        </div>
+    </div><br><br>
+    <div class="row padding10">
+        <div class="col-md-12 padding10">
+            <mat-label>Display Social Share Buttons</mat-label>
+            <mat-slide-toggle [checked]="true" style="margin-left: 200px" formControlName="displaySocialMediaIcons"></mat-slide-toggle>
+            <br><br>
+            <mat-hint>Make social sharing easier for your customers by displaying social share buttons throughout
+                your store.</mat-hint>
+        </div>
+        <div class="col-md-12 padding10">
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+    <div class="row padding10">
+        <div class="col-md-12 padding10">
+            <mat-label>Display Your Social Media Links</mat-label><br><br>
+            <mat-hint>Paste links here and they will display as icons in the footer linking this website to the
+                social media channels you choose.</mat-hint>
+        </div>
+        <div class="col-md-1 padding10">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">
+                <img src="../../../../assets/images/socialmedia/facebook.png" style="width: 25px;">
+            </mat-icon>
+        </div>
+        <div class="col-md-11 padding10">
+            <mat-form-field class="formField" style="width: 100%;">
+                <input type="text" matInput formControlName="facebook" />
+            </mat-form-field>
+        </div>
+        <div class="col-md-1 padding10">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">
+                <img src="../../../../assets/images/socialmedia/instagram.png" style="width: 25px;">
+            </mat-icon>
+        </div>
+        <div class="col-md-11 padding10">
+            <mat-form-field class="formField" style="width: 100%;">
+                <input type="text" matInput formControlName="instagram" />
+            </mat-form-field>
+        </div>
+        <div class="col-md-1 padding10">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">
+                <img src="../../../../assets/images/socialmedia/twitter.png" style="width: 25px;">
+            </mat-icon>
+        </div>
+        <div class="col-md-11 padding10">
+            <mat-form-field class="formField" style="width: 100%;">
+                <input type="text" matInput formControlName="twitter" />
+            </mat-form-field>
+        </div>
+        <div class="col-md-1 padding10">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">
+                <img src="../../../../assets/images/socialmedia/linkedin.png" style="width: 25px;">
+            </mat-icon>
+        </div>
+        <div class="col-md-11 padding10">
+            <mat-form-field class="formField" style="width: 100%;">
+                <input type="text" matInput formControlName="linkedin" />
+            </mat-form-field>
+        </div>
+        <div class="col-md-1 padding10">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">
+                <img src="../../../../assets/images/socialmedia/pinterest-social-logo.png" style="width: 25px;">
+            </mat-icon>
+        </div>
+        <div class="col-md-11 padding10">
+            <mat-form-field class="formField" style="width: 100%;">
+                <input type="text" matInput formControlName="pinterest" />
+            </mat-form-field>
+        </div>
+        <div class="col-md-1 padding10">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">
+                <img src="../../../../assets/images/socialmedia/youtube-logotype.png" style="width: 25px;">
+            </mat-icon>
+        </div>
+        <div class="col-md-11 padding10">
+            <mat-form-field class="formField" style="width: 100%;">
+                <input type="text" matInput formControlName="youtube" />
+            </mat-form-field>
+        </div>
+    </div>
+</form>

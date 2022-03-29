@@ -1,0 +1,38 @@
+<div class="parent-container">
+    <div class="action-container">
+        <label for="categoryName" class="font-weight-bold">Add Margin Calculation Formula</label>
+        <div class="form-inline input-group" [formGroup]="marginFormulaForm">
+            <input type="text" class="form-control" id="formulaName" formControlName="calculation" placeholder="Enter margin calculation formula">
+            <button class="btn btn-primary ml-3" (click)="updateProductMarginFormula()">{{ updateMarginFormula ? 'UPDATE' : 'ADD' }}</button>
+            <button class="btn btn-outline-danger ml-3" (click)="initializeMarginFormulaForm()">RESET</button>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Margin Calculation Formula</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let formula of productMarginFormulaArray">
+                    <td>{{formula.id}}</td>
+                    <td>{{formula.calculation}}</td>
+                    <td class="actions">
+                        <img src="../../../../../assets/images/edit.png" alt="Edit Icon" (click)="editMarginFormula(formula)">
+                        <img src="../../../../../assets/images/close.png" alt="Remove Icon" (click)="removeMarginFormula(formula.id)">
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-container">
+        <mat-paginator [length]="paginatorLength" [pageSize]="paginatorPageSize" 
+          [pageSizeOptions]="paginatorPageSizeOptions" (page)="pageEvent($event)">
+          </mat-paginator>
+          <br><br>
+    </div>
+</div>

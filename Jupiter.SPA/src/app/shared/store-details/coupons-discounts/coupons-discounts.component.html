@@ -1,0 +1,333 @@
+<div [hidden]="isCouponListHidden">
+<h5><strong>COUPONS AND DISCOUNTS</strong></h5>
+<div class="btn-top-right">
+    <button class="btn btn-primary addBtn add-new-btn" (click)="changeCouponVisibility(false)">ADD NEW</button>
+</div>
+<div>
+    <label class="header-label"><i>Existing Coupons</i></label>
+</div>
+<div class="row purchased-coupon-view">
+<div class="col-md-6">
+    <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select value=option1>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+</div>
+<div class="col-md-6">
+    <mat-form-field appearance="outline">
+        <mat-label>Customer Name</mat-label>
+        <input type="text"value=" " matInput />
+      </mat-form-field>
+</div>
+<div class="col-md-6">
+    <mat-form-field appearance="outline">
+        <mat-label>Coupon Code</mat-label>
+        <mat-select value=option1>
+          <mat-option  value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+</div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+          <thead class="table-header">
+            <tr>
+              <th width="16.6%">CUSTOMER NAME</th>
+              <th width="16.6%">COUPON CODE</th>
+              <th width="16.6%">COUPON AMOUNT</th>
+              <th width="16.6%">AMOUNT USED</th>
+              <th width="16.6%">CREATED ON</th>
+              <th width="16.6%">ENABLED</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+<td>
+    No Records to Display
+</td>
+            </tr>
+          </tbody>
+          </table>
+          </div>
+</div>
+</div>
+<div [hidden]="isCouponCreateHidden">
+  <h5><strong>MANAGE DISCOUNTS</strong></h5>
+<div class="btn-top-right">
+    <button class="btn btn-primary addBtn list-btn" (click)="changeCouponVisibility(true)">VIEW DISCOUNTS</button>
+</div>
+<div>
+    <label class="header-label"><i>Create New Coupon</i></label>
+</div>
+<div class="row"><br></div>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <strong>General</strong>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="generalGroup">
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Name</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field class="wrapField" class="formField">
+              <input type="text" matInput>
+            </mat-form-field>
+          </div>
+          <div class="contentAlign smaller">
+            <mat-hint>Unique code utilized to identify Discount for reporting and advertising links</mat-hint>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Description</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field class="wrapField" class="formField">
+              <input type="text" matInput>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Requires Coupon?</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="1">Yes</mat-radio-button>
+              <mat-radio-button value="2" class="contentAlign">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Coupon Code</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field class="wrapField" class="formField">
+              <input type="text" matInput>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Discount Type</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="1">Fixed Discount</mat-radio-button>
+              <mat-radio-button value="2" class="contentAlign">Percent Discount</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div><br>
+        <div class="row contentAlign">
+          <div class="contentAlign ">
+            <mat-label>Apply Discount To</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-checkbox>Product/Items</mat-checkbox>
+            <mat-checkbox class="contentAlign">Shipping</mat-checkbox>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Effective Date</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field class="formField">
+              <input style="cursor: pointer;" matInput [matDatepicker]="effective" placeholder="Select Date" (click)="effective.open()" formControlName="effectiveDate">
+              <mat-datepicker-toggle matSuffix [for]="effective"></mat-datepicker-toggle>
+              <mat-datepicker #effective></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="contentAlign smaller">
+            <mat-hint>First date the discount is to be activated</mat-hint>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Expiration Date</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field class="formField">
+              <input style="cursor: pointer;" matInput [matDatepicker]="expiration" placeholder="Select Date" (click)="expiration.open()" formControlName="expirationDate">
+              <mat-datepicker-toggle matSuffix [for]="expiration"></mat-datepicker-toggle>
+              <mat-datepicker #expiration></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="contentAlign smaller">
+            <mat-hint>Last date the discount is to be available for use</mat-hint>
+          </div>
+        </div>
+    </form>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+        <strong>Minimum and Maximum</strong>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="generalGroup">
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Minimum Item Count</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field class="wrapField" class="formField">
+              <input type="text" matInput>
+            </mat-form-field>
+          </div>
+          <div class="contentAlign smaller">
+            <mat-hint>Total number of qualified items in the cart for this coupon to apply.</mat-hint>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Minimum Item Amount($)</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field class="wrapField" class="formField">
+              <input type="text" matInput>
+            </mat-form-field>
+          </div>
+          <div class="contentAlign smaller">
+            <mat-hint>Total price of qualified items in the cart for this coupon to apply.</mat-hint>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Maximum Usage Count</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field class="wrapField" class="formField">
+              <input type="text" matInput>
+            </mat-form-field>
+          </div>
+          <div class="contentAlign smaller">
+            <mat-hint>Maximum number of times this discount can be used.</mat-hint>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Maximum Usage per
+              Customer</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field class="wrapField" class="formField">
+              <input type="text" matInput>
+            </mat-form-field>
+          </div>
+          <div class="contentAlign smaller">
+            <mat-hint>Maximum number of times this discount can be used per customer.</mat-hint>
+          </div>
+        </div>
+    </form>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+        <strong>Apply To</strong>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="generalGroup">
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Stores</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field appearance="outline">
+              <mat-label>--Select Stores--</mat-label>
+              <mat-select>
+                <mat-option>Option 1</mat-option>
+                <mat-option>Option 1</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Products</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field appearance="outline">
+              <mat-label>--Select Products--</mat-label>
+              <mat-select>
+                <mat-option>Option 1</mat-option>
+                <mat-option>Option 1</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Products Styles</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field appearance="outline">
+              <mat-label>--Select Products Styles--</mat-label>
+              <mat-select>
+                <mat-option>Option 1</mat-option>
+                <mat-option>Option 1</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Design Categories</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field appearance="outline">
+              <mat-label>--Select Designs--</mat-label>
+              <mat-select>
+                <mat-option>Option 1</mat-option>
+                <mat-option>Option 1</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Designs</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field appearance="outline">
+              <mat-label>--Select Designs--</mat-label>
+              <mat-select>
+                <mat-option>Option 1</mat-option>
+                <mat-option>Option 1</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row contentAlign">
+          <div class="contentAlign">
+            <mat-label>Shipping Methods</mat-label>
+          </div>
+          <div class="contentAlign spacing">
+            <mat-form-field appearance="outline">
+              <mat-label>--Select Designs--</mat-label>
+              <mat-select>
+                <mat-option>Option 1</mat-option>
+                <mat-option>Option 1</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+    </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

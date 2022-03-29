@@ -1,0 +1,36 @@
+.table-wrapper {
+    // min-height: 500px;
+    overflow: auto;
+}
+
+.dollar {
+    position: absolute;
+    margin-top: 0.3em;
+    margin-left: 0.3em;
+}
+
+input.credit {
+    max-width: 100px;
+    padding-left: 1.1em;
+}
+
+.mat-row:nth-child(even) {
+    background-color: white;
+}
+
+.mat-row:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+.mat-header-cell {
+    color: white;
+    // font-size: large;
+}
+
+tr.mat-header-row {
+    background-color: #eb3a79;
+}
+
+table {
+    width: 100%;
+}

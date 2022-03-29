@@ -1,0 +1,183 @@
+.imgTab {
+  height: 690px;
+  width: 560px;
+  margin: 5px;
+}
+
+.small-imgTab {
+  height: 120px;
+  width: 100px;
+  padding: 5px;
+  border: 1px solid #eeeeee;
+}
+.bold {
+  font-weight: bold;
+}
+
+.common-margin {
+  margin: 15px;
+}
+
+.mainImgTab {
+  height: 350px;
+}
+
+.small-img-holder {
+  text-align: left;
+}
+
+.productViewTab {
+  text-align: center;
+
+  padding: 10px;
+}
+
+.imgCard {
+  text-align: center;
+}
+
+.border {
+  border: thin solid grey;
+  box-shadow: 0px 1px 1px #eeeeee;
+}
+
+.product-view {
+  padding: 50px;
+}
+
+.product-details-tab {
+  padding: 10px;
+}
+
+.info-holder {
+  background-color: #fcecb3;
+  padding: 10px;
+}
+
+.info-div {
+  width: 100%;
+  text-align: center;
+}
+
+.font-color-grey {
+  color: gray;
+}
+
+.font-color-cyan {
+  color: #3a96f3;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.size-chart-label-holder {
+  padding-top: 35px;
+  text-align: left;
+}
+
+.size-icon {
+  vertical-align: sub;
+  color: #3a96f3;
+}
+
+.product-properties-holder {
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+.btn-style {
+  color: white;
+  background-color: #004c98;
+  width: 90%;
+}
+
+.actions-tab {
+  text-align: center;
+  padding: 10px;
+}
+
+//removing border-radius of matform
+
+::ng-deep .mat-form-field-outline-start,
+.mat-form-field-outline-end {
+  border-radius: 0 !important;
+}
+
+::ng-deep .mat-form-field-outline-end,
+.mat-form-field-outline-start {
+  border-radius: 0 !important;
+}
+
+//mat-select height
+
+.padding-top-15 {
+  padding-top: 15px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0px !important;
+}
+
+::ng-deep .mat-select-value {
+  padding-bottom: 5px !important;
+}
+
+.img-holder {
+  width: 500px;
+  height: 500px;
+}
+
+.img-wrapper {
+  text-align: center;
+}
+
+.mat-icon:hover {
+  cursor: pointer;
+}
+
+.imgTab {
+  height: 80px;
+  width: 60px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.custom-margin {
+  width: 500px;
+  margin-left: 120px;
+}
+
+input[type="radio"].color-radio {
+  display: none;
+  &:checked + label {
+    span {
+      transform: scale(1.25);
+      border: 2px solid black;
+    }
+  }
+}
+
+label.color {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  &:hover {
+    span {
+      transform: scale(1.25);
+    }
+  }
+  span {
+    border: 1px solid black;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease-in-out;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}

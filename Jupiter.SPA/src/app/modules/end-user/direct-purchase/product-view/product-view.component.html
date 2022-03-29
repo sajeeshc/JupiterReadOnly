@@ -1,0 +1,170 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="img-wrapper">
+      <img src="{{ product?.productInfo.images[0] }}" class="img-holder" />
+    </div>
+    <div class="img-wrapper">
+      <span *ngFor="let product of product?.productInfo.images" (click)="onImgClick(product)">
+        <img id="img1" src="{{ product }}" alt="no image" class="imgTab" /><img />
+      </span>
+      <div>
+        <p>{{product?.productInfo}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="label-holder">
+      <mat-label>{{product?.productInfo.name}}</mat-label>
+    </div>
+    <div class="label-holder">
+      <mat-label>{{product?.productInfo.categoryInfo.name}}</mat-label>
+    </div>
+    <div class="label-holder">
+      <mat-label>${{ product?.productInfo.price }}</mat-label>
+    </div>
+    <div class="label-holder row">
+      <div class="col-md-6">
+        <mat-label>Available Sizes: </mat-label>
+        <span>
+          <mat-label *ngFor="let size of product?.sizeInfo">{{ size?.name }}&nbsp;</mat-label>
+        </span>
+      </div>
+    </div>
+    <div class="label-holder row">
+      <div class="col-md-5">
+        <mat-label>Available Colors: </mat-label>
+        <span>
+          <mat-label *ngFor="let color of product?.colorInfo">
+            <button style="height: 20px;width: 20px;border-radius: 10px;" [ngStyle]="{'background-color': color.hexCode}"></button>
+            &nbsp;
+          </mat-label>
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-label>Select Color: </mat-label>
+        <select style="width:100%">
+          <option *ngFor="let color of product?.colorInfo" value="{{ color.id }}">{{ color.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="label-holder row">
+      <div class="col-md-6">
+        <mat-label>Total Quantity : {{this.quantityGroup.get('quantity').value}}</mat-label>
+      </div>
+      <div class="col-md-4 ">
+        <mat-label>Total Price : ${{this.quantityGroup.get('totalPrice').value}}</mat-label>
+      </div>
+    </div>
+    <br>
+    <div class="label-holder row">
+      <div class="col-md-4">
+        <mat-checkbox class="label-holder" color="primary" [(ngModel)]="personalizeValue" (change)="personalize($event.checked)">Personalize</mat-checkbox>
+      </div>
+    </div>
+    <br>
+    <div *ngIf="!personalizeValue">
+      <mat-label class="label-holder">Add Product Size & Quantity below</mat-label>
+      <br>
+      <div class="personalizeTable width-75">
+        <form [formGroup]="quantityGroup">
+          <table class="table custom-table">
+            <thead style="padding: 5px;">
+              <tr>
+                <!-- <th width="15%">Color</th> -->
+                <th width="15%">Size</th>
+                <th width="15%">Qty</th>
+                <th width="15%"></th>
+              </tr>
+            </thead>
+            <tbody style="max-height: 200px;overflow-y: scroll;">
+              <tr formArrayName="cartItemGrids" *ngFor="let option of quantityGroup.get('cartItemGrids')['controls'];let i = index">
+                <!-- <td>
+                  <span [formGroupName]="i">
+                    <select style="width:100%" formControlName="color">
+                      <option *ngFor="let color of product?.colorInfo" value="{{ color.id }}">{{ color.name }}</option>
+                    </select>
+                  </span>
+                </td> -->
+                <td>
+                  <span [formGroupName]="i">
+                    <select style="width:100%" formControlName="size">
+                      <option *ngFor="let size of product?.sizeInfo" value="{{ size.id }}">{{ size.name }}</option>
+                    </select>
+                  </span>
+                </td>
+                <td>
+                  <span [formGroupName]="i">
+                    <input style="width: 100%;" formControlName="quantity" type="number" (blur)="getTotalQuantity()" (keyup)="getTotalQuantity()">
+                  </span>
+                </td>
+                <td>
+                  <mat-icon mat-button (click)="deleteRow(i)" style="cursor: pointer">close</mat-icon>
+                  &nbsp;
+                  <mat-icon *ngIf="i===quantityGroup.get('cartItemGrids')['controls'].length - 1" mat-button (click)="addRow()" style="cursor: pointer">add</mat-icon>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="personalizeValue">
+      <mat-label class="label-holder">Add Personalisation Details and Quantity below</mat-label>
+      <br>
+      <div class="personalizeTable width-85">
+        <form [formGroup]="quantityGroup">
+          <table class="table custom-table">
+            <thead style="padding: 5px;">
+              <tr>
+                <th width="30%">Name</th>
+                <th width="15%">Number</th>
+                <!-- <th width="15%">Color</th> -->
+                <th width="10%">Size</th>
+                <th width="15%">Qty</th>
+                <th width="15%"></th>
+              </tr>
+            </thead>
+            <tbody style="max-height: 200px;overflow-y: scroll;">
+              <tr formArrayName="cartItemGrids" *ngFor="let cartItemGrids of quantityGroup.get('cartItemGrids')['controls'];let i = index">
+                <td>
+                  <span [formGroupName]="i">
+                    <input style="width: 100%;" formControlName="name" type="text" />
+                  </span>
+                </td>
+                <td>
+                  <span [formGroupName]="i">
+                    <input style="width: 100%;" formControlName="number" type="text" />
+                  </span>
+                </td>
+                <!-- <td>
+                  <span [formGroupName]="i">
+                    <select style="width:100%" formControlName="color">
+                      <option *ngFor="let color of product?.colorInfo" value="{{ color.id }}">{{ color.name }}</option>
+                    </select>
+                  </span>
+                </td> -->
+                <td>
+                  <span [formGroupName]="i">
+                    <select style="width:100%" formControlName="size">
+                      <option *ngFor="let size of product?.sizeInfo" value="{{ size.id }}">{{ size.name }}</option>
+                    </select>
+                  </span>
+                </td>
+                <td>
+                  <span [formGroupName]="i">
+                    <input style="width: 100%;" formControlName="quantity" type="number" (blur)="getTotalQuantity()" (keyup)="getTotalQuantity()">
+                  </span>
+                </td>
+                <td>
+                  <mat-icon mat-button (click)="deleteRow(i)" style="cursor: pointer">close</mat-icon>
+                  &nbsp;
+                  <mat-icon *ngIf="i ===quantityGroup.get('cartItemGrids')['controls'].length - 1" mat-button (click)="addRow()" style="cursor: pointer">add</mat-icon>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div><br>
+    <button mat-raised-button color="primary" (click)="addtoCart()"> Add To Cart</button>
+  </div>

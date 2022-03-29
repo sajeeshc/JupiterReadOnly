@@ -1,0 +1,33 @@
+<br>
+<div class="row">
+  <div class="col-md-4" *ngFor="let item of artImgList; let i =index;">
+    <mat-card>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <img mat-card-image src={{item.url}} style="height: 200px;width:100%;position: relative;top: 0;">
+        </div>
+      </div>
+      <mat-card-content>
+        <div class="row">
+          <div class="col-md 6">
+            <h5>Art Data</h5>
+            <mat-card-subtitle>Type : {{item.metaData?.artServiceType}}</mat-card-subtitle>
+            <mat-card-subtitle>Art Position : {{item.metaData?.artPosition}}</mat-card-subtitle>
+            <mat-card-subtitle>No of colors : {{item.metaData?.noOfColors}}</mat-card-subtitle>
+            <mat-card-subtitle>Colors : {{item.metaData?.colors}}</mat-card-subtitle>
+            <mat-card-subtitle>Size : {{item.metaData?.artSize}}</mat-card-subtitle>
+          </div>
+          <div class="col-md 6">
+            <h5>Teamstore Data</h5>
+            <mat-card-subtitle>Type : {{item.teamStoreArt?.artServiceType}}</mat-card-subtitle>
+            <mat-card-subtitle>Art Position : {{item.teamStoreArt?.artPosition}}</mat-card-subtitle>
+            <mat-card-subtitle>No of colors : {{item.teamStoreArt?.noOfColors}}</mat-card-subtitle>
+            <mat-card-subtitle>Colors : {{item.metaData?.colors}}</mat-card-subtitle>
+          </div>       
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <br>
+  </div>
+</div>

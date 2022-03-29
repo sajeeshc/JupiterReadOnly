@@ -1,0 +1,95 @@
+<div class="parent-container">
+    <div class="action-container w-100 text-right mw-100 mr-5">
+        <!-- <label for="categoryName" class="font-weight-bold">Add Item Type</label> -->
+        <!-- <div class="form-inline input-group text-right"> -->
+            <!-- <input type="text" class="form-control" formControlName="name"> -->
+            <button class="btn btn-primary ml-3" (click)="openAddPopup()"> ADD BOX </button>
+            <!-- <button class="btn btn-outline-danger ml-3" (click)="initializeForm()">RESET</button> -->
+        <!-- </div> -->
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Box Name</th>
+                    <th>Length (in)</th>
+                    <th>Width (in)</th>
+                    <th>Height (in)</th>
+                    <!-- <th>ECT</th> -->
+                    <th>Weight (lbs)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let box of boxArray;let i = index">
+                    <td>{{box.id}}</td>
+                    <td>{{box.name}}</td>
+                    <td>{{box.length}}</td>
+                    <td>{{box.width}}</td>
+                    <td>{{box.height}}</td>
+                    <!-- <td>{{box.ect}}</td> -->
+                    <td>{{box.volume}}</td>
+                    <td class="actions">
+                        <img src="../../../../../assets/images/edit.png" alt="Edit Icon"
+                            (click)="openEditPopup(box)">
+                        <img src="../../../../../assets/images/close.png" alt="Remove Icon"
+                            (click)="removeBox(box.id,i)">
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-container">
+        <mat-paginator [length]="paginatorLength" [pageSize]="paginatorPageSize"
+            [pageSizeOptions]="paginatorPageSizeOptions" (page)="pageEvent($event)">
+        </mat-paginator>
+        <br><br>
+    </div>
+</div>
+
+<!-- Item Type Modal -->
+<div class="modal fade" id="boxModal" tabindex="-1" role="dialog" aria-labelledby="boxModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ isUpdate ? "Update Box" : "Add Box" }}</h5>
+                <button type="button" class="close" (click)="closePopup()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row" [formGroup]="boxForm">
+                <div class="col-12 p-2">
+                    <label>Box Name</label>
+                    <input type="text" formControlName="name" class="form-control w-100">
+                </div>
+                <div class="col-6 p-2">
+                    <label>Length (in)</label>
+                    <input type="number" formControlName="length" class="form-control w-100">
+                </div>
+                <div class="col-6 p-2">
+                    <label>Width (in)</label>
+                    <input type="number" formControlName="width" class="form-control w-100">
+                </div>
+                <div class="col-6 p-2">
+                    <label>Height (in)</label>
+                    <input type="number" formControlName="height" class="form-control w-100">
+                </div>
+                <!-- <div class="col-6 p-2">
+                    <label>ECT</label>
+                    <input type="number" formControlName="ect" class="form-control w-100">
+                </div> -->
+                <div class="col-6 p-2">
+                    <label>Weight (lbs)</label>
+                    <input type="number" formControlName="volume" class="form-control w-100">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closePopup()">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="saveBox()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

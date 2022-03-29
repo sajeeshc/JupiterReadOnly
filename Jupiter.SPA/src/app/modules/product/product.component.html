@@ -1,0 +1,54 @@
+<div class="parent-wrapper">
+  <div class="primaryToolbar row">
+    <div class="col-md-3">
+      <img src="../../../assets/images/Logo.png" style="height:50px;margin: 5px;">
+    </div>
+    <div class="col-md-6">
+      <div class="wrapper">
+        <h4>{{header}}</h4>
+      </div>
+    </div>
+
+    <div class="col-md-3 navbar-btn" style="text-align: right;">
+      <a><img class="toolbarHeaderIcon" src='../../../../assets/images/notification.png'></a>
+      <a><img class="toolbarHeaderIcon" src='../../../../assets/images/profile.png'></a>
+      <a (click)="logout()"><img class="toolbarHeaderIcon" src='../../../../assets/images/logout icon_4233257.png'></a>
+    </div>
+  </div>
+  <div class="secondaryToolbar">
+    <span (click)="goBack()" style="cursor: pointer;" *ngIf="showBackButton">
+      <span class="material-icons" style="font-size: 1rem;">
+        keyboard_arrow_left
+      </span>
+      BACK
+    </span>&nbsp;&nbsp;&nbsp;
+    <span routerLink="/productmanager/dashboard" routerLinkActive="active" style="cursor: pointer;">
+      <span class="material-icons" style="font-size: 1rem;">
+        home
+      </span>
+      HOME
+    </span>&nbsp;&nbsp;&nbsp;
+    <!-- <span style="cursor: pointer;">
+    <span class="material-icons" style="font-size: 1rem;">
+      list
+    </span>
+    STORE REQUEST
+  </span>&nbsp;&nbsp;&nbsp;
+  <span style="cursor: pointer;">
+    <span class="material-icons" style="font-size: 1rem;">
+      file_copy
+    </span>
+    REPORT
+  </span> -->
+
+  </div>
+  <div class="container-div">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<div class="fullscreen-spinner" *ngIf="loading">
+  <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>

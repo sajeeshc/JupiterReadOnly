@@ -1,0 +1,61 @@
+<div class="edit">
+   <h4 class="mb-4">Order Receipt Email Template</h4>
+   <quill-editor [formControl]="templateHtml">
+      <div quill-editor-toolbar>
+         <span class="ql-formats">
+            <button class="ql-bold"></button>
+            <button class="ql-italic"></button>
+            <button class="ql-underline"></button>
+         </span>
+
+         <span class="ql-formats">
+            <select class="ql-align" [title]="'Aligment'">
+               <option selected></option>
+               <option value="center"></option>
+               <option value="right"></option>
+               <option value="justify"></option>
+            </select>
+         </span>
+
+         <span class="ql-formats">
+            <select class="ql-size">
+               <option value="small"></option>
+               <option selected></option>
+               <option value="large"></option>
+               <option value="huge"></option>
+            </select>
+         </span>
+
+         <span class="ql-formats">
+            <select class="ql-color"></select>
+            <select class="ql-background"></select>
+         </span>
+      </div>
+   </quill-editor>
+   <div class="upload-logo-container mt-3 text-right w-100">
+      <input type="file" #uploadFile hidden (input)="uploadLogo($event.target.files)" accept="image/*">
+      <div class="logo border float-left" [ngStyle]="{'background-image': 'url('+logoUrl+')'}" title="Store Logo"></div>
+      <div class="buttons text-right">
+         <button class="btn btn-outline-info" (click)="uploadFile.click()">
+            Change Logo
+         </button>
+         <button class="btn btn-outline-success ml-2" data-toggle="modal" data-target="#preview-modal"
+            (click)="updatePreview()">Preview</button>
+         <button class="btn btn-primary ml-2" (click)="updateEmailTemplateData()">Save</button>
+      </div>
+   </div>
+
+</div>
+
+
+<div class="modal fade" id="preview-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+   aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="view">
+            <img class="logo" src="{{logoUrl}}" alt="Store Logo">
+            <div id="preview-content" class="ql-editor"></div>
+         </div>
+      </div>
+   </div>
+</div>

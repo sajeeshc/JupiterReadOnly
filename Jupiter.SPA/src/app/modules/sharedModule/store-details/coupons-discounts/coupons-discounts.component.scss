@@ -1,0 +1,78 @@
+.addBtn {
+  background-color: #0f5384;
+  font-size: small;
+  height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  margin-left: 5px;
+}
+.btn-top-right {
+  text-align: right;
+}
+
+.add-new-btn {
+  height: 40px;
+  width: 100px;
+}
+
+.list-btn {
+  height: 40px;
+}
+
+.header-label {
+  margin: 0px;
+  margin-bottom: 2px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.purchased-coupon-view {
+  margin-top: 20px;
+}
+
+.table-header {
+  background-color: #e8e8e8;
+}
+
+table {
+    border-collapse:separate;
+    border:solid black 1px;
+    border-radius:6px;
+    -moz-border-radius:6px;
+}
+
+.table td, .table th {
+    border: none;
+}
+
+th {
+    background-color: lightgrays;
+    border: none;
+    color: #A0A0A0;
+    font-size: small;
+    text-align:  center;
+}
+
+.padding10{
+  padding: 10px;
+}
+
+.smaller{
+  font-size: smaller;
+}
+
+.alignCenter{
+  text-align: center;
+  background-color: silver;
+}
+
+.contentAlign{
+  align-items: baseline;
+  margin-left: 10px;
+}
+
+.spacing{
+  margin-left: 100px;
+}

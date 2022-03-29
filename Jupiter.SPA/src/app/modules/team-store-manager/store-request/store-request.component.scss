@@ -1,0 +1,82 @@
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+.mat-row:nth-child(even) {
+    background-color: white;
+    height: 40px;
+  }
+  
+  .mat-row:nth-child(odd) {
+    background-color: #f1f1f1;
+    height: 40px;
+  }
+  
+  .mat-header-cell {
+    color: white;
+    font-size: medium;
+  }
+  
+  tr.mat-header-row {
+    height: 40px;
+    background-color: #eb3a79;
+  }
+  
+  tr.mat-header-row {
+    height: 40px;
+    background-color: #eb3a79;
+  }
+  
+  .mat-card > :first-child {
+    margin-top: -16px;
+    margin-left: -1px;
+    margin-right: -1px;
+  }
+  
+  .mat-elevation-z8 {
+    width: 100%;
+  }
+  
+  .cardWrapper {
+    background-color: lightgrey;
+  }
+  
+  .header {
+    height: 40px;
+    margin: auto;
+    display: inline;
+    padding: 10px;
+    margin-left: 10px;
+    font-family: "Copperplate Gothic Bold", Copperplate, sans-serif;
+  }
+  
+  .formWidth {
+    width: 100%;
+  }
+  
+  .customBorder {
+    border-left: 4px solid #eb3a79;
+    margin-top: -2px;
+  }
+  
+  .commonBtnStyle {
+    background-color: #1830a3;
+    min-width: 100px;
+    font-size: small;
+  }
+  
+  .example-margin{
+    margin-top: 27px;
+  }
+  
+  ::placeholder { 
+    color: rgb(73, 80, 87);
+  }

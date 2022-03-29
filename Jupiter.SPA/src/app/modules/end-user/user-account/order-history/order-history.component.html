@@ -1,0 +1,134 @@
+<div class="wrapper">
+    <!-- <div class="card p-1 m-2 order-header" *ngFor="let order of orders"> -->
+    <mat-accordion *ngFor="let order of orders">
+        <mat-expansion-panel class="m-2">
+            <mat-expansion-panel-header>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-2 text-left">
+                            Order Number <br>
+                            <span class="data">
+                                # {{ order.id }}
+                            </span>
+                        </div>
+                        <div class="col-2 text-left">
+                            Order Date <br>
+                            <span class="data">
+                                {{order.createdDate | date:'MM/dd/yyyy'}}
+                            </span>
+                        </div>
+                        <div class="col-2 text-left">
+                            Payment Mode <br>
+                            <span class="data">
+                                {{order.paymentType?.toString() | i18nSelect: paymentMode}}
+                            </span>
+                        </div>
+                        <div class="col-2 text-left">
+                            Order Total <br>
+                            <span class="data">
+                                $ {{order.totalAmount | number:'1.2-2'}}
+                            </span>
+                        </div>
+                        <div class="col-2 text-left">
+                            Order Status <br>
+                            <span class="data">
+                                {{order.orderStatus?.toString() | i18nSelect: orderStatus}}
+                            </span>
+                        </div>
+                        <!-- <div class="col-2 text-right">
+                            <button class="btn-outline-success btn">Order Status</button>
+                            <br> 
+                            <button class="btn-outline-info btn">Order Details</button>
+                        </div> -->
+                    </div>
+                </div>
+            </mat-expansion-panel-header>
+            <mat-tab-group>
+                <mat-tab label="Order Details">
+                    <div class="container-fluid row">
+                        <div class="col-6 mt-2" *ngFor="let item of order.orderLineItems">
+                            <div class=" row">
+                                <div class="col-4 item-image">
+                                    <img src="{{item?.product?.productImages ? item?.product?.productImages[0] : noImage}}"
+                                        alt="{{item?.product?.name}}">
+                                </div>
+                                <div class="col item-detail text-left">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>:</td>
+                                                <td> {{item?.product?.name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Product ID</td>
+                                                <td>:</td>
+                                                <td> {{item?.product?.id}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Quantity</td>
+                                                <td>:</td>
+                                                <td> {{item?.quantity}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Amount</td>
+                                                <td>:</td>
+                                                <td> {{item?.totalPrice}}</td>
+                                            </tr>
+                                            <tr *ngIf="item?.orderLineItemPersonalizations?.length">
+                                                <td colspan="3">
+                                                    <details class="mt-1">
+                                                        <summary>Size and Color</summary>
+                                                        <ng-container *ngFor="let p of item?.orderLineItemPersonalizations">
+                                                            <p *ngIf="p.quantity">
+                                                                {{ p.size + " - " + p.color + " (" + p.quantity + ")" }}
+                                                            </p>
+                                                        </ng-container>
+                                                    </details>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Order Status">
+                    <div class="col-12 py-5">
+                        <div class="row">
+                            <div class="col-6">
+                                <h4 class="text-primary"> Out for Delivery </h4>
+                                <label class="font-size-small"> Expected delivery: </label>
+                                <label class="font-color-cyan font-size-small">
+                                    Thursday,April 15 2021,by 3:00pm
+                                </label>
+                            </div>
+                            <div class="col-6">
+                                <br>
+                                <label class="font-size-small">
+                                    Your package is out for delivery and will arrive today.
+                                </label>
+                                <br>
+                                <label class="text-secondary font-size-x-small">
+                                    (Updated 0 minute(s)ago)
+                                </label>
+                            </div>
+                            <div class="col-12">
+                                <span *ngFor="let item of counts; let i = index">
+                                    <span class="circle-desc" [class.circle-desc-active]="tempOrderStatus == item">
+                                        {{ item }}
+                                    </span>
+                                    <span class="circles" [class.active]="tempOrderStatus == item"></span>
+                                    <span class="bar" *ngIf="i != counts.length - 1"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <!-- </div> -->
+</div>

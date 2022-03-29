@@ -1,0 +1,85 @@
+.label-holder {
+  margin-top: 10px !important;
+  font-weight: 500;
+  color: grey;
+}
+
+.img-holder {
+  width: 500px;
+}
+
+.img-wrapper {
+  text-align: center;
+}
+
+.mat-icon:hover {
+  cursor: pointer;
+}
+
+// .custom-table {
+//   table-layout: fixed;
+// }
+
+// mat-form-field {
+//   width: -webkit-fill-available;
+// }
+
+.table td,
+.table th {
+  border-top: none;
+  border-bottom: none;
+  padding-bottom: 0;
+  padding-top: 0.25rem;
+}
+
+.imgTab {
+  height: 80px;
+  width: 60px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.personalizeTable {
+  padding: 10px;
+  background-color: #f7f7f7;
+  min-height: 100px;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.width-75 {
+  width: 75%;
+}
+
+.width-85 {
+  width: 85%;
+}
+
+// .product-table {
+//   min-height: 100px;
+//   max-height: 200px;
+//   overflow-y: scroll;
+// }
+
+// .product-table-holder {
+//   background-color: #f7f7f7;
+//   width: 90%;
+// }
+
+// .actions-holder {
+//   width: 500px;
+// }
+
+// ::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+//   padding: 0.4em 0px !important;
+// }
+// ::ng-deep .mat-form-field-label-wrapper {
+//   top: -1.7em;
+// }
+
+// ::ng-deep
+//   .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+//   .mat-form-field-label {
+//   transform: translateY(-1.4em) scale(0.75);
+//   width: 133.33333%;
+// }

@@ -1,0 +1,129 @@
+<div class="view-wrapper">
+  <div class="left-side-bar">
+    <div class="left-side-bar-content-scroller">
+      <h5 style="text-align: center"><strong>Style</strong></h5>
+      <br>
+      <div>
+        <label class="product-detail-label">Header</label>
+        <br>
+        <mat-label>Background Color</mat-label>
+        <input *ngIf="layoutData.header!=null" style="height: 25px;width: 25px;border-radius: 12.5px;margin-left: 15px;cursor: pointer;" [(colorPicker)]="layoutData.header.backgroundColor" [style.background]="layoutData.header.backgroundColor" />
+        <br>
+        <br>
+        <mat-label>Font Color</mat-label>
+        <input *ngIf="layoutData.header!=null" style="height: 25px;width: 25px;border-radius: 12.5px;margin-left: 15px;cursor: pointer;" [(colorPicker)]="layoutData.header.fontColor" [style.background]="layoutData.header.fontColor" />
+        <br><br>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            Home
+          </mat-expansion-panel-header>
+          <mat-slide-toggle *ngIf="layoutData.header!=null" [(ngModel)]="layoutData.header.showHomeLink">Display Link</mat-slide-toggle>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            Products
+          </mat-expansion-panel-header>
+          <mat-slide-toggle *ngIf="layoutData.header!=null" [(ngModel)]="layoutData.header.showProductsLink">Display Link</mat-slide-toggle>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            Store
+          </mat-expansion-panel-header>
+          <mat-slide-toggle *ngIf="layoutData.header!=null" [(ngModel)]="layoutData.header.showStoreLink">Display Link</mat-slide-toggle>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            Contact
+          </mat-expansion-panel-header>
+          <mat-slide-toggle *ngIf="layoutData.header!=null" [(ngModel)]="layoutData.header.showContactLink">Display Link</mat-slide-toggle>
+        </mat-expansion-panel>
+        <br>
+        <div>
+          <div style="height: 150px;margin:20px 20px 5px 20px;background-color:  lightgrey;">
+            <img *ngIf="layoutData.header!=null" style="padding:20px;width: 100%;height:100%;" src={{layoutData.header.logoUrl}}>
+          </div>
+          <div style="text-align: center;">
+            <button class="btn btn-primary btnClass" (click)="logo.click()">
+              <span>UPLOAD LOGO</span>
+              <input #logo type="file" style="display:none;" (change)="logoSelected($event.target.files)" accept="image/*" />
+              <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple">
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
+        <br>
+        <mat-slider [max]="200" [min]="100" [step]="5" [(ngModel)]="logoHeight" style="width: 100%;" (change)="heightChanged()">
+        </mat-slider>
+        <br>
+        <br>
+      </div>
+
+      <div>
+        <label class="product-detail-label">Layout</label>
+        <br>
+        <mat-label>Header Color</mat-label>
+        <input *ngIf="layoutData.layout!=null" style="height: 25px;width: 25px;border-radius: 12.5px;margin-left: 15px;cursor: pointer;" [(colorPicker)]="layoutData.layout.backgroundColor" [style.background]="layoutData.layout.backgroundColor" />
+        <br>
+        <br>
+        <mat-label>Font Color</mat-label>
+        <input *ngIf="layoutData.layout!=null" style="height: 25px;width: 25px;border-radius: 12.5px;margin-left: 15px;cursor: pointer;" [(colorPicker)]="layoutData.layout.fontColor" [style.background]="layoutData.layout.fontColor" />
+        <br><br>
+        <mat-slide-toggle *ngIf="layoutData.layout!=null" [(ngModel)]="layoutData.layout.displayColor">Display Color</mat-slide-toggle>
+        <mat-slide-toggle *ngIf="layoutData.layout!=null" [(ngModel)]="layoutData.layout.displayPrice">Display Price</mat-slide-toggle>
+        <br>
+        <br>
+      </div>
+
+      <div>
+        <label class="product-detail-label">Footer</label>
+        <br>
+        <mat-label>Footer Color</mat-label>
+        <input *ngIf="layoutData.footer!=null" style="height: 25px;width: 25px;border-radius: 12.5px;margin-left: 15px;cursor: pointer;" [(colorPicker)]="layoutData.footer.backgroundColor" [style.background]="layoutData.footer.backgroundColor" />
+        <br>
+        <br>
+        <mat-label>Font Color</mat-label>
+        <input *ngIf="layoutData.footer!=null" style="height: 25px;width: 25px;border-radius: 12.5px;margin-left: 15px;cursor: pointer;" [(colorPicker)]="layoutData.footer.fontColor" [style.background]="layoutData.footer.fontColor" />
+        <br><br>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            Home
+          </mat-expansion-panel-header>
+          <mat-slide-toggle *ngIf="layoutData.footer!=null" [(ngModel)]="layoutData.footer.showHomeLink">Display Link</mat-slide-toggle>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            Product Catalog
+          </mat-expansion-panel-header>
+          <mat-slide-toggle *ngIf="layoutData.footer!=null" [(ngModel)]="layoutData.footer.showProductCatalogsLink">Display Link</mat-slide-toggle>
+        </mat-expansion-panel>
+        <br>
+        <br>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="product-view-wrapper right-side-bar">
+    <br>
+    <div style="width:100%;text-align: right;">
+      <button class="btn addBtn" (click)="saveLayoutSettings()">Update</button>
+    </div>
+    <br>
+    <app-layout1 *ngIf="selectedComponent == 1" [teamStoreId]="teamStoreId" [layoutData]="layoutData"></app-layout1>
+    <app-layout2 *ngIf="selectedComponent == 2" [teamStoreId]="teamStoreId" [layoutData]="layoutData"></app-layout2>
+    <div class="button-container" style="position: fixed;bottom: 50px;right:50px;">
+      <button (click)="switchNav()" class="layout-btn" mat-mini-fab color="primary">
+        <mat-icon class="layout-btn-icon">keyboard_arrow_left</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<div id="mySidenav" class="sidenav" style="height:100%">
+  <a class="closebtn" (click)="switchNav()">&times;</a>
+  <div style="padding:10px;border:grey solid 1px;margin:10px;cursor: pointer;" *ngFor="let option of array; index as i;" (click)="componentSelected(option)">
+    <img src={{option.imageSrc}}>
+    <label>{{option.componentName}}</label>
+  </div>
+</div>

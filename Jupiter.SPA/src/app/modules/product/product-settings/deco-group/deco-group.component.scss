@@ -1,0 +1,41 @@
+#decoGroupModal {
+    // ::ng-deep .mat-form-field-flex {
+    //     background-color: white;
+    // }
+    // ::ng-deep .mat-select-value {
+    //     padding: 10px;
+    // }
+    .table {
+        width: 100%;
+        
+        // .mat-select {
+        //     margin-bottom: 0;
+        // }
+        // tr {
+        //     border-bottom: 1px solid black;
+        //     td,
+        //     th {
+        //         vertical-align: middle;
+        //         padding: 5px 10px;
+        //     }
+        //     td:nth-child(3) {
+        //         width: 1%;
+        //     }
+        //     td:nth-child(1) {
+        //         width: 35%;
+        //     }
+        // }
+    }
+}
+
+.table td{
+    vertical-align: middle;
+}
+
+.modal-lg{
+    max-width: 90%;
+}
+
+.modal-min-width {
+    max-width: 900px;
+}

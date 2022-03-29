@@ -1,0 +1,73 @@
+<div class="common-margin">
+  <button mat-raised-button (click)="updateArtRequest()" color="primary" style="float: right;">
+    Submit
+  </button>
+</div>
+<br><br>
+<div class="row">
+  <div class="col-md-4" *ngFor="let item of artImgList; let i =index;">
+    <mat-card>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <img mat-card-image src={{item.url}} style="height: 200px;width:100%;position: relative;top: 0;">
+        </div>
+        <div class="col-md-3">
+          <!-- <input *ngIf="item.isDownloaded" type="checkbox" [(ngModel)]="item.isDownloaded" /> -->
+        </div>
+      </div>
+      <mat-card-content>
+        <div class="row">
+          <div class="col-md 6">
+            <h5>Art Data</h5>
+            <mat-card-subtitle>Type : {{item.metaData?.artServiceType}}</mat-card-subtitle>
+            <mat-card-subtitle>Art Position : {{item.metaData?.artPosition}}</mat-card-subtitle>
+            <mat-card-subtitle>No of colors : {{item.metaData?.noOfColors}}</mat-card-subtitle>
+            <mat-card-subtitle>Colors : {{item.metaData?.colors}}</mat-card-subtitle>
+            <mat-card-subtitle>Size : {{item.metaData?.artSize}}</mat-card-subtitle>
+          </div>
+          <div class="col-md 6" *ngIf="item.teamStoreArt != null">
+            <h5>Teamstore Data</h5>
+            <mat-card-subtitle>Type : {{item.teamStoreArt?.artServiceType}}</mat-card-subtitle>
+            <mat-card-subtitle>Art Position : {{item.teamStoreArt?.artPosition}}</mat-card-subtitle>
+            <mat-card-subtitle>No of colors : {{item.teamStoreArt?.noOfColors}}</mat-card-subtitle>
+            <mat-card-subtitle>Colors : {{item.metaData?.colors}}</mat-card-subtitle>
+          </div>
+          <div class="col-md-12">
+            <div [ngStyle]="{'color': item.isApproved ? 'green' : 'red'}">
+              <span *ngIf="item.artMappingStatus == 4 || item.artMappingStatus == 0" style="color: red; font-size: large;">Pending</span>
+            <span *ngIf="item.artMappingStatus == 7 " style="color: red; font-size: large;">Rejected</span>
+            <span *ngIf="item.artMappingStatus == 6 " style="color: green; font-size: large;">Approved</span>
+            </div>
+          </div>
+          <hr>
+          <div class="col-md-12">
+            <button mat-raised-button class="mat-success" (click)="downloadImg(item.url,'art',item.id)">Download Art</button>&nbsp;
+            <button mat-raised-button class="mat-success" (click)="downloadImg(item.digitizedUrl,'ai',item.id)">Download AI</button>&nbsp;
+            <button mat-raised-button class="mat-success" (click)="downloadImg(item.pdfUrl,'pdf',item.id)">Download Pdf</button>&nbsp;
+          </div>
+          <br>
+          <br>
+          <div class="col-md-12">
+            <mat-form-field style="width: 100%">
+              <mat-label>Reason</mat-label>
+              <mat-select [(ngModel)]="item.artReasonId" class="custom-inputbox" name="rejectionCode">
+                <mat-option *ngFor="let reason of reasonList" [value]="reason.id">{{reason.description}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+          <div class="col-md-12">
+            <mat-form-field style="width: 100%;">
+              <mat-label>Comment</mat-label>
+              <textarea matInput [(ngModel)]="item.note"></textarea>
+            </mat-form-field>
+            <!-- <button mat-raised-button color="primary" (click)="changeStatus(notes,true,i)">Approve</button>&nbsp; -->
+            <button mat-raised-button color="warn" (click)="changeStatus(item.note,false,i,item.artReasonId)">Reject</button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <br>
+  </div>
+</div>

@@ -1,0 +1,259 @@
+<img src="../../../../assets/images/requestYourOwnTeamStore.png" class="headerImage" />
+<mat-card>
+  <div class="container">
+    <form [formGroup]="storeRequestForm">
+      <div class="row form-wrapper">
+        <br />
+        <div class="col-md-12 common-padding">
+          <h3 class="font-color-darkblue">READY TO GET STARTED?</h3>
+        </div>
+        <div class="col-md-12 common-padding">
+          <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+            <label class="custom-inputbox-label font-color-darkblue font-size-large">FULL NAME <span
+                style="color: red;">*</span></label>
+            <input type="text" matInput formControlName="contactName" class="custom-inputbox"
+              [class.invalid-field]="this.storeRequestForm.controls['contactName'].invalid && this.storeRequestForm.controls['contactName'].touched" />
+              <mat-error *ngIf="this.storeRequestForm.get('contactName').errors?.required"> Name is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 common-padding">
+          <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+            <label class="custom-inputbox-label font-color-darkblue font-size-large">STORE NAME <span
+                style="color: red;">*</span></label>
+            <input type="text" matInput formControlName="name" class="custom-inputbox"
+              [class.invalid-field]="this.storeRequestForm.controls['name'].invalid && this.storeRequestForm.controls['name'].touched" />
+              <mat-error *ngIf="this.storeRequestForm.get('name').errors?.required"> Store name is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6" style="padding-left: 10px">
+              <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+                <label class="custom-inputbox-label font-color-darkblue font-size-large">CUSTOMER E-MAIL <span
+                    style="color: red;">*</span></label>
+                <input type="email" matInput formControlName="emailId" class="custom-inputbox"
+                  [class.invalid-field]="this.storeRequestForm.controls['emailId'].invalid && this.storeRequestForm.controls['emailId'].touched" />
+              <mat-error *ngIf="this.storeRequestForm.get('emailId').errors?.required"> Email is required</mat-error>
+              <mat-error *ngIf="this.storeRequestForm.get('emailId').errors?.pattern"> Entered email is invalid</mat-error>
+            </mat-form-field>
+            </div>
+            <div class="col-md-6" style="padding-right: 10px">
+              <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+                <label class="custom-inputbox-label font-color-darkblue font-size-large">PHONE</label>
+                <input type="text" matInput formControlName="phoneNumber" class="custom-inputbox" 
+                  (keydown)="onKeyDownOfPhone($event)" (keyup)="onKeyUpOfPhone($event)"
+                  [class.invalid-field]="this.storeRequestForm.controls['phoneNumber'].invalid && this.storeRequestForm.controls['phoneNumber'].touched" />
+              <mat-error *ngIf="this.storeRequestForm.get('phoneNumber').errors?.pattern"> Entered phone number is invalid </mat-error>
+            </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-md-12 common-padding">
+          <mat-checkbox [checked]="false" formControlName="contactMe">
+            I NEED IT FASTER. PLEASE CONTACT ME!
+          </mat-checkbox>
+        </div> -->
+        <div class="col-md-12 common-padding">
+          <mat-checkbox [checked]="true">YES! I WOULD LIKE TO RECEIVE SMS ALERTS OF NEWS AND SPECIAL
+            OFFERS FROM ARES SPORTSWEAR.</mat-checkbox>
+        </div>
+        <div class="col-md-12 common-padding">
+          <mat-label class="font-color-darkblue font-size-large">THIS STORE IS FOR A:</mat-label><br /><br />
+          <div class="row">
+            <div *ngFor="let item of storeForArray; let i=index" class="col-md-2">
+              <mat-checkbox [value]="item.value" (change)="onStoreForChange($event)">{{item.description}}</mat-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 common-padding">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="custom-inputbox-label font-color-darkblue font-size-large">ORGANIZATION <span
+                  style="color: red;">*</span></label>
+              <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+
+                <mat-select (selectionChange)="onOrganizationSelect()" formControlName="organizationName"
+                  class="custom-inputbox"
+                  [class.invalid-field]="this.storeRequestForm.controls['organizationName'].invalid && this.storeRequestForm.controls['organizationName'].touched">
+                  <mat-option [value]="'Add'">Add Organization</mat-option>
+                  <mat-option *ngFor="let item of organizationArray" [value]="item.name">{{item.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.storeRequestForm.get('organizationName').errors?.required"> Organization is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <label class="custom-inputbox-label font-color-darkblue font-size-large">ORGANIZATION ADDRESS
+              </label>
+              <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+
+                <textarea type="text" matInput id="organizationAddress" formControlName="organizationAddress" rows="1"
+                  class="custom-inputbox" readonly>
+            </textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-12"> -->
+          <div class="col-md-6">
+            <label class="custom-inputbox-label font-color-darkblue font-size-large"> MARKET GROUP <span
+                style="color: red;">*</span></label>
+            <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+
+              <mat-select formControlName="marketGroupId" class="custom-inputbox"
+                [class.invalid-field]="this.storeRequestForm.controls['marketGroupId'].invalid && this.storeRequestForm.controls['marketGroupId'].touched">
+                <mat-option *ngFor="let item of marketGroupArray" [value]="item.id">{{item.name}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="this.storeRequestForm.get('marketGroupId').errors?.required"> Market group is required</mat-error>
+
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <label class="custom-inputbox-label font-color-darkblue font-size-large"> MARKET <span
+                style="color: red;">*</span></label>
+            <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+
+              <mat-select formControlName="marketId" class="custom-inputbox"
+                [class.invalid-field]="this.storeRequestForm.controls['marketId'].invalid && this.storeRequestForm.controls['marketId'].touched">
+                <mat-option *ngFor="let item of getMarkets(storeRequestForm.get('marketGroupId').value)" [value]="item.id">{{item.name}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="this.storeRequestForm.get('marketId').errors?.required"> Market is required</mat-error>
+
+            </mat-form-field>
+          </div>
+        <!-- </div> -->
+        <div class="col-md-12 common-padding">
+          <mat-label class="custom-inputbox-label font-color-darkblue font-size-large">
+            WHAT YOU’D LIKE TO SEE IN YOUR STORE</mat-label>
+          <br>
+          <br>
+
+          <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+            <mat-select multiple formControlName="categoryIds" class="custom-inputbox">
+              <mat-option *ngFor="let item of categoryList" [value]="item.id">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- <div class="col-md-12 common-padding">
+          <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+            <label class="custom-inputbox-label font-color-cyan">Please let us know what other items you would like to see in your
+              store:</label>
+            <input type="text" matInput class="custom-inputbox" />
+            <br />
+            <br />
+            <label class="font-color-cyan font-size-small">(Select as many as needed)</label>
+          </mat-form-field>
+        </div> -->
+        <div class="col-md-12 common-padding">
+          <div>
+            <label class="custom-inputbox-label font-color-darkblue font-size-large">TEAM COLORS:</label>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-4">
+              <label class="custom-inputbox-label font-color-darkblue font-size-large">PRIMARY COLOR</label>
+              <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+                <mat-select formControlName="primaryColorId" class="custom-inputbox">
+                  <mat-option *ngFor="let item of primaryColors" [value]="item.id">{{item.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <label class="custom-inputbox-label font-color-darkblue font-size-large">SECONDARY COLOR</label>
+              <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+                <mat-select formControlName="secondaryColorId" class="custom-inputbox">
+                  <mat-option *ngFor="let item of secondaryColors" [value]="item.id">{{item.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <label class="custom-inputbox-label font-color-darkblue font-size-large">TERTIARY COLOR</label>
+              <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+                <mat-select formControlName="tertiaryColorId" class="custom-inputbox">
+                  <mat-option *ngFor="let item of tertiaryColors" [value]="item.id">{{item.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-12 common-padding">
+          <label class="custom-inputbox-label font-color-darkblue font-size-large">UPLOAD A SCHOOL/BUSINESS LOGO</label>
+          <br />
+          <button class="btn btn-primary btn-style-grey" (click)="fileInput1.click()">
+            <span>UPLOAD</span>
+            <input #fileInput1 type="file" style="display:none;" (change)="handleImageInput($event.target.files,'logo')"
+              accept="image/*" />
+            <span class="mdl-button__ripple-container">
+              <span class="mdl-ripple">
+              </span>
+            </span>
+          </button>&nbsp;&nbsp;
+          <mat-label>{{this.logoToUpload?.name}}</mat-label>
+        </div> -->
+        <div class="col-md-12 common-padding">
+          <label class="custom-inputbox-label font-color-darkblue font-size-large">UPLOAD ART YOU WANT TO HAVE ON YOUR
+            APPAREL</label>
+          <br />
+          <button class="btn btn-primary btn-style-grey" (click)="fileInput2.click()">
+            <span>UPLOAD</span>
+            <input #fileInput2 type="file" style="display:none;" (change)="handleImageInput($event.target.files,'art')"
+              accept="image/*" />
+            <span>
+              <span class="mdl-ripple">
+              </span>
+            </span>
+          </button>&nbsp;&nbsp;
+          <mat-label>{{this.artToUpload?.name}}</mat-label>
+          <br />
+          <br />
+          <label class="font-color-cyan font-size-small">*vector art is preferred for a faster turn time</label>
+        </div>
+        <div class="col-md-12 common-padding">
+          <mat-form-field appearance="none" class="custom-inputbox-wrapper">
+            <label class="custom-inputbox-label font-color-darkblue font-size-large">ADDITIONAL COMMENTS:</label>
+            <textarea class="custom-inputbox" matInput cdkTextareaAutosize formControlName="customerNotes"
+              cdkAutosizeMinRows="5"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12" style="text-align: center;">
+          <button class="btn btn-primary commonBtnStyle" (click)="createRequest()" id="submit-btn">SUBMIT</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-card>
+
+
+
+<div class="modal fade" id="addOrgModal" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <mat-label>Add Organization</mat-label>
+        <button type="button" class="close" (click)="closeOrganiztionModal()">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="organizationForm" novalidate class="form-group" id="organizationForm">
+          <select class="form-control m-2" formControlName="institutionTypeId" name="institutionType" required>
+            <option value="" disabled selected hidden>Institution Type</option>
+            <option *ngFor="let type of institutionTypeArray" [value]="type.id">{{type.name}}</option>
+          </select>
+          <input type="text" class="form-control m-2" formControlName="name" placeholder="Organization Name" required />
+          <input type="text" class="form-control m-2" formControlName="address" placeholder="Address 1" required />
+          <input type="text" class="form-control m-2" formControlName="address1" placeholder="Address 2" />
+          <input type="text" class="form-control m-2" formControlName="city" placeholder="City" required />
+          <select class="form-control m-2" formControlName="state" name="State" required>
+            <option value="" disabled selected hidden>State</option>
+            <option *ngFor="let item of stateArray" [value]="item.id">{{item.name}}</option>
+          </select>
+          <input type="text" class="form-control m-2" formControlName="zip" placeholder="Zip Code" required />
+          <button type="button" class="btn btn-primary m-2 float-right" (click)="createNewOrganization()">
+            Add Organization
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

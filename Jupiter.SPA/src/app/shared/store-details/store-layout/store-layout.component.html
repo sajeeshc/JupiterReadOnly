@@ -1,0 +1,53 @@
+<div class="view-wrapper" *ngIf="!isStoreClosed">
+  <!-- <div *ngIf="!selectedComponent && !loading" style="width: 100%;text-align: center;color: darkgray;padding: 10% 0%;">
+    <h2><b>Invalid store </b></h2>
+  </div> -->
+
+  <div class="error-page" *ngIf="!selectedComponent && !loading">
+    <header class="error-page__header">
+      <h1 class="error-page__title nolinks">Layout Not Found</h1>
+    </header>
+    <p class="error-page__message">
+      Please design a layout to preview store.
+    </p>
+  </div>
+
+
+  <div
+    *ngIf="loading"
+    style="width: 100%; text-align: center; color: darkgray; padding: 10% 0%"
+  >
+    <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+  
+  <app-layout1
+    *ngIf="selectedComponent == 1"
+    [teamStoreId]="teamStoreId"
+    [layoutData]="layoutData"
+  ></app-layout1>
+  <app-layout2
+    *ngIf="selectedComponent == 2"
+    [teamStoreId]="teamStoreId"
+    [layoutData]="layoutData"
+  ></app-layout2>
+</div>
+
+<div class="store-closed" *ngIf="isStoreClosed">
+  <img class="store-closed-logo" src="../../../../assets/images/store_closed_logo.png" alt="Store Closed">
+  <div class="store-closed-text">
+    <p class="font-weight-bold">Store Closed</p>
+    <mat-hint>
+      The {{teamStoreName}} is currently closed. If you have any question or need help, please contact us.
+    </mat-hint> <br> <br>
+    <label>Phone</label>
+    <p class="phone">800-439-8614</p>
+    <label>Email</label>
+    <p class="email">info@areswear.com</p>
+    <label>Address</label>
+    <p class="address">3704 LACON ROAD <br> HILLIARD, OH 43026-1207</p>
+  </div>
+</div>
+

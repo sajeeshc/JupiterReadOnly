@@ -1,0 +1,44 @@
+
+.error-page {
+    margin: 100px 0 40px;
+    text-align: center;
+    font: normal 16px/26px Arial, sans-serif;
+    // background: #fafafa;
+    color: #2a3744;
+}
+
+.error-page__header-image {
+    width: 112px;
+}
+
+.error-page__title {
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 31px;
+}
+
+.store-closed{
+    box-shadow: 10px 10px 19px -6px rgba(0,0,0,0.42);
+    -webkit-box-shadow: 10px 10px 19px -6px rgba(0,0,0,0.42);
+    -moz-box-shadow: 10px 10px 19px -6px rgba(0,0,0,0.42);
+    max-width: 500px;
+    margin: 5rem auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .store-closed-logo, .store-closed-text{
+        width: 100%;
+    }
+    .store-closed-text{
+        padding: 2rem;
+        .phone, .email{
+            color: rgb(0, 166, 207);
+        }
+        .phone, .email, .address{
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+        label{
+            opacity: .7;
+        }
+    }
+}

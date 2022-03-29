@@ -1,0 +1,109 @@
+<mat-card class="commonBorder">
+  <mat-drawer-container class="sidenav-container" style="height: 500px; ">
+    <mat-drawer mode="side" opened>
+      <div class="">
+        <div class="col-md-12">
+          <div>
+            <mat-label style="font-size: large; font-weight: bold;">
+              Settings
+            </mat-label>
+          </div>
+          <br><br>
+          <mat-label class="material-light">GENERAL</mat-label>
+          <mat-nav-list>
+            <mat-list-item [routerLinkActive]="['active']" [routerLink]="['/storebuilder/storedetails/storesettings/storename']">
+              <a matLine (click)="showForm(1)">Name & Directory</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']" [routerLink]="['/storebuilder/storedetails/storesettings/storecontact']">
+              <a matLine (click)="showForm(2)">Contact Info</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine (click)="showForm(3)">Store Branding</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']" [routerLink]="['/storebuilder/storedetails/storesettings/storenotifications']">
+              <a matLine (click)="showForm(4)">Store Notifications</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine routerLink="/storebuilder/storedetails/storesettings/storepolicies">Store Policies</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']" >
+              <a matLine [routerLink]="['/storebuilder/storedetails/storesettings/privacysettings']">Privacy Settings</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']" >
+              <a matLine [routerLink]="['/storebuilder/storedetails/storesettings/socialmedia']">Social Media</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine (click)="showForm(8)">Product Display Settings</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine routerLink="/storebuilder/storedetails/storesettings/storeclosedpage">Store Closed Page</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine (click)="showForm(10)">Designer</a>
+            </mat-list-item>
+          </mat-nav-list><br><br>
+          <div class="row">
+            <div class="col-md-8">
+              <mat-label class="material-light">ECOMMERCE</mat-label>
+            </div>
+            <div class="col-md-4">
+              <mat-slide-toggle [checked]="true"></mat-slide-toggle>
+            </div>
+          </div>
+          <mat-nav-list>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine  routerLink="/storebuilder/storedetails/storesettings/productionschedule">Production Schedule</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine routerLink="/storebuilder/storedetails/storesettings/shippingmethods">Shipping Methods</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine (click)="showForm(13)">Pick Up Methods</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine routerLink="/storebuilder/storedetails/storesettings/checkoutsettings">Checkout Settings</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine (click)="showForm(16)">Custom Order Fields</a>
+            </mat-list-item>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine routerLink="/storebuilder/storedetails/storesettings/storecommission">Store Commission</a>
+            </mat-list-item>
+          </mat-nav-list><br><br>
+          <div class="row">
+            <div class="col-md-8">
+              <mat-label class="material-light">ADVANCED</mat-label>
+            </div>
+          </div>
+          <mat-nav-list>
+            <mat-list-item [routerLinkActive]="['active']">
+              <a matLine routerLink="/storebuilder/storedetails/storesettings/seosettings">SEO & Settings</a>
+            </mat-list-item>
+          </mat-nav-list>
+          <div class="padding10"></div>
+          <div class="row">
+            <mat-nav-list>
+              <mat-list-item style="cursor: text;">
+                <div class="col-md-9">
+                  <a matLine>Ready To Publish</a>
+                </div>
+                <div class="col-md-3" style="text-align: right;">
+                  <mat-slide-toggle [checked]="true"></mat-slide-toggle>
+                </div>
+              </mat-list-item>
+            </mat-nav-list>
+          </div>
+        </div>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <mat-card class="commonBorder">
+        <div class="row">
+          <div class="col-md-12">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </mat-card>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</mat-card>

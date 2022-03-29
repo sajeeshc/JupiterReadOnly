@@ -1,0 +1,54 @@
+<mat-card>
+<h5 mat-dialog-title>Choose Product</h5>
+
+<div mat-dialog-content>
+
+    <form [formGroup]="productCategoryGroup">
+      <div class="row">
+        <div class="col-md-6">
+          <div>
+      <mat-form-field class="product-full-width">
+        <mat-label>Category</mat-label>
+        <input type="text"
+               placeholder="Pick one"
+               aria-label="Category"
+               matInput
+               [formControl]="categoryControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of categoryOptions" [value]="option.name">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div style="width: 100%;">
+      <mat-form-field class="product-full-width">
+        <mat-label>Product</mat-label>
+        <input type="text"
+               placeholder="Pick one"
+               aria-label="Product"
+               matInput
+               [formControl]="productControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of productOptions" [value]="option.name" (selectedValueChange)="onSelect(option.name)">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-12" mat-dialog-actions align="end">
+          <div style="width: 100%;">
+            <button class="btn btn-primary" (click)="addToListAction()">
+              Add to List
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>
+</mat-card>

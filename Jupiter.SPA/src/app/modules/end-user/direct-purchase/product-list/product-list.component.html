@@ -1,0 +1,85 @@
+<div >
+  <div class="main-wrapper">
+    <div class="menu-wrapper mr-3">
+      <div class="menu-card">
+        <div class="wrapper">
+          <img class="search-icon" src="../../../../assets/images/search.png" />
+          <input class="search" placeholder="Search all products" type="text" [(ngModel)]="searchText" />
+          <button class="btn btn-sm btn-outline-dark ml-1" (click)="getProduct()">Search</button>
+        </div>
+      </div>
+      <br>
+      <div>
+        <mat-selection-list>
+          <mat-list-option (click)="toggleSubItems({id:0})">
+            View All
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+      <div *ngFor="let item of categoryList" class="category-list-holder">
+        <mat-selection-list>
+          <mat-list-option (click)="toggleSubItems(item)">
+            {{item?.name}}
+          </mat-list-option>
+        </mat-selection-list>
+        <div *ngFor="let subitem of item?.subcategories">
+          <mat-selection-list style="margin-left:10px;" *ngIf="item?.isExpanded">
+            <mat-list-option>
+              {{subitem?.name}}
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+      </div>
+    </div>
+
+    <div class="list-wrapper">
+      <div class="row list-holder">
+        <div class="col-md-12">
+          <h4>Best Sellers</h4>
+          <label class="font-grey">All products</label>/<label>Best Seller</label>
+        </div>
+        <br>
+        <div class="col-md-12">
+          <div class="row" *ngIf="productList.length">
+            <div *ngFor="let item of productList" class="col-md-3" title="{{item?.name}}">
+              <mat-card class="cardHolder"(click)="goToProductDetails(item)" >
+                <img mat-card-image src="{{item?.image[0] || noImage}}" alt="image not available" />
+
+                <mat-card-content>
+                  <div class="card-actions">
+
+                        <span *ngFor="let color of item?.colorList" class="colorTab">
+                          <button class="btn-color-height" [ngStyle]="{'background-color':color.hexValue,'background-image':'url('+color.swatch+')'}"></button>
+                        </span>
+                     
+                    <h6 class="cardContent" style="font-weight: bold;">{{item?.displayName || item?.name}}</h6>
+                    <p class="cardContent">{{item?.styleName}}</p>
+                    <!-- <div class='tooltip'>{{item?.name}}</div> -->
+                    <div class="product-suffix">
+                      <!-- <label style="font-weight: 200; color: grey; word-wrap:break-word;">{{item?.sku}}</label><br> -->
+                      <label>${{item?.price}}</label>
+                    </div>
+
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+          <div *ngIf="!productList.length && !loading" class="w-100 text-center mt-4">
+            <h3>No products in this category</h3>
+          </div>
+          <div class="w-100 text-center" *ngIf="loading">
+            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status" >
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>          
+        </div>
+        <div class="col-12">
+          <mat-paginator [length]="paginatorLength" [pageSize]="paginatorPageSize" 
+          [pageSizeOptions]="paginatorPageSizeOptions" (page)="pageEvent($event)">
+          </mat-paginator>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,58 @@
+<div class="card-holder">
+    <mat-card>
+
+        <div class="details">
+            <span class="legend">Apply for credit</span>
+            <p *ngIf="!dataSource">
+                You have not yet applied for a credit.
+            </p>
+            <select name="org" id="org" class="org form-control" [(ngModel)]="selectedOrg">
+                <option [value]="-1" selected hidden>-- Select Organization --</option>
+                <option [value]="org.id" *ngFor="let org of orgArray">{{org.name}}</option>
+            </select>
+            <button class="apply btn btn-outline-success" (click)="applyForCredit(1)">Apply for Credit</button>
+        </div>
+
+        <div class="table-wrapper" *ngIf="dataSource?.length">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" width="100%">
+                <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+                <ng-container matColumnDef="organization">
+                    <th mat-header-cell *matHeaderCellDef>Organization</th>
+                    <td mat-cell *matCellDef="let element">{{ element.organization.name }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="creditAmount">
+                    <th mat-header-cell *matHeaderCellDef>Credit Amount</th>
+                    <td mat-cell *matCellDef="let element">
+                        <ng-container *ngIf="element.creditStatus == 1">
+                            $ {{ element.credit }}
+                        </ng-container>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="creditStatus">
+                    <th mat-header-cell *matHeaderCellDef>Credit Application Status</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.creditStatus == 0 ? "Requested" : element.creditStatus == 1 ? "Approved" :
+                        element.creditStatus ==
+                        2 ? "Rejected" : element.creditStatus == 3 ? "Re-applied" : "" }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef=" let element;let i = index">
+                        <ng-container *ngIf="element.creditStatus == 2">
+                            <button class="btn btn-primary btn-sm" (click)="reApplyForCredit(element.id,element.organization.id)">Re-apply</button>
+                        </ng-container>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </mat-card>
+</div>

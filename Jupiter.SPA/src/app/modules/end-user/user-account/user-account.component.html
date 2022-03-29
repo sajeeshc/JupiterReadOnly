@@ -1,0 +1,75 @@
+<!-- <img src="../../../../assets/images/userHeaderBackground.png" class="headerImage"> -->
+<div class="headerImage" style="width:100%;background-image: url('../../../../assets/images/userHeaderBackground.png');background-repeat: no-repeat;background-size: 100% 25%;">
+  <div class="display-flex">
+    <div class="menu-card-holder">
+      <div class="row user-info-card link" [routerLink]="['/enduser/useraccount/profile']">
+        <div class="col-md-4">
+          <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" class="profile-img-holder">
+        </div>
+        <div class="col-md-8 padding-top-15">
+          <label class="font-size-large">Hello,</label><br>
+          <label>{{userName}}</label>
+        </div>
+        <div>
+        </div>
+      </div>
+      <br>
+      <mat-card class="custom-mat-card">
+        <!-- <div class="header-label row">
+          <div class="col-md-12 cart-header">
+            <mat-icon class="custom-mat-icon">account_circle</mat-icon>&nbsp;<b>PROFILE INFORMATION</b>
+          </div>
+        </div> -->
+        <div class="menu-category">
+          <label class="menu-heading link" [routerLink]="['/enduser/useraccount/profile']">PROFILE INFORMATION</label>
+        </div>
+        <div class="menu-category">
+          <label class="menu-heading link" [routerLink]="['/enduser/useraccount/myorganizations']">MY ORGANIZATIONS</label>
+        </div>
+        <div class="menu-category">
+          <label class="menu-heading">MY ORDERS</label>
+          <ul>
+            <li [routerLink]="['/enduser/useraccount/orderhistory']">Order History</li>
+            <!-- <li [routerLink]="['/enduser/useraccount/orderstatus']">Order Status</li> -->
+            <li [routerLink]="['/enduser/useraccount/mystore']">My Stores</li>
+            <li [routerLink]="['/enduser/useraccount/myart']">My Art</li>
+          </ul>
+          <hr>
+        </div>
+        <div class="menu-category">
+          <!-- <label class="menu-heading link" [routerLink]="['/enduser/useraccount/creditdetails']">CREDIT INFO</label> -->
+        </div>
+        
+        <div class="menu-category">
+          <label class="menu-heading">REPORTS</label>
+          <ul>
+            <li [routerLink]="['/enduser/useraccount/report/store-list/store-order-report']">Store Order Report</li>
+          </ul>
+          <hr>
+        </div>
+        <!-- <div class="menu-category">
+          <label class="menu-heading">PAYMENTS</label>
+          <ul>
+            <li>Gift Cards</li>
+            <li>Saved Cards</li>
+          </ul>
+          <hr>
+        </div> -->
+
+        <!-- <div class="menu-category">
+          <label class="menu-heading">MY STUFF</label>
+          <ul>
+            <li>My Reviews & Rating</li>
+            <li>My Wishlist</li>
+            <li>View Offers & Special Discounts</li>
+            <li>Send Feedback</li>
+            <li>Contact Support</li>
+          </ul>
+        </div> -->
+      </mat-card>
+    </div>
+    <div class="detail-card-holder" style="width: 100%;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

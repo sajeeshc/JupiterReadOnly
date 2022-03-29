@@ -1,0 +1,146 @@
+<div class="filterTabParent">
+    <form [formGroup]="filterFormGroup" (ngSubmit)="getArtList()">
+      <div class="row filterTabBar">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <mat-form-field style="width: 100%">
+          <mat-label>Order Type</mat-label>
+          <mat-select formControlName="artType">
+            <mat-option [value]="1">In-Store Purchase</mat-option>
+            <mat-option [value]="2">Direct Purchase</mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field>
+            <mat-label>From</mat-label>
+            <input matInput formControlName="startDate" [matDatepicker]="fromPicker" />
+            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field style="height: 20px">
+            <mat-label>To</mat-label>
+            <input matInput formControlName="endDate" [matDatepicker]="toPicker" />
+            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-1">
+          <mat-form-field style="width: 100%">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="stage" >
+              <mat-option [value]="1">Not Assigned</mat-option>
+              <mat-option [value]="2">Assigned</mat-option>
+              <mat-option [value]="3">In Progress</mat-option>
+              <mat-option [value]="4">Submitted</mat-option>
+              <mat-option [value]="5">Rejected</mat-option>
+              <mat-option [value]="6">Verified</mat-option>
+              <mat-option [value]="7">Print Room Rejected</mat-option>
+              <mat-option [value]="11">Customer Rejected</mat-option>
+              <mat-option [value]="10">Art Pending Customer Approval</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-1">
+          <mat-form-field style="width: 100%">
+            <mat-label>Artist</mat-label>
+            <mat-select formControlName="stage" >
+              <mat-option *ngFor="let item of artists" [value]="item.name">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <div class="wrapper" style="margin-left: 10px;">
+            <img class="search-icon" src="../../../../assets/images/search.png" />
+            <input  class="search" formControlName="artist" placeholder="Search" type="text" />
+          </div>
+        </div>
+        <div class="col-md-1">
+          <button style="margin: 10px;" type="submit" mat-raised-button color="primary" (click)="getArtList()" >Filter</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <br />
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="artList" class="mat-elevation-z8" width="100%">
+      <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+      <!-- Art Task Column -->
+      <ng-container matColumnDef="artName">
+        <th mat-header-cell *matHeaderCellDef>Art Task</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Art Count  Column -->
+      <ng-container matColumnDef="artCount">
+        <th mat-header-cell *matHeaderCellDef>Art Count</th>
+        <td mat-cell *matCellDef="let element">{{ element.artCount }}</td>
+      </ng-container>
+  
+      <!-- Store Owner Column -->
+      <ng-container matColumnDef="storeOwner">
+        <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.customer }}</td>
+      </ng-container>
+      
+    <!-- Order Number Column -->
+    <ng-container matColumnDef="orderNumber">
+      <th mat-header-cell *matHeaderCellDef>Order ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Order Type Column -->
+    <ng-container matColumnDef="orderType">
+      <th mat-header-cell *matHeaderCellDef>Order Type</th>
+      <td mat-cell *matCellDef="let element" [ngSwitch]="element.artType" >
+        <label *ngSwitchCase="'1'">In-Store Purchase</label>
+        <label *ngSwitchCase="'2'">Direct Purchase</label>
+        <label *ngSwitchCase="'0'">-</label>
+    </ng-container>
+  
+    <!-- Due Date Column -->
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef>Due Date</th>
+      <td mat-cell *matCellDef="let element">{{ element.dueDate }}</td>
+    </ng-container>
+  
+      <!-- Due Time Column -->
+      <ng-container matColumnDef="dueTime">
+        <th mat-header-cell *matHeaderCellDef>Due Time</th>
+        <td mat-cell *matCellDef="let element">{{ element.dueTime }}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element" [ngSwitch]="element.artQueueStatus" >
+          <label *ngSwitchCase="'1'">Not Assigned</label>
+          <label *ngSwitchCase="'2'">Assigned</label>
+          <label *ngSwitchCase="'3'">In Progress</label>
+          <label *ngSwitchCase="'4'">Submitted</label>
+          <label *ngSwitchCase="'5'">Rejected</label>
+          <label *ngSwitchCase="'6'">Verified</label>
+          <label *ngSwitchCase="'7'">Print Room Rejected</label>
+          <label *ngSwitchCase="'10'">Art Pending Customer Approval</label>
+          <label *ngSwitchCase="'11'">Customer Rejected</label>
+        </td>
+      </ng-container>
+
+      <!-- Artist Column -->
+      <ng-container matColumnDef="artist">
+        <th mat-header-cell *matHeaderCellDef>Artist Name</th>
+        <td mat-cell *matCellDef="let element">
+          <label *ngIf="element.artist != null">{{ element.artist }}</label>
+          <label *ngIf="element.artist == null">-</label>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  

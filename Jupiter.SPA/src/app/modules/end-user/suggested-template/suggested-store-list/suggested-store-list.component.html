@@ -1,0 +1,18 @@
+<div>
+    <div class="row">
+      <div *ngFor="let item of templateList" class="col-md-3">
+        <mat-card class="cardHolder">
+          <img mat-card-image src="{{ item.previewImage }}" />
+  
+          <mat-card-content>
+            <div class="card-actions">
+                <h5>{{item.teamStoreName}}</h5>
+                <label>{{item.club}}</label><BR>
+                <button (click)="copyLayout(item.teamStoreId)" class="btn btn-primary btn-style">COPY LAYOUT FOR STORE</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  

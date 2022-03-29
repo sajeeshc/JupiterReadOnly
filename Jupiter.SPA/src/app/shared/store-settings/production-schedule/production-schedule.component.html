@@ -1,0 +1,61 @@
+<!-- <form [formGroup]="productionScheduleGroup">
+    <div class="row padding10">
+        <div class="col-md-8">
+            <p style="font-size: x-large;">Production Schedule</p>
+            <mat-hint>Is this store printing and/or producing orders on-demand? Or, are you planning on
+                printing/producing all of the orders on a fixed date in the future?</mat-hint>
+        </div>
+        <div class="col-md-4" style="text-align: right;">
+            <button class="btn btn-primary btnClass" (click)="submit()">SAVE</button>
+        </div>
+    </div><br><br>
+    <div class="row padding10">
+        <div class="col-md-12 padding10">
+            <mat-radio-group aria-label="Select an option" formControlName="productionScheduleType">
+                <mat-radio-button [checked]="productionScheduleType==0" value="0"
+                    (change)="changeProductionScheduleExpectedDateBoxHidden(true)" [checked]="true">On Demand
+                </mat-radio-button><br>
+                <div class="col-md-12"><br>
+                    <mat-divider></mat-divider>
+                </div>
+                <div class="padding10"></div>
+                <mat-radio-button [checked]="productionScheduleType==1" value="1"
+                    (change)="changeProductionScheduleExpectedDateBoxHidden(false)">
+                    Product Ship Date
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <div class="row padding10" style="margin-left: 10px;" [hidden]="isProductionScheduleExpectedDateBoxVisible">
+        <div class="col-md-12 padding10 smaller">
+            <mat-hint>Planning on producing all of these orders at one time? Enter the expected date of production
+                below.</mat-hint>
+        </div>
+        <div class="col-md-12 padding10 smaller">
+            <mat-hint>Note: the Estimated Delivery Date shown to your shoppers will be calculated by adding the selected
+                shipping method’s processing time and days in transit to the production date entered below.</mat-hint>
+        </div>
+        <div class="col-md-12 padding10 smaller">
+            <mat-hint>Expected Delivery Date = Production Date + Processing Days + Days in Transit </mat-hint>
+        </div>
+        <div class="col-md-12 padding10">
+            <strong><u>{{productShippedByDate | date:'MM/dd/yyyy'}}</u></strong>
+            <mat-form-field class="formField">
+                <input style="cursor: pointer;" matInput [matDatepicker]="picker" placeholder="Select Date"
+                    (click)="picker.open()" formControlName="expectedDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+</form> -->
+<div class="row padding10">
+    <div class="col-md-8">
+        <p style="font-size: large;">Products Shipped Date: <strong>{{productShippedByDate | date:'MM/dd/yyyy'}}</strong></p>
+        <!-- <mat-hint>Is this store printing and/or producing orders on-demand? Or, are you planning on
+            printing/producing all of the orders on a fixed date in the future?</mat-hint> -->
+    </div>
+    <!-- <div class="col-md-4" style="text-align: right;">
+        <button class="btn btn-primary btnClass" (click)="submit()">SAVE</button>
+    </div> -->
+</div>

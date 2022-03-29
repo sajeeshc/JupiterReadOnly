@@ -1,0 +1,38 @@
+<div class="parent-container">
+    <!-- <div class="action-container">
+        <label for="categoryName" class="font-weight-bold">Add Service</label>
+        <div class="form-inline input-group" [formGroup]="serviceForm">
+            <input type="text" class="form-control" formControlName="name">
+            <button class="btn btn-primary ml-3" (click)="updateService()">{{ isUpdate ? 'UPDATE' : 'ADD' }}</button>
+            <button class="btn btn-outline-danger ml-3" (click)="initializeServicesForm()">RESET</button>
+        </div>
+    </div> -->
+    <br><br><br><br><br>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Store Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let status of statusArray">
+                    <td>{{status.id}}</td>
+                    <td>{{status.name}}</td>
+                    <td class="actions">
+                        <!-- <img src="../../../../../assets/images/edit.png" alt="Edit Icon" (click)="editStoreStatus(status)">
+                        <img src="../../../../../assets/images/close.png" alt="Remove Icon" (click)="removeStoreStatus(status.id)"> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-container">
+        <mat-paginator [length]="paginatorLength" [pageSize]="paginatorPageSize" 
+          [pageSizeOptions]="paginatorPageSizeOptions" (page)="pageEvent($event)">
+          </mat-paginator>
+          <br><br>
+    </div>
+</div>

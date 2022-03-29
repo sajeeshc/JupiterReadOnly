@@ -1,0 +1,246 @@
+.product-detail-label {
+  margin: 0px;
+  margin-bottom: 2px;
+  font-size: small;
+  color: #dadada;
+}
+
+.label-grey-font {
+  color: grey;
+  font-size: small;
+}
+
+.bold-label-text {
+  margin: 0px;
+  margin-bottom: 2px;
+  font-size: medium;
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.4em 0px !important;
+}
+::ng-deep .mat-form-field-label-wrapper {
+  top: -1.2em;
+  font-size: small;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label {
+  transform: translateY(-1.1em) scale(0.75);
+  width: 133.33333%;
+}
+
+.mat-form-field {
+  height: 50px;
+  padding-right: 10px;
+}
+
+.addBtn {
+  background-color: white;
+  font-size: small;
+  vertical-align: middle;
+  text-align: center;
+  margin-left: 35px;
+  border: none;
+  color: #2296f3;
+}
+
+.addPageIcon {
+  vertical-align: bottom;
+}
+
+.product-view-wrapper {
+  background-color: #f1f1f1;
+}
+
+.product-view {
+  border: 1px dotted black;
+}
+
+.product-card-button {
+  background-color: #0f5384;
+  font-size: small;
+  vertical-align: middle;
+  text-align: center;
+  border: none;
+  height: 30px;
+  margin: 5px;
+}
+
+.cardContent {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 5px;
+}
+
+.cardWrapper {
+  display: flex;
+}
+
+.mat-card {
+  max-height: 300px;
+  max-width: 250px;
+  margin: 10px;
+}
+
+.mat-card-image {
+  height: 200px;
+}
+
+.btn-color-height {
+  height: 15px !important;
+  width: 10px !important;
+  margin: 5px;
+  border-radius: 3px;
+}
+
+.view-wrapper {
+  display: flex;
+}
+
+.card-white-background {
+  background-color: white;
+  margin: 10px;
+  padding: 10px;
+}
+
+h6 {
+  margin-top: 10px;
+}
+
+.mat-card-content {
+  text-align: center;
+}
+
+.left-side-bar {
+  width: 18%;
+  padding-right: 10px;
+}
+
+
+.right-side-bar {
+  width: 87%;
+  overflow-x: scroll;
+  height: 946px;
+}
+
+.product-card-wrapper {
+  height: 370px;
+  width: 250px;
+  text-align: center;
+  margin: 5px;
+}
+
+.layout-btn {
+  border-radius: 30px;
+  height: 60px;
+  width: 60px;
+  background-color: #0f5384;
+  color: white;
+}
+
+.layout-btn-icon {
+  vertical-align: middle;
+}
+
+.button-container {
+  text-align: right;
+}
+
+.product-card-wrapper {
+  position: relative;
+}
+.btn-holder {
+  position: relative;
+  display: none;
+}
+.product-card-wrapper:hover .btn-holder {
+  display: block;
+}
+
+.cardHolder:hover {
+  -ms-transform: scale(1.1); /* IE 9 */
+  -webkit-transform: scale(1.1); /* Safari 3-8 */
+  transform: scale(1.1);
+}
+
+.dropdown-holder {
+  margin-right: 10px;
+  border: 1px solid black;
+  border-radius: 3px;
+  height: 50px;
+  display: flex;
+}
+
+// ::ng-deep .mat-form-field-underline {
+//   display: none;
+// }
+
+.mat-form-field {
+  width: 100%;
+}
+
+.dropdown-wrapper {
+  vertical-align: middle;
+  text-align: right;
+}
+.label-wrapper {
+  padding-top: 10px;
+}
+
+.product-view {
+  display: flex;
+}
+
+
+.sidenav {
+  height: 450px;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 100px;
+  right: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  border-left: 2px solid lightgray;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.side-bar-dropdown{
+  margin: 5px;
+}
+
+.addBtn {
+  background-color: #1730a3;
+  font-size: small;
+  color:white;
+}

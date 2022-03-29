@@ -1,0 +1,30 @@
+
+<div class="floating-icon" title="Toggle Info" (click)="toggleFloatingData()" *ngIf="showFloatingIcon">
+  !
+</div>
+<div class="floating-data" *ngIf="showFloatingData">
+  <table>
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Colors</th>
+        <th>Service</th>
+        <th>Art</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of designData">
+      <td>{{data.position}}</td>
+      <td>{{data.colors}}</td>
+      <td>{{data.service}}</td>
+      <td class="img">
+        <div [style.background-image]="'url('+data.image+')'"></div>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item"  id="designeriframe" allowfullscreen></iframe>
+</div>

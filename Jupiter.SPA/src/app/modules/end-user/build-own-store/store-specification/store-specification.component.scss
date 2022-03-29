@@ -1,0 +1,218 @@
+.mat-row:nth-child(even) {
+  background-color: white;
+  height: 40px;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: #f1f1f1;
+  height: 40px;
+}
+
+.mat-header-cell {
+  color: white;
+  font-size: large;
+}
+
+tr.mat-header-row {
+  height: 40px;
+  background-color: #eb3a79;
+}
+
+tr.mat-header-row {
+  height: 40px;
+  background-color: #eb3a79;
+}
+
+th {
+  font-size: small;
+}
+
+.custom-td-padding {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.table td {
+  vertical-align: middle;
+}
+.tableCellWidth {
+  width: 5%;
+}
+
+.mat-form-field {
+  display: inline;
+}
+
+.nextBtn {
+  background-color: #1830a3;
+  width: 100px;
+  font-size: small;
+}
+
+.cardHeader {
+  font-size: small;
+}
+
+.storeCreationBtn {
+  height: 26px;
+  vertical-align: middle;
+}
+
+.artDetailCard {
+  height: 200px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.categoryCard {
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+.addArtBtn {
+  float: right;
+  background-color: #1730a3;
+  font-size: small;
+  color: white;
+}
+
+.removeArtCard {
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.removeArtButtonHolder {
+  position: relative;
+  width: 120px;
+  float: left;
+}
+
+.removeArtBtn {
+  right: 0px;
+}
+
+.artImgHolder {
+  height: 100px;
+  width: 100px;
+  margin: 10px;
+  height: 60px;
+  width: 60px;
+  // margin: 10px;
+  margin-top: 0px !important;
+}
+
+b {
+  font-family: "Copperplate Gothic Bold", Copperplate, sans-serif;
+}
+
+.error {
+  font-size: 10px;
+  color: red;
+}
+
+.padding-top25 {
+  padding-top: 25px;
+}
+
+.disableWordWrap {
+  width: 900px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: none;
+}
+
+.common-line-height {
+  line-height: 2.5;
+}
+
+.custom-scrollable-wrapper {
+  height: 300px;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.productRow {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  width: 100%;
+}
+
+.productRowHeader {
+  font-size: 14px;
+  font-weight: 500;
+  background-color: lightgrey;
+  padding-top: 4px;
+}
+
+.productCol3,
+.productCol7,
+.productCol10,
+.productCol15,
+.productCol17,
+.productCol20,
+.productCol35,
+.productCol100 {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.productCol3 {
+  flex: 0 0 3%;
+  max-width: 3%;
+}
+
+.productCol7 {
+  flex: 0 0 7%;
+  max-width: 7%;
+}
+
+.productCol10 {
+  flex: 0 0 10%;
+  max-width: 10%;
+}
+
+.productCol15 {
+  flex: 0 0 15%;
+  max-width: 15%;
+}
+
+.productCol17 {
+  flex: 0 0 17%;
+  max-width: 17%;
+}
+
+.productCol20 {
+  flex: 0 0 20%;
+  max-width: 20%;
+}
+
+.productCol35 {
+  flex: 0 0 30%;
+  max-width: 30%;
+}
+
+.productCol100 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.odd {
+  background-color: #f2f9ff;
+}
+.even {
+  // background-color: #eceff3;
+  background-color: #f8f8f8;
+}
+
+::ng-deep .wrapper12 .mat-form-field-wrapper {
+  margin-top: 12px !important;
+}

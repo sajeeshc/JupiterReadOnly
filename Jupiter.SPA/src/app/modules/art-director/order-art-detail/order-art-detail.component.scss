@@ -1,0 +1,42 @@
+.art-wrapper {
+  border: 1px solid black;
+  padding: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.img-size {
+  width: 220px;
+  height: 200px;
+}
+
+.card {
+  width: 270px;
+  // height: 270px;
+  font-size: large;
+  border: none;
+  margin: 10px;
+}
+
+.card-button {
+  border-radius: 20px;
+  width: 60%;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.common-margin{
+    margin: 10px;
+}
+
+.mat-success {
+  color: white;
+  background-color: green;
+}
+
+.mat-raised-button {
+  height: 35px !important;
+  font-size: 12px !important;
+}

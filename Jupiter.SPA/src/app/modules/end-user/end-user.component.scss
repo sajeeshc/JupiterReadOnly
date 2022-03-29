@@ -1,0 +1,40 @@
+.custom-inputbox-wrapper {
+  width: 100%;
+}
+
+.custom-inputbox-label {
+  margin-left: 10px;
+  font-weight: 400;
+}
+
+.custom-inputbox {
+  border: black solid 2px;
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: -5px;
+}
+
+.custom-inputbox .mat-form-field-infix {
+  padding: 0em 0 !important;
+  border-top: 0em solid transparent !important;
+}
+
+.headerImage {
+  width: 100%;
+}
+
+//mat-radio-button custom color
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #004c98 !important; /*ripple effect colorß*/
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #004c98 !important; /*inner circle color change*/
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: #004c98 !important; /*outer ring color change*/
+}

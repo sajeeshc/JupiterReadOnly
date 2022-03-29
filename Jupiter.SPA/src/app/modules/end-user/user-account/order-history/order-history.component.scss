@@ -1,0 +1,81 @@
+
+.card-body{
+  // line-height: 1.2em;
+  // margin: 10px;
+}
+
+span.data{
+  font-weight: bold;
+  line-height: 1.8em;
+}
+
+.mat-expansion-panel-header{
+  height: auto !important;
+  padding: 15px ;
+}
+
+.item-image{
+  img{
+    width: 100%;
+  }
+}
+
+.item-detail{
+  padding: 10px;
+  td{
+    vertical-align:text-top;
+    padding:  3px 5px;
+  }
+}
+
+
+// .btn{
+//   padding-top: 0px;
+//   padding-bottom: 0px;
+//   border-radius: 12px;
+//   width: 100%;
+//   margin-bottom: 5px;
+// }
+
+
+//progress-bar css
+.circles {
+  height: 0.938em;
+  width: 0.938em;
+  border: 0.188em solid #000;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.active {
+  background-color: #0cc0f1;
+}
+
+.circle-desc-active {
+  font-weight: bold;
+}
+
+.bar {
+  width: 16%;
+  height: 0.063em;
+  margin-bottom: 0.469em;
+  border: 0.031em solid #000;
+  color: #000;
+  background-color: #000;
+  display: inline-block;
+  text-align: center;
+  margin: "0 auto";
+}
+
+.circle-desc {
+  position: absolute;
+  top: 3em;
+  font-size: 1.125em;
+  width: auto;
+  max-width: 9.375em;
+  margin-left: -0.75em;
+}
+
+details p {
+  margin: 10px;
+}

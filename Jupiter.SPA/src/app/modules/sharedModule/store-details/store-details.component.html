@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-1 side-bar">
+    <div class="img-tab-wrapper">
+      <div class="sideTab" (click)="redirect('/productspreadsheet')">
+        <img src="../../../../assets/images/shirt.png" class="sideBarImgTab" />
+      </div>
+      <div class="sideTab" (click)="redirect('/storeproductcategories')">
+        <img src="../../../../assets/images/category-icon.png" class="sideBarImgTab" />
+      </div>
+      <div class="sideTab" (click)="redirect('/activeart')">
+        <img src="../../../../assets/images/canvas.png" class="sideBarImgTab" />
+      </div>
+      <div class="sideTab" (click)="redirect('/reviewproduct')">
+        <img src="../../../../assets/images/review-icon.png" class="sideBarImgTab" />
+      </div>
+      <div class="sideTab"  (click)="redirect('/storesettings/storename')">
+        <img src="../../../../assets/images/checklist.png" class="sideBarImgTab" />
+      </div>
+      <div class="sideTab"(click)="redirect('/couponsanddiscounts')" >
+        <img src="../../../../assets/images/tickets.png" class="sideBarImgTab" />
+      </div>
+      <div class="sideTab"(click)="redirect('/styleeditor')" >
+        <img src="../../../../assets/images/Group 2835.png" class="sideBarImgTab" />
+      </div>
+      <div class="sideTab" (click)="redirect('/storelayout')">
+        <img src="../../../../assets/images/Group 2841.png" class="sideBarImgTab" />
+      </div>
+      <div class="sideTab"(click)="redirect('/storesummary')" >
+        <img src="../../../../assets/images/up-arro.png" class="sideBarImgTab" />
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-11">
+    <div class="selected-tab-view">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

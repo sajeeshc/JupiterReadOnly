@@ -1,0 +1,106 @@
+<div class="card-holder">
+  <mat-card>
+    <form [formGroup]="filterMyArtForm" >
+      <div class="row">
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <mat-label>Search</mat-label>
+            <input
+              type="submit"
+              matInput
+              type="text"
+              formControlName="keyword"
+              (change)="filter()"
+            />
+            <button
+              class="btn"
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+            >
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 padding-top-10 text-align-center">
+          <button
+            class="btn btn-primary addArtBtn"
+            (click)="fileInput1.click()"
+            style="width:40%; font-size:large;"
+          >
+            <span>UPLOAD ART</span>
+            <input
+              #fileInput1
+              type="file"
+              style="display: none"
+              (change)="handleImageInput($event.target.files)"
+              accept="image/*"
+            />
+            <span class="mdl-button__ripple-container">
+              <span class="mdl-ripple"> </span>
+            </span>
+          </button>
+        </div>
+        <br />
+        <div class="col-12">
+          <mat-tab-group (selectedTabChange)="completedFilter($event)" >
+          <mat-tab label="UPLOADED ART">
+
+            <div class="col-md-12">
+              <div class="row art-wrapper">
+
+                <div class="col-md-3" *ngFor="let art of artNonDigitized">
+                  <div class="card text-align-center">
+                    <div class="img-holder">
+                      <img class="img-size" [src]="art.url"/>
+                    </div>
+                    <div class="card-action">
+                      <button class="btn btn-primary addArtBtn card-button" (click)="copyURL(art.url)">
+                        Copy Url
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- <div>
+              <mat-paginator [length]="paginatorLengthNonDigitized" [pageSize]="paginatorPageSize" 
+              [pageSizeOptions]="paginatorPageSizeOptions" (page)="pageEvent($event)">
+              </mat-paginator>
+              <br><br>
+            </div> -->
+          </mat-tab>
+          <mat-tab label="PRODUCTION READY ART">
+
+            <div class="col-md-12">
+              <div class="row art-wrapper">
+
+                <div class="col-md-3" *ngFor="let art of artDigitized">
+                  <div class="card text-align-center">
+                    <div class="img-holder">
+                      <img class="img-size" [src]="art.url"/>
+                    </div>
+                    <div class="card-action">
+                      <button class="btn btn-primary addArtBtn card-button" (click)="copyURL(art.url)">
+                        Copy Url
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </mat-tab>
+        </mat-tab-group>
+        </div>
+        
+        <br />
+        
+      </div>
+    </form>
+  </mat-card>
+</div>

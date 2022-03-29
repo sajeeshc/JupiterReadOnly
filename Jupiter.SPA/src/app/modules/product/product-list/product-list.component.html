@@ -1,0 +1,54 @@
+<div class="filter-container row border-bottom border-success">
+    <div class="col m-3">
+        <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Product Name</mat-label>
+            <input matInput placeholder="Enter product name" [(ngModel)]="filterParams.filterText">
+        </mat-form-field>
+    </div>
+    <div class="col m-3">
+        <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Style Name</mat-label>
+            <input matInput placeholder="Enter product style name" [(ngModel)]="filterParams.styleName">
+        </mat-form-field>
+    </div>
+    <div class="col m-3">
+        <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Categories</mat-label>
+            <mat-select multiple [(ngModel)]="filterParams.categories">
+                <mat-option *ngFor="let element of categoryList" [value]="element.id">{{element.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col m-3">
+        <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Vendor</mat-label>
+            <mat-select multiple [(ngModel)]="filterParams.vendorName">
+                <mat-option *ngFor="let element of vendorList" [value]="element.name">{{element.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col text-center m-3">
+        <button mat-raised-button color="primary" class="mt-2" (click)="getProducts()">Filter Products</button>
+        <button mat-raised-button color="primary" class="mt-2 ml-2" (click)="clearFilter()">Clear Filter</button>
+    </div>
+</div>
+
+<div class="card-container p-5">
+    <div class="mw-fi"></div>
+    <div class="prod-card m-1" *ngFor="let product of productList"
+        routerLink="/productmanager/productdata/{{product?.id}}">
+        <div class="w-100 prod-img">
+            <img src="{{product?.images ? product?.images[0] : ''}}">
+        </div>
+        <p>
+            {{product?.displayName || product?.name}} <br>
+            {{product?.vendorName || '-'}} / {{product?.styleName?.split(',')[0] || '-'}}
+        </p>
+    </div>
+</div>
+
+<mat-paginator class="m-3 mt-0" [length]="paginator.length" [pageSize]="paginator.pageSize"
+    [pageSizeOptions]="paginator.pageSizeOptions" aria-label="Select page" (page)="pageEvent($event)">
+</mat-paginator>

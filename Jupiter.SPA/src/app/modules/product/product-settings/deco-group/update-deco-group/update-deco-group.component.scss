@@ -1,0 +1,43 @@
+.parent-container {
+    font-size: 14px;
+    margin: 20px;
+    font-family: Inter, sans-serif;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    .action-container {
+        max-width: 50%;
+        margin: 20px auto;
+        label {
+            // font-size: 1.2em;
+        }
+    }
+    .table-container {
+        flex-grow: 1;
+        .table {
+            table-layout:fixed;
+            td{
+                padding-top: 8px;
+                padding-bottom: 8px;
+                vertical-align: middle;
+            }
+            thead tr {
+                background-color: #eb475d;
+                color: #ffffff;
+                font-size: .9em;
+                font-weight: normal;
+            }
+            td.actions {
+                text-align: right;
+                img {
+                    width: 15px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                }
+            }
+            td.loc-name, td.actions{
+                padding-bottom: 1.5em;
+            }
+        }
+    }
+}
